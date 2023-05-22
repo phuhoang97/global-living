@@ -24,6 +24,7 @@ import MainLayout from "./common/layout";
 import DefaultPage from "./pages/default";
 import CommonTable from "./common/table";
 import LoginPage from "./pages/login";
+import ListContact from "./pages/admin/contact/list/List";
 
 function App() {
 	return (
@@ -88,7 +89,7 @@ function App() {
 				<Route path="/admin/*" element={<MainLayout />}>
 					<Route path="default" element={<DefaultPage />} />
 					<Route path="analytics" element={<DefaultPage />} />
-					<Route path="table" element={<CommonTable />} />
+					<Route path="contact" element={<ListContact />} />
 				</Route>
 
 				<Route path="login" element={<LoginPage />} />

@@ -21,10 +21,7 @@ const MenuSidebar = () => {
 			"Dashboard",
 			"dashboard",
 			null,
-			[
-				getItem("Default", "default", <LoginOutlined />),
-				getItem("Analytics", "analytics", <StockOutlined />),
-			],
+			[getItem("Analytics", "analytics", <StockOutlined />)],
 			"group"
 		),
 		getItem("Contact", "contact", <TableOutlined />),
