@@ -37,7 +37,7 @@ const LoginPage = () => {
 	return (
 		<section className="login__container">
 			{contextHolder}
-			<div className="login__inner flex items-center justify-between">
+			<div className="login__inner flex items-center justify-between gap-10">
 				<div className="login__detail flex flex-col justify-between h-full">
 					<img
 						src="/images/logo.png"
@@ -50,15 +50,21 @@ const LoginPage = () => {
 					</h1>
 					<div></div>
 				</div>
-				<div className="login__form shadow-xl bg-white rounded-[30px] p-7">
+				<div className="login__form w-[40%] shadow-xl bg-white rounded-[30px] p-7">
 					<h3>Log In</h3>
 					<form action="" onSubmit={handleSubmit(onFinish)}>
+						<label htmlFor="" className="text-black">
+							Username/Email Address
+						</label>
 						<input
 							type="text"
 							placeholder="Username/Email Address"
 							{...register("userName")}
 							required
 						/>
+						<label htmlFor="" className="text-black">
+							Password
+						</label>
 						<input
 							type="password"
 							placeholder="Password"
