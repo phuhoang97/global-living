@@ -27,7 +27,7 @@ const MenuSidebar = () => {
 			],
 			"group"
 		),
-		getItem("Table", "table", <TableOutlined />),
+		getItem("Contact", "contact", <TableOutlined />),
 	];
 
 	const onClick = ({ key }) => {

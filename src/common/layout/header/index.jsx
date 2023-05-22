@@ -50,7 +50,7 @@ const MainHeader = () => {
 						<Input
 							prefix={<SearchOutlined />}
 							placeholder="Search"
-							className="px-2 py-3"
+							className="px-2 py-2.5"
 						/>
 					</Col>
 				</Row>
