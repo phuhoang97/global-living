@@ -72,7 +72,7 @@ function App() {
           />
           <Route path='main-product' element={<MainProduct />} />
 
-          <Route path='/admin/*' element={<MainLayout />}>
+          <Route path='admin' element={<MainLayout />}>
             <Route path='default' element={<DefaultPage />} />
             <Route path='analytics' element={<DefaultPage />} />
             <Route path='table' element={<CommonTable />} />
