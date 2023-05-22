@@ -3,6 +3,12 @@ import { BASE_ENPOINT } from "../constants";
 
 const BASE_URL = `${BASE_ENPOINT}/contacts`;
 
+export async function getAllContacts() {
+	const response = await axios.get(BASE_URL);
+
+	return response?.data || [];
+}
+
 export async function postContact(contact) {
 	const response = await axios.post(BASE_URL, contact);
 

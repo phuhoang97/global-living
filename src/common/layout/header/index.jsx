@@ -7,6 +7,7 @@ import { Button, Col, Input, Layout, Row, theme } from "antd";
 import React from "react";
 import { useContext } from "react";
 import { LayoutContext } from "../../../contexts";
+import HeaderAccount from "./components/Account";
 
 const { Header } = Layout;
 
@@ -27,7 +28,21 @@ const MainHeader = () => {
 			}}
 		>
 			<div className="flex items-center justify-between w-[270px]">
-				<div className="px-5">Logo</div>
+				<div className="px-5 flex items-center">
+					<img
+						src="/images/favicon.png"
+						alt="Logo"
+						className="w-[50px]"
+					/>
+					<div className="flex flex-col items-start justify-center ml-3">
+						<p className="mb-1 uppercase tracking-[1px] font-medium leading-[20px]">
+							GLOBAL
+						</p>
+						<p className="m-0 uppercase tracking-[1px] font-medium leading-[20px]">
+							LIVING
+						</p>
+					</div>
+				</div>
 				<Button
 					type="text"
 					icon={
@@ -45,15 +60,14 @@ const MainHeader = () => {
 				/>
 			</div>
 			<div className="px-4 w-[calc(100%-270px)]">
-				<Row gutter={12}>
-					<Col span={6}>
-						<Input
-							prefix={<SearchOutlined />}
-							placeholder="Search"
-							className="px-2 py-3"
-						/>
-					</Col>
-				</Row>
+				<div className="flex items-center justify-between">
+					<Input
+						prefix={<SearchOutlined />}
+						placeholder="Search"
+						className="px-2 py-2.5 w-[400px]"
+					/>
+					<HeaderAccount />
+				</div>
 			</div>
 		</Header>
 	);

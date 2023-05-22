@@ -21,13 +21,10 @@ const MenuSidebar = () => {
 			"Dashboard",
 			"dashboard",
 			null,
-			[
-				getItem("Default", "default", <LoginOutlined />),
-				getItem("Analytics", "analytics", <StockOutlined />),
-			],
+			[getItem("Analytics", "analytics", <StockOutlined />)],
 			"group"
 		),
-		getItem("Table", "table", <TableOutlined />),
+		getItem("Contact", "contact", <TableOutlined />),
 	];
 
 	const onClick = ({ key }) => {
