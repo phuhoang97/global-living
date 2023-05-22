@@ -25,73 +25,63 @@ import DefaultPage from "./pages/default";
 import CommonTable from "./common/table";
 
 function App() {
-	return (
-		<>
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<Home />} />
-					<Route
-						path="photography-agency"
-						element={<PhotographyAgencyHome />}
-					/>
-					<Route
-						path="digital-agency"
-						element={<DigitalAgencyHome />}
-					/>
-					<Route
-						path="marketing-agency"
-						element={<MarketingAgencyHome />}
-					/>
-					<Route path="about" element={<AboutPage />} />
-					<Route path="service" element={<ServicesPage />} />
-					<Route
-						path="service/:serviceDetailsId"
-						element={<ServiceDetailsPage />}
-					/>
-					<Route path="portfolio" element={<PortfolioPage />} />
-					<Route
-						path="portfolio/:portfolioDetailsId"
-						element={<PortfolioDetailsPage />}
-					/>
-					<Route path="blog" element={<BlogPage />} />
-					<Route
-						path="blog/:blogDetailsId"
-						element={<BlogDetailsPage />}
-					/>
-					<Route path="contact" element={<ContactPage />} />
-					<Route path="team" element={<TeamPage />} />
-					<Route path="team/:teamDetails" element={<TeamDetails />} />
-					{/* <Route
+  return (
+    <>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path='photography-agency'
+            element={<PhotographyAgencyHome />}
+          />
+          <Route path='digital-agency' element={<DigitalAgencyHome />} />
+          <Route path='marketing-agency' element={<MarketingAgencyHome />} />
+          <Route path='about' element={<AboutPage />} />
+          <Route path='service' element={<ServicesPage />} />
+          <Route
+            path='service/:serviceDetailsId'
+            element={<ServiceDetailsPage />}
+          />
+          <Route path='portfolio' element={<PortfolioPage />} />
+          <Route
+            path='portfolio/:portfolioDetailsId'
+            element={<PortfolioDetailsPage />}
+          />
+          <Route path='blog' element={<BlogPage />} />
+          <Route path='blog/:blogDetailsId' element={<BlogDetailsPage />} />
+          <Route path='contact' element={<ContactPage />} />
+          <Route path='team' element={<TeamPage />} />
+          <Route path='team/:teamDetails' element={<TeamDetails />} />
+          {/* <Route
             path="/case-study/:caseStudyDetailsId"
             element={<Product />}
           /> */}
-					<Route path="faq" element={<FaqPage />} />
-				</Route>
-				<Route
-					path="/"
-					element={
-						<Layout headerVariant="cs-site_header_full_width" />
-					}
-				>
-					<Route
-						path="creative-portfolio"
-						element={<CreativePortfolioHome />}
-					/>
-					<Route
-						path="showcase-portfolio"
-						element={<ShowcasePortfolioHome />}
-					/>
-					<Route path="main-product" element={<MainProduct />} />
-				</Route>
-				<Route path="*" element={<ErrorPage />} />
-				<Route path="/admin/*" element={<MainLayout />}>
-					<Route path="default" element={<DefaultPage />} />
-					<Route path="analytics" element={<DefaultPage />} />
-					<Route path="table" element={<CommonTable />} />
-				</Route>
-			</Routes>
-		</>
-	);
+          <Route path='faq' element={<FaqPage />} />
+        </Route>
+        <Route
+          path='/'
+          element={<Layout headerVariant='cs-site_header_full_width' />}
+        >
+          <Route
+            path='creative-portfolio'
+            element={<CreativePortfolioHome />}
+          />
+          <Route
+            path='showcase-portfolio'
+            element={<ShowcasePortfolioHome />}
+          />
+          <Route path='main-product' element={<MainProduct />} />
+        </Route>
+
+        <Route path='/admin/*' element={<MainLayout />}>
+          <Route path='default' element={<DefaultPage />} />
+          <Route path='analytics' element={<DefaultPage />} />
+          <Route path='table' element={<CommonTable />} />
+        </Route>
+        <Route path='*' element={<ErrorPage />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
