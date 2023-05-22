@@ -71,14 +71,13 @@ function App() {
             element={<ShowcasePortfolioHome />}
           />
           <Route path='main-product' element={<MainProduct />} />
-
-          <Route path='admin' element={<MainLayout />}>
-            <Route path='default' element={<DefaultPage />} />
-            <Route path='analytics' element={<DefaultPage />} />
-            <Route path='table' element={<CommonTable />} />
-          </Route>
         </Route>
 
+        <Route path='/admin/*' element={<MainLayout />}>
+          <Route path='default' element={<DefaultPage />} />
+          <Route path='analytics' element={<DefaultPage />} />
+          <Route path='table' element={<CommonTable />} />
+        </Route>
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </>
