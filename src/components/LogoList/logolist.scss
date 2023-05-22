@@ -1,0 +1,16 @@
+.cs-partner_logo_wrap {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 -15px;
+}
+.cs-partner_logo {
+  padding: 15px 60px !important;
+}
+.cs-partner_logo img{
+  height: 150px;
+}
+@media screen and (max-width: 575px) {
+  .cs-partner_logo_wrap {
+    margin: 0 -10px;
+  }
+}
