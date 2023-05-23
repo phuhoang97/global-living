@@ -28,6 +28,7 @@ const LoginPage = () => {
 				"Sai tên tài khoản hoặc mật khẩu!"
 			);
 		} else {
+			localStorage.setItem("token", "aoib-gaknv-iguae123-12adfs");
 			openNotificationWithIcon("success", "Đăng nhập thành công!");
 			navigate("/admin");
 			reset();

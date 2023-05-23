@@ -24,6 +24,7 @@ const HeaderAccount = () => {
 		if (key === "home") {
 			navigate("/");
 		} else if (key === "logout") {
+			localStorage.removeItem("token");
 			navigate("/login");
 		}
 	};
