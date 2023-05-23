@@ -6,6 +6,7 @@ import { pageTitle } from "../../helper";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const token = localStorage.getItem("token");
 	const { register, handleSubmit, reset } = useForm();
 	const [api, contextHolder] = notification.useNotification();
 
@@ -20,6 +21,12 @@ const LoginPage = () => {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
+
+	useEffect(() => {
+		if (token) {
+			navigate("/");
+		}
+	}, [token]);
 
 	const onFinish = (values) => {
 		if (values.userName !== "admin" || values.password !== "admin@2023") {
