@@ -6,6 +6,7 @@ import { pageTitle } from "../../helper";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const token = localStorage.getItem("token");
 	const { register, handleSubmit, reset } = useForm();
 	const [api, contextHolder] = notification.useNotification();
 
@@ -21,6 +22,12 @@ const LoginPage = () => {
 		window.scrollTo(0, 0);
 	}, []);
 
+	useEffect(() => {
+		if (token) {
+			navigate("/");
+		}
+	}, [token]);
+
 	const onFinish = (values) => {
 		if (values.userName !== "admin" || values.password !== "admin@2023") {
 			openNotificationWithIcon(
@@ -28,6 +35,7 @@ const LoginPage = () => {
 				"Sai tên tài khoản hoặc mật khẩu!"
 			);
 		} else {
+			localStorage.setItem("token", "aoib-gaknv-iguae123-12adfs");
 			openNotificationWithIcon("success", "Đăng nhập thành công!");
 			navigate("/admin");
 			reset();
