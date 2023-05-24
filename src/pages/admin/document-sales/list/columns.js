@@ -22,4 +22,5 @@ export const columns = [
 		title: "Link",
 		render: (text) => <span>{convertTextToLink(text)}</span>,
 	},
+	{ dataIndex: "action", width: "4%" },
 ];

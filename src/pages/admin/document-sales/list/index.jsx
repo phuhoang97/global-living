@@ -3,15 +3,29 @@ import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { getAllDocumentSales } from "../../../../apis/document-sales/api";
 import AminAddDocumentSales from "../services/add";
+import { MenuOutlined } from "@ant-design/icons";
 
 const AdminListDocumentSales = () => {
 	const [open, setOpen] = useState(false);
 	const [reloadData, setReloadData] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
 
+	const mapData = (data) => {
+		if (!data || data?.length <= 0) return [];
+
+		return data?.map((item) => ({
+			...item,
+			action: (
+				<>
+					<MenuOutlined className="cursor-pointer" />
+				</>
+			),
+		}));
+	};
+
 	const getData = () => {
 		getAllDocumentSales().then((response) => {
-			setDataSource(response?.data);
+			setDataSource(mapData(response?.data));
 		});
 	};
 
