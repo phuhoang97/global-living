@@ -4,6 +4,7 @@ import { columns } from "./columns";
 import { getAllDocumentSales } from "../../../../apis/document-sales/api";
 import AminAddDocumentSales from "../services/add";
 import { MenuOutlined } from "@ant-design/icons";
+import { convertCategoryName } from "../../../../helper";
 
 const AdminListDocumentSales = () => {
 	const [open, setOpen] = useState(false);
@@ -15,6 +16,7 @@ const AdminListDocumentSales = () => {
 
 		return data?.map((item) => ({
 			...item,
+			category: convertCategoryName(item?.category),
 			action: (
 				<>
 					<MenuOutlined className="cursor-pointer" />
