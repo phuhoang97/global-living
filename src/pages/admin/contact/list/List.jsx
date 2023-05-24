@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getAllContacts } from "../../../../apis/contact/api";
 import { columns } from "./columns";
 
-const ListContact = () => {
+const AdminListContact = () => {
 	const [loading, setLoading] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
 
@@ -24,4 +24,4 @@ const ListContact = () => {
 	);
 };
 
-export default ListContact;
+export default AdminListContact;

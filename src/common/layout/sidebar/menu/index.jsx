@@ -1,4 +1,8 @@
-import { LoginOutlined, StockOutlined, TableOutlined } from "@ant-design/icons";
+import {
+	FolderOutlined,
+	SolutionOutlined,
+	StockOutlined,
+} from "@ant-design/icons";
 import { Menu } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +28,9 @@ const MenuSidebar = () => {
 			[getItem("Analytics", "analytics", <StockOutlined />)],
 			"group"
 		),
-		getItem("Contact", "contact", <TableOutlined />),
+		getItem(null, null, null, null, "divider"),
+		getItem("Contact", "contact", <SolutionOutlined />),
+		getItem("Document Sales", "document-sales", <FolderOutlined />),
 	];
 
 	const onClick = ({ key }) => {
