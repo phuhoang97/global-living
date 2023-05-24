@@ -1,1 +1,1 @@
-export const BASE_ENPOINT = "https://bds-normal.vercel.app/api";
+export const BASE_ENPOINT = "https://global-living-backend.vercel.app/api/v1";

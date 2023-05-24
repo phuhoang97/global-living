@@ -16,7 +16,7 @@ const HeaderAccount = () => {
 		{
 			label: "Đăng xuất",
 			key: "logout",
-			style: { color: "red" },
+			danger: true,
 		},
 	];
 
