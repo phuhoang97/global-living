@@ -9,6 +9,12 @@ export async function getAllDocumentSales() {
 	return response?.data || [];
 }
 
+export async function getDetailDocumentSales(id) {
+	const response = await axios.get(`${BASE_URL}/${id}`);
+
+	return response?.data || {};
+}
+
 export async function postDocumentSale(documentSales) {
 	const response = await axios.post(BASE_URL, documentSales);
 

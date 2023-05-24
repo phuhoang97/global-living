@@ -20,7 +20,13 @@ export const columns = [
 	{
 		dataIndex: "link",
 		title: "Link",
-		render: (text) => <span>{convertTextToLink(text)}</span>,
+		render: (text) => (
+			<span
+				dangerouslySetInnerHTML={{ __html: convertTextToLink(text) }}
+			></span>
+		),
+		width: "30%",
+		ellipsis: true,
 	},
 	{ dataIndex: "action", width: "4%" },
 ];

@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Form, Input, Select, Upload } from "antd";
 import React from "react";
 import { postDocumentSale } from "../../../../../apis/document-sales/api";
 
@@ -38,7 +38,27 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 			</Form.Item>
 
 			<Form.Item name={"category"} label={"Category"}>
-				<Input placeholder="Nhập category" />
+				<Select
+					options={[
+						{
+							label: "Tư liệu truyền thông",
+							value: "web_design",
+						},
+						{
+							label: "Tài liệu bán hàng",
+							value: "ui_ux_design",
+						},
+						{
+							label: "Thông tin chương trình",
+							value: "mobile_apps",
+						},
+						{
+							label: "Thiết kế",
+							value: "logo_design",
+						},
+					]}
+					placeholder="Chọn category"
+				/>
 			</Form.Item>
 
 			<Form.Item name={"image"} label={"Image"}>
