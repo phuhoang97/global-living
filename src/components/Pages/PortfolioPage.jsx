@@ -19,78 +19,6 @@ export default function PortfolioPage() {
 	const [itemShow, setItemShow] = useState(7);
 	const [dataSource, setDataSource] = useState([]);
 
-	const portfolioData = [
-		// {
-		// 	title: "Colorful Art Work",
-		// 	subtitle: "See Details",
-		// 	href: "/portfolio/portfolio-details",
-		// 	image: "/images/portfolio_4.jpeg",
-		// 	category: "ui_ux_design",
-		// },
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_5.jpeg",
-			category: "logo_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_6.jpeg",
-			category: "web_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_7.jpeg",
-			category: "mobile_apps",
-		},
-		// {
-		// 	title: "Colorful Art Work",
-		// 	subtitle: "See Details",
-		// 	href: "/portfolio/portfolio-details",
-		// 	image: "/images/portfolio_8.jpeg",
-		// 	category: "ui_ux_design",
-		// },
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_9.jpeg",
-			category: "web_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_10.jpeg",
-			category: "logo_design",
-		},
-		// {
-		// 	title: "Colorful Art Work",
-		// 	subtitle: "See Details",
-		// 	href: "/portfolio/portfolio-details",
-		// 	image: "/images/portfolio_4.jpeg",
-		// 	category: "ui_ux_design",
-		// },
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_5.jpeg",
-			category: "logo_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_6.jpeg",
-			category: "web_design",
-		},
-	];
 	const categoryMenu = [
 		{
 			title: "Tư liệu truyền thông",
@@ -115,7 +43,6 @@ export default function PortfolioPage() {
 		return data?.map((item) => ({
 			...item,
 			subtitle: "See Details",
-			href: `/portfolio/portfolio-details?id=${item?.id}`,
 		}));
 	};
 
@@ -125,16 +52,12 @@ export default function PortfolioPage() {
 
 	useEffect(() => {
 		setLoading(true);
-		if (active === "ui_ux_design") {
-			getAllDocumentSales().then((response) => {
-				setDataSource(mapData(response?.data));
-				setLoading(false);
-			});
-		} else {
-			setDataSource(portfolioData);
+
+		getAllDocumentSales().then((response) => {
+			setDataSource(mapData(response?.data));
 			setLoading(false);
-		}
-	}, [active]);
+		});
+	}, []);
 
 	return (
 		<>
@@ -196,7 +119,7 @@ export default function PortfolioPage() {
 									<Portfolio
 										title={item.title}
 										subtitle={item.subtitle}
-										href={item.href}
+										href={item.link}
 										src={item.image}
 										variant="cs-style1 cs-type1"
 									/>
