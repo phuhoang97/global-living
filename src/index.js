@@ -17,6 +17,11 @@ root.render(
 						fontSize: 16,
 						colorPrimary: "#7c3ab7",
 					},
+					components: {
+						Spin: {
+							colorPrimary: "#fcb617",
+						},
+					},
 				}}
 			>
 				<App />
