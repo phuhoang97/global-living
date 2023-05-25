@@ -5,7 +5,7 @@ import {
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function getItem(label, key, icon, children, type) {
 	return {
@@ -19,18 +19,27 @@ function getItem(label, key, icon, children, type) {
 
 const MenuSidebar = () => {
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
 
 	const items = [
 		getItem(
 			"Dashboard",
 			"dashboard",
 			null,
-			[getItem("Analytics", "analytics", <StockOutlined />)],
+			[getItem("Analytics", "/admin/analytics", <StockOutlined />)],
 			"group"
 		),
 		getItem(null, null, null, null, "divider"),
-		getItem("Contact", "contact", <SolutionOutlined />),
-		getItem("Document Sales", "document-sales", <FolderOutlined />),
+		getItem("Contact", "/admin/contact", <SolutionOutlined />),
+		getItem("Document Sales", "/admin/document-sales", <FolderOutlined />, [
+			getItem("Tư liệu truyền thông", "/admin/document-sales/web_design"),
+			getItem("Tài liệu bán hàng", "/admin/document-sales/ui_ux_design"),
+			getItem(
+				"Thông tin chương trình",
+				"/admin/document-sales/mobile_apps"
+			),
+			getItem("Thiết kế", "/admin/document-sales/logo_design"),
+		]),
 	];
 
 	const onClick = ({ key }) => {
@@ -42,7 +51,8 @@ const MenuSidebar = () => {
 			theme="light"
 			mode="inline"
 			style={{ border: "none" }}
-			defaultSelectedKeys={["default"]}
+			defaultOpenKeys={[pathname]}
+			defaultSelectedKeys={[pathname]}
 			items={items}
 			onClick={onClick}
 		/>
