@@ -1,39 +1,65 @@
-import { Button, Drawer, Table } from "antd";
+import { Button, Drawer, Popconfirm, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { getAllDocumentSales } from "../../../../apis/document-sales/api";
 import AminAddDocumentSales from "../services/add";
-import { MenuOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { convertCategoryName } from "../../../../helper";
+import { useLocation } from "react-router-dom";
 
 const AdminListDocumentSales = () => {
+	const { pathname } = useLocation();
+	const pathnameSplit = pathname.split("/");
+	const endpoint = pathnameSplit[pathnameSplit?.length - 1];
+	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [reloadData, setReloadData] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
+
+	const onDelete = (id) => {
+		console.log(id);
+		message.success("Xóa thành công!");
+	};
 
 	const mapData = (data) => {
 		if (!data || data?.length <= 0) return [];
 
 		return data?.map((item) => ({
 			...item,
+			key: item?.id,
 			category: convertCategoryName(item?.category),
 			action: (
 				<>
-					<MenuOutlined className="cursor-pointer" />
+					<Popconfirm
+						title="Xóa Document sales"
+						onConfirm={() => onDelete(item?.id)}
+						okText="Đồng ý"
+						cancelText="Hủy"
+					>
+						<DeleteOutlined className="cursor-pointer" />
+					</Popconfirm>
 				</>
 			),
 		}));
 	};
 
 	const getData = () => {
+		setLoading(true);
 		getAllDocumentSales().then((response) => {
-			setDataSource(mapData(response?.data));
+			setLoading(false);
+			setDataSource(
+				mapData(
+					response?.data?.filter(
+						(item) => item?.category === endpoint
+					)
+				)
+			);
 		});
 	};
 
 	useEffect(() => {
 		getData();
-	}, []);
+	}, [endpoint]);
 
 	useEffect(() => {
 		if (reloadData) {
@@ -58,7 +84,11 @@ const AdminListDocumentSales = () => {
 			<div className="p-2">
 				<Button onClick={handleOpen}>Thêm tài liệu bán hàng</Button>
 			</div>
-			<Table dataSource={dataSource} columns={columns} />
+			<Table
+				dataSource={dataSource}
+				columns={columns}
+				loading={loading}
+			/>
 
 			<Drawer
 				open={open}
