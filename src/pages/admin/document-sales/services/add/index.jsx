@@ -47,16 +47,16 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 		<Form form={form} layout="vertical" onFinish={onFinish}>
 			<Form.Item
 				name={"title"}
-				label={"Title"}
-				rules={[{ required: true, message: "Chưa nhập title" }]}
+				label={"Tiêu đề"}
+				rules={[{ required: true, message: "Chưa nhập tiêu đề" }]}
 			>
-				<Input placeholder="Nhập title" />
+				<Input placeholder="Nhập tiêu đề" />
 			</Form.Item>
 
 			<Form.Item
 				name={"category"}
-				label={"Category"}
-				rules={[{ required: true, message: "Chưa chọn category" }]}
+				label={"Mục"}
+				rules={[{ required: true, message: "Chưa chọn mục" }]}
 			>
 				<Select
 					options={[
@@ -77,17 +77,17 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 							value: "logo_design",
 						},
 					]}
-					placeholder="Chọn category"
+					placeholder="Chọn mục"
 				/>
 			</Form.Item>
 
 			<Form.Item
 				name={"image"}
-				label={"Image"}
-				rules={[{ required: true, message: "Chưa chọn image" }]}
+				label={"Ảnh"}
+				rules={[{ required: true, message: "Chưa chọn ảnh" }]}
 			>
 				<Upload {...props}>
-					<Button icon={<UploadOutlined />}>Click to Upload</Button>
+					<Button icon={<UploadOutlined />}>Click để tải lên</Button>
 				</Upload>
 				{/* <Input
                 placeholder="Nhập image"
@@ -98,10 +98,10 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 
 			<Form.Item
 				name={"link"}
-				label={"Link"}
-				rules={[{ required: true, message: "Chưa nhập link" }]}
+				label={"Đường dẫn"}
+				rules={[{ required: true, message: "Chưa nhập đường dẫn" }]}
 			>
-				<Input placeholder="Nhập link" />
+				<Input placeholder="Nhập đường dẫn" />
 			</Form.Item>
 
 			<Button htmlType="submit">Thêm mới</Button>

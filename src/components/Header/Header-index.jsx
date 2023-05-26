@@ -305,7 +305,7 @@ export default function Header({ variant }) {
             <Newsletter
               title="Subscribe"
               subtitle="At vero eos et accusamus et iusto odio as part dignissimos ducimus qui blandit."
-              placeholder="example@gmail.com"
+              placeholder="Email hoặc Số điện thoại"
             />
           </Div>
           <Div className="cs-side_header_box">

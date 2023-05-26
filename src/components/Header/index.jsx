@@ -124,6 +124,22 @@ export default function Header({ variant }) {
 											>
 												Sản phẩm đầu tư
 											</NavLink>
+											<DropDown>
+												<ul>
+													<li>
+														<Link
+															to="main-product"
+															onClick={() =>
+																setMobileToggle(
+																	false
+																)
+															}
+														>
+															Sản phẩm
+														</Link>
+													</li>
+												</ul>
+											</DropDown>
 										</li>
 										{/* <li className="menu-item-has-children">
                       <NavLink
@@ -173,10 +189,10 @@ export default function Header({ variant }) {
 																)
 															}
 														>
-															Tài liệu bán hàng
+															Tài liệu
 														</Link>
 													</li>
-													<li>
+													{/* <li>
 														<Link
 															to="faq"
 															onClick={() =>
@@ -188,7 +204,7 @@ export default function Header({ variant }) {
 															FAQ - Câu hỏi thường
 															gặp
 														</Link>
-													</li>
+													</li> */}
 												</ul>
 											</DropDown>
 										</li>
@@ -348,7 +364,7 @@ export default function Header({ variant }) {
 						<Newsletter
 							title="Đăng ký ngay"
 							subtitle="Nhận thông tin đầu tư mới nhất từ Global Living Group"
-							placeholder="example@gmail.com"
+							placeholder="Email hoặc Số điện thoại"
 						/>
 						{/* <Div className="mt-3">
 							Nếu đã có tài khoản?{" "}

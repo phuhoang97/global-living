@@ -15,9 +15,15 @@ export default function ContactPage() {
 	const [api, contextHolder] = notification.useNotification();
 
 	const openNotificationWithIcon = (type) => {
-		api[type]({
-			message: "Gửi thông tin liên hệ thành công",
-		});
+		if (type === "success") {
+			api["success"]({
+				message: "Đăng ký nhận tư vấn thành công!",
+			});
+		} else {
+			api["error"]({
+				message: "Đăng ký nhận tư vấn thất bại, có lỗi xảy ra!",
+			});
+		}
 	};
 
 	pageTitle("Contact Us");
@@ -27,10 +33,14 @@ export default function ContactPage() {
 	}, []);
 
 	const onFinish = (values) => {
-		postContact(values).then(() => {
-			openNotificationWithIcon("success");
-			reset();
-		});
+		postContact(values)
+			.then(() => {
+				openNotificationWithIcon("success");
+				reset();
+			})
+			.catch(() => {
+				openNotificationWithIcon("erro");
+			});
 	};
 
 	return (
@@ -62,7 +72,7 @@ export default function ContactPage() {
 						>
 							<Div className="col-sm-6">
 								<label className="cs-primary_color">
-									Full Name*
+									Họ và tên*
 								</label>
 								<input
 									type="text"
@@ -86,14 +96,7 @@ export default function ContactPage() {
 							</Div>
 							<Div className="col-sm-6">
 								<label className="cs-primary_color">
-									Project Type*
-								</label>
-								<input type="text" className="cs-form_field" />
-								<Spacing lg="20" md="20" />
-							</Div>
-							<Div className="col-sm-6">
-								<label className="cs-primary_color">
-									Mobile*
+									Số điện thoại*
 								</label>
 								<input
 									type="text"
@@ -103,7 +106,19 @@ export default function ContactPage() {
 								/>
 								<Spacing lg="20" md="20" />
 							</Div>
-							<Div className="col-sm-12">
+							<Div className="col-sm-6">
+								<label className="cs-primary_color">
+									Sản phẩm quan tâm*
+								</label>
+								<input
+									type="text"
+									className="cs-form_field"
+									{...register("project_type")}
+									required
+								/>
+								<Spacing lg="20" md="20" />
+							</Div>
+							{/* <Div className="col-sm-12">
 								<label className="cs-primary_color">
 									Message*
 								</label>
@@ -115,13 +130,13 @@ export default function ContactPage() {
 									required
 								></textarea>
 								<Spacing lg="25" md="25" />
-							</Div>
+							</Div> */}
 							<Div className="col-sm-12">
 								<button
 									className="cs-btn cs-style1"
 									type="submit"
 								>
-									<span>Send Message</span>
+									<span>Đăng ký nhận tư vấn</span>
 									<Icon icon="bi:arrow-right" />
 								</button>
 							</Div>

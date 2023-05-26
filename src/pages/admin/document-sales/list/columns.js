@@ -3,15 +3,15 @@ import { convertTextToLink } from "../../../../helper";
 export const columns = [
 	{
 		dataIndex: "title",
-		title: "Title",
+		title: "Tiêu đề",
 	},
 	{
 		dataIndex: "category",
-		title: "Category",
+		title: "Mục",
 	},
 	{
 		dataIndex: "image",
-		title: "Image",
+		title: "Ảnh",
 		render: (text) => (
 			<img src={text} alt="image" style={{ width: "100px" }} />
 		),
@@ -19,7 +19,7 @@ export const columns = [
 	},
 	{
 		dataIndex: "link",
-		title: "Link",
+		title: "Đường dẫn",
 		render: (text) => (
 			<span
 				dangerouslySetInnerHTML={{ __html: convertTextToLink(text) }}

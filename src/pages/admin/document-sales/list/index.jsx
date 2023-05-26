@@ -23,6 +23,7 @@ const AdminListDocumentSales = () => {
 		deleteDocumentSale(id)
 			.then(() => {
 				message.success("Xóa thành công!");
+				setReloadData(true);
 			})
 			.catch(() => {
 				message.error("Xóa thất bại!");
@@ -90,7 +91,7 @@ const AdminListDocumentSales = () => {
 	return (
 		<>
 			<div className="p-2">
-				<Button onClick={handleOpen}>Thêm tài liệu bán hàng</Button>
+				<Button onClick={handleOpen}>Thêm mới</Button>
 			</div>
 			<Table
 				dataSource={dataSource}
@@ -100,7 +101,7 @@ const AdminListDocumentSales = () => {
 
 			<Drawer
 				open={open}
-				title={"Thêm mới tài liệu bán hàng"}
+				title={"Thêm mới"}
 				onClose={handleClose}
 				destroyOnClose
 			>
