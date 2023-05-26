@@ -45,11 +45,19 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 
 	return (
 		<Form form={form} layout="vertical" onFinish={onFinish}>
-			<Form.Item name={"title"} label={"Title"}>
+			<Form.Item
+				name={"title"}
+				label={"Title"}
+				rules={[{ required: true, message: "Chưa nhập title" }]}
+			>
 				<Input placeholder="Nhập title" />
 			</Form.Item>
 
-			<Form.Item name={"category"} label={"Category"}>
+			<Form.Item
+				name={"category"}
+				label={"Category"}
+				rules={[{ required: true, message: "Chưa chọn category" }]}
+			>
 				<Select
 					options={[
 						{
@@ -73,7 +81,11 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 				/>
 			</Form.Item>
 
-			<Form.Item name={"image"} label={"Image"}>
+			<Form.Item
+				name={"image"}
+				label={"Image"}
+				rules={[{ required: true, message: "Chưa chọn image" }]}
+			>
 				<Upload {...props}>
 					<Button icon={<UploadOutlined />}>Click to Upload</Button>
 				</Upload>
@@ -84,7 +96,11 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
                 /> */}
 			</Form.Item>
 
-			<Form.Item name={"link"} label={"Link"}>
+			<Form.Item
+				name={"link"}
+				label={"Link"}
+				rules={[{ required: true, message: "Chưa nhập link" }]}
+			>
 				<Input placeholder="Nhập link" />
 			</Form.Item>
 

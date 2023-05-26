@@ -22,9 +22,7 @@ import Layout from "./components/Layout";
 import FaqPage from "./components/Pages/FaqPage";
 import MainLayout from "./common/layout";
 import DefaultPage from "./pages/default";
-import CommonTable from "./common/table";
 import LoginPage from "./pages/login";
-import ListContact from "./pages/admin/contact/list/List";
 import AdminContactRouter from "./pages/admin/contact/router";
 import AdminDocumentSalesRouter from "./pages/admin/document-sales/router";
 

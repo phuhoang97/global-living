@@ -17,6 +17,8 @@ function getItem(label, key, icon, children, type) {
 	};
 }
 
+const rootMenuKeys = ["/admin/document-sales"];
+
 const MenuSidebar = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
@@ -51,7 +53,7 @@ const MenuSidebar = () => {
 			theme="light"
 			mode="inline"
 			style={{ border: "none" }}
-			defaultOpenKeys={[pathname]}
+			defaultOpenKeys={rootMenuKeys}
 			defaultSelectedKeys={[pathname]}
 			items={items}
 			onClick={onClick}

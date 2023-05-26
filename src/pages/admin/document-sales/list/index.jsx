@@ -1,7 +1,10 @@
 import { Button, Drawer, Popconfirm, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
-import { getAllDocumentSales } from "../../../../apis/document-sales/api";
+import {
+	deleteDocumentSale,
+	getAllDocumentSales,
+} from "../../../../apis/document-sales/api";
 import AminAddDocumentSales from "../services/add";
 import { DeleteOutlined } from "@ant-design/icons";
 import { convertCategoryName } from "../../../../helper";
@@ -17,8 +20,13 @@ const AdminListDocumentSales = () => {
 	const [dataSource, setDataSource] = useState([]);
 
 	const onDelete = (id) => {
-		console.log(id);
-		message.success("Xóa thành công!");
+		deleteDocumentSale(id)
+			.then(() => {
+				message.success("Xóa thành công!");
+			})
+			.catch(() => {
+				message.error("Xóa thất bại!");
+			});
 	};
 
 	const mapData = (data) => {
@@ -94,6 +102,7 @@ const AdminListDocumentSales = () => {
 				open={open}
 				title={"Thêm mới tài liệu bán hàng"}
 				onClose={handleClose}
+				destroyOnClose
 			>
 				<AminAddDocumentSales
 					closeDrawer={handleClose}
