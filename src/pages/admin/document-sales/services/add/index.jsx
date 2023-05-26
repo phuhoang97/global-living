@@ -1,43 +1,63 @@
-import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select, Upload } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { postDocumentSale } from "../../../../../apis/document-sales/api";
+import { getLink } from "../../../../../helper/getLink";
+import { UploadOutlined } from "@ant-design/icons";
 
 const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
+	const [selected, setSelected] = useState({});
 
 	const props = {
-		name: "file",
-		listType: "picture",
 		maxCount: 1,
+		onChange(e) {
+			handleSelectImg(e);
+		},
 	};
 
-	const onFinish = (values) => {
-		values = {
-			...values,
-			// image: "",
-		};
+	const handleSelectImg = (e) => {
+		setSelected(e.file);
+	};
 
-		postDocumentSale(values).then(() => {
-			if (closeDrawer) {
-				closeDrawer();
-			}
+	const onFinish = async (values) => {
+		try {
+			const url = await getLink(selected);
+			values = {
+				...values,
+				image: url,
+			};
 
-			if (setReloadData) {
-				setReloadData(true);
-			}
+			postDocumentSale(values).then(() => {
+				if (closeDrawer) {
+					closeDrawer();
+				}
 
-			form.resetFields();
-		});
+				if (setReloadData) {
+					setReloadData(true);
+				}
+
+				form.resetFields();
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
 		<Form form={form} layout="vertical" onFinish={onFinish}>
-			<Form.Item name={"title"} label={"Title"}>
+			<Form.Item
+				name={"title"}
+				label={"Title"}
+				rules={[{ required: true, message: "Chưa nhập title" }]}
+			>
 				<Input placeholder="Nhập title" />
 			</Form.Item>
 
-			<Form.Item name={"category"} label={"Category"}>
+			<Form.Item
+				name={"category"}
+				label={"Category"}
+				rules={[{ required: true, message: "Chưa chọn category" }]}
+			>
 				<Select
 					options={[
 						{
@@ -61,14 +81,26 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 				/>
 			</Form.Item>
 
-			<Form.Item name={"image"} label={"Image"}>
-				{/* <Upload {...props}>
+			<Form.Item
+				name={"image"}
+				label={"Image"}
+				rules={[{ required: true, message: "Chưa chọn image" }]}
+			>
+				<Upload {...props}>
 					<Button icon={<UploadOutlined />}>Click to Upload</Button>
-                </Upload> */}
-				<Input placeholder="Nhập image" />
+				</Upload>
+				{/* <Input
+                placeholder="Nhập image"
+                type="file"
+                onChange={handleSelectImg}
+                /> */}
 			</Form.Item>
 
-			<Form.Item name={"link"} label={"Link"}>
+			<Form.Item
+				name={"link"}
+				label={"Link"}
+				rules={[{ required: true, message: "Chưa nhập link" }]}
+			>
 				<Input placeholder="Nhập link" />
 			</Form.Item>
 

@@ -9,86 +9,16 @@ import Div from "../Div";
 import SectionHeading from "../SectionHeading";
 import Spacing from "../Spacing";
 import { getAllDocumentSales } from "../../apis/document-sales/api";
+import { Spin } from "antd";
 
 export default function PortfolioPage() {
 	pageTitle("Portfolio");
 
+	const [loading, setLoading] = useState(false);
 	const [active, setActive] = useState("all");
 	const [itemShow, setItemShow] = useState(7);
 	const [dataSource, setDataSource] = useState([]);
 
-	const portfolioData = [
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_4.jpeg",
-			category: "ui_ux_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_5.jpeg",
-			category: "logo_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_6.jpeg",
-			category: "web_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_7.jpeg",
-			category: "mobile_apps",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_8.jpeg",
-			category: "ui_ux_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_9.jpeg",
-			category: "web_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_10.jpeg",
-			category: "logo_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_4.jpeg",
-			category: "ui_ux_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_5.jpeg",
-			category: "logo_design",
-		},
-		{
-			title: "Colorful Art Work",
-			subtitle: "See Details",
-			href: "/portfolio/portfolio-details",
-			image: "/images/portfolio_6.jpeg",
-			category: "web_design",
-		},
-	];
 	const categoryMenu = [
 		{
 			title: "Tư liệu truyền thông",
@@ -113,7 +43,6 @@ export default function PortfolioPage() {
 		return data?.map((item) => ({
 			...item,
 			subtitle: "See Details",
-			href: `/portfolio/portfolio-details?id=${item?.id}`,
 		}));
 	};
 
@@ -122,14 +51,13 @@ export default function PortfolioPage() {
 	}, []);
 
 	useEffect(() => {
-		if (active === "ui_ux_design") {
-			getAllDocumentSales().then((response) => {
-				setDataSource(mapData(response?.data));
-			});
-		} else {
-			setDataSource(portfolioData);
-		}
-	}, [active]);
+		setLoading(true);
+
+		getAllDocumentSales().then((response) => {
+			setDataSource(mapData(response?.data));
+			setLoading(false);
+		});
+	}, []);
 
 	return (
 		<>
@@ -170,52 +98,54 @@ export default function PortfolioPage() {
 					</Div>
 				</Div>
 				<Spacing lg="90" md="45" />
-				<Div className="row">
-					{dataSource.slice(0, itemShow).map((item, index) => {
-						return (
-							<Div
-								className={`${
-									index === 3 || index === 6
-										? "col-lg-8"
-										: "col-lg-4"
-								} ${
-									active === "all"
-										? ""
-										: !(active === item.category)
-										? "d-none"
-										: ""
-								}`}
-								key={index}
-							>
-								<Portfolio
-									title={item.title}
-									subtitle={item.subtitle}
-									href={item.href}
-									src={item.image}
-									variant="cs-style1 cs-type1"
-								/>
-								<Spacing lg="25" md="25" />
-							</Div>
-						);
-					})}
-				</Div>
+				<Spin spinning={loading} size="large">
+					<Div className="row">
+						{dataSource.slice(0, itemShow).map((item, index) => {
+							return (
+								<Div
+									className={`${
+										index === 3 || index === 6
+											? "col-lg-8"
+											: "col-lg-4"
+									} ${
+										active === "all"
+											? ""
+											: !(active === item.category)
+											? "d-none"
+											: ""
+									}`}
+									key={index}
+								>
+									<Portfolio
+										title={item.title}
+										subtitle={item.subtitle}
+										href={item.link}
+										src={item.image}
+										variant="cs-style1 cs-type1"
+									/>
+									<Spacing lg="25" md="25" />
+								</Div>
+							);
+						})}
+					</Div>
 
-				<Div className="text-center">
-					{dataSource.length <= itemShow ? (
-						""
-					) : (
-						<>
-							<Spacing lg="65" md="40" />
-							<span
-								className="cs-text_btn"
-								onClick={() => setItemShow(itemShow + 3)}
-							>
-								<span>Load More</span>
-								<Icon icon="bi:arrow-right" />
-							</span>
-						</>
-					)}
-				</Div>
+					<Div className="text-center">
+						{dataSource.length <= itemShow ? (
+							""
+						) : (
+							<>
+								<Spacing lg="65" md="40" />
+								<span
+									className="cs-text_btn"
+									onClick={() => setItemShow(itemShow + 3)}
+								>
+									<span>Load More</span>
+									<Icon icon="bi:arrow-right" />
+								</span>
+							</>
+						)}
+					</Div>
+				</Spin>
 			</Div>
 			<Spacing lg="145" md="80" />
 			<Cta
