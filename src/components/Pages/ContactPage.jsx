@@ -53,7 +53,10 @@ export default function ContactPage() {
 			{contextHolder}
 			<Spacing lg="150" md="80" />
 			<Div className="container">
-				<Div className="row">
+				<Div
+					className="row"
+					style={{ height: "350px", marginTop: "100px" }}
+				>
 					<Div className="col-lg-6">
 						<SectionHeading
 							title="Contact Us"
