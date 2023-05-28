@@ -27,7 +27,7 @@ const AdminListUsers = () => {
 		return data?.map((item) => ({
 			...item,
 			key: item?.id,
-			action: (
+			action: hasPermission ? (
 				<>
 					<Popconfirm
 						title="Xóa User"
@@ -38,6 +38,8 @@ const AdminListUsers = () => {
 						<DeleteOutlined className="cursor-pointer" />
 					</Popconfirm>
 				</>
+			) : (
+				<></>
 			),
 		}));
 	};

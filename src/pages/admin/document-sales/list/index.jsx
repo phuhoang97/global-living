@@ -41,7 +41,7 @@ const AdminListDocumentSales = () => {
 			...item,
 			key: item?.id,
 			category: convertCategoryName(item?.category),
-			action: (
+			action: hasPermission ? (
 				<>
 					<Popconfirm
 						title="Xóa Document sales"
@@ -52,6 +52,8 @@ const AdminListDocumentSales = () => {
 						<DeleteOutlined className="cursor-pointer" />
 					</Popconfirm>
 				</>
+			) : (
+				<></>
 			),
 		}));
 	};
