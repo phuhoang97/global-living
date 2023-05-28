@@ -6,12 +6,14 @@ import {
 import { Button, Col, Input, Layout, Row, theme } from "antd";
 import React from "react";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { LayoutContext } from "../../../contexts";
 import HeaderAccount from "./components/Account";
 
 const { Header } = Layout;
 
 const MainHeader = () => {
+	const navigate = useNavigate();
 	const { collapsed, setCollapsed } = useContext(LayoutContext);
 	const {
 		token: { colorBgContainer, colorPrimaryBg, colorPrimary },
@@ -28,14 +30,17 @@ const MainHeader = () => {
 			}}
 		>
 			<div className="flex items-center justify-between w-[270px]">
-				<div className="px-5 flex items-center">
+				<div
+					className="px-5 flex items-center cursor-pointer"
+					onClick={() => navigate("/")}
+				>
 					<img
 						src="/images/favicon.png"
 						alt="Logo"
 						className="w-[50px]"
 					/>
-					<div className="flex flex-col items-start justify-center ml-3">
-						<p className="mb-1 uppercase tracking-[1px] font-medium leading-[20px]">
+					<div className="flex flex-col items-start justify-center ml-1">
+						<p className="m-0 uppercase tracking-[1px] font-medium leading-[20px]">
 							GLOBAL
 						</p>
 						<p className="m-0 uppercase tracking-[1px] font-medium leading-[20px]">

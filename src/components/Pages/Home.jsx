@@ -66,25 +66,37 @@ export default function Home() {
       {/* Start Hero Section */}
 
       <Hero3
-        title="Global <br />Living"
-        btnLink="contact"
+        title='Global <br />Living'
+        subtitle='BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY <br/>Xu hướng đầu tư của kỷ nguyên mới'
+        btnLink='https://info.globalliving-group.com/hungary?fbclid=IwAR2hyJCSClRp4e-rkqJR63DoTRQnDVBzXs0776Ead3lyjVmBK4RU8u19qWU'
         btnText={`Xem chi tiết chương trình`}
-        socialLinksHeading="Follow Us"
+        socialLinksHeading='Follow Us'
         heroSocialLinks={heroSocialLinks}
-        scrollDownId="#service"
-        bgImageUrl="./images/gl-images/budapest/home-1.jpg"
+        scrollDownId='#service'
+        bgImageUrl='./images/banner.jpg'
       />
+
+      <Spacing lg='125' md='70' />
+      <MovingText text='Global Living - Đầu tư không biên giới  - ' />
+
+      <Div className='container'>
+        <Spacing lg='70' md='70' />
+        <VideoModal
+          videoSrc='https://www.youtube.com/watch?v=Yn2VYwTvPSQ'
+          bgUrl='/images/video_bg_3.jpeg'
+        />
+      </Div>
 
       {/* End Hero Section */}
 
       {/* Start FunFact Section */}
-      <Spacing lg="150" md="80" />
+      <Spacing lg='150' md='80' />
 
-      <div className="container">
+      <div className='container'>
         <FunFact
-          variant="cs-type1"
-          title="BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY"
-          subtitle="Chương trình cấp thẻ cư trú nhân Hungary thông qua hình thức đầu tư bất động sản. Với mức đầu tư tối thiểu chỉ từ 175k Euro - tương đương khoảng 4.6 tỷ VND, Nhà đầu tư sẽ vừa sở hữu tài sản nhà đất ở địa thế vàng - Trái tim của Châu Âu, vừa mang lại cho cả 3 thế hệ gia đình những đặc quyền vô giá của một công dân toàn cầu."
+          variant='cs-type1'
+          title='BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY'
+          subtitle='Chương trình cấp thẻ cư trú nhân Hungary thông qua hình thức đầu tư bất động sản. Với mức đầu tư tối thiểu chỉ từ 175k Euro - tương đương khoảng 4.6 tỷ VND, Nhà đầu tư sẽ vừa sở hữu tài sản nhà đất ở địa thế vàng - Trái tim của Châu Âu, vừa mang lại cho cả 3 thế hệ gia đình những đặc quyền vô giá của một công dân toàn cầu.'
           data={funfaceData}
         />
       </div>
@@ -92,13 +104,13 @@ export default function Home() {
       {/* End FunFact Section */}
 
       {/* Start About Section */}
-      <Spacing lg="150" md="80" />
-      <Div className="container">
-        <Div className="row">
-          <Div className="col-xl-5 col-lg-7">
-            <SectionHeading title="Định vị thương hiệu" subtitle="">
-              <Spacing lg="30" md="20" />
-              <p className="cs-m0">
+      <Spacing lg='150' md='80' />
+      <Div className='container'>
+        <Div className='row'>
+          <Div className='col-xl-5 col-lg-7'>
+            <SectionHeading title='Định vị thương hiệu' subtitle=''>
+              <Spacing lg='30' md='20' />
+              <p className='cs-m0'>
                 Global Living là thương hiệu hàng đầu tại Việt Nam trong lĩnh
                 vực tư vấn và phát triển bất động sản cao cấp. Với uy tín và
                 kinh nghiệm, chúng tôi đã và đang mang tới cho khách hàng những
@@ -108,70 +120,70 @@ export default function Home() {
                 cam kết mang đến sự hài lòng và thành công cho khách hàng trong
                 mỗi giao dịch và dự án.
               </p>
-              <Spacing lg="30" md="30" />
-              <Div className="cs-separator cs-accent_bg"></Div>
-              <Spacing lg="25" md="40" />
+              <Spacing lg='30' md='30' />
+              <Div className='cs-separator cs-accent_bg'></Div>
+              <Spacing lg='25' md='40' />
             </SectionHeading>
           </Div>
-          <Div className="col-lg-5 offset-xl-2">
+          <Div className='col-lg-5 offset-xl-2'>
             <img
-              src="./images/about_img_1.jpeg"
-              alt="About"
-              className="w-100 cs-radius_15 gs"
+              src='./images/about_img_1.jpeg'
+              alt='About'
+              className='w-100 cs-radius_15 gs'
             />
-            <Spacing lg="25" md="25" />
+            <Spacing lg='25' md='25' />
           </Div>
-          <Div className="col-lg-7">
+          <Div className='col-lg-7'>
             <img
-              src="./images/about_img_2.jpeg"
-              alt="About"
-              className="w-100 cs-radius_15 gs"
+              src='./images/about_img_2.jpeg'
+              alt='About'
+              className='w-100 cs-radius_15 gs'
             />
-            <Spacing lg="25" md="25" />
+            <Spacing lg='25' md='25' />
           </Div>
-          <Div className="col-lg-5">
+          <Div className='col-lg-5'>
             <img
-              src="./images/about_img_3.jpeg"
-              alt="About"
-              className="w-100 cs-radius_15 gs"
+              src='./images/about_img_3.jpeg'
+              alt='About'
+              className='w-100 cs-radius_15 gs'
             />
-            <Spacing lg="25" md="25" />
+            <Spacing lg='25' md='25' />
           </Div>
         </Div>
       </Div>
-      <Spacing lg="75" md="55" />
+      <Spacing lg='75' md='55' />
       {/* End About Section */}
       <Hero
-        title="Đầu tư Bất động sản<br/>Nhận thẻ cư trú Hungary"
-        subtitle="Tìm hiểu những đặc quyền chỉ có ở Đầu tư Bất Động Sản Hungary"
-        btnText="Xem chi tiết chương trình"
-        btnLink="/main-product"
-        scrollDownId="#service"
-        socialLinksHeading="Follow Us"
+        title='Đầu tư Bất động sản<br/>Nhận thẻ cư trú Hungary'
+        subtitle='Tìm hiểu những đặc quyền chỉ có ở Đầu tư Bất Động Sản Hungary'
+        btnText='Xem chi tiết chương trình'
+        btnLink='/main-product'
+        scrollDownId='#service'
+        socialLinksHeading='Follow Us'
         heroSocialLinks={heroSocialLinks}
-        bgImageUrl="/images/hero_bg_5.jpeg"
+        bgImageUrl='/images/hero_bg_5.jpeg'
       />
 
       {/* Start Why Choose Section */}
-      <Spacing lg="100" md="80" />
-      <Div className="container">
-        <Div className="row">
-          <Div className="col-xl-5 col-lg-6">
-            <Div className="cs-image_layer cs-style1">
-              <Div className="cs-image_layer_in">
+      <Spacing lg='100' md='80' />
+      <Div className='container'>
+        <Div className='row'>
+          <Div className='col-xl-5 col-lg-6'>
+            <Div className='cs-image_layer cs-style1'>
+              <Div className='cs-image_layer_in'>
                 <img
-                  src="/images/about_img_5.jpeg"
-                  alt="About"
-                  className="w-100 cs-radius_15"
+                  src='/images/about_img_5.jpeg'
+                  alt='About'
+                  className='w-100 cs-radius_15'
                 />
               </Div>
             </Div>
-            <Spacing lg="0" md="40" />
+            <Spacing lg='0' md='40' />
           </Div>
-          <Div className="col-xl-5 offset-xl-1 col-lg-6">
-            <SectionHeading title="Tầm nhìn" subtitle="">
-              <Spacing lg="30" md="20" />
-              <p className="cs-m0">
+          <Div className='col-xl-5 offset-xl-1 col-lg-6'>
+            <SectionHeading title='Tầm nhìn' subtitle=''>
+              <Spacing lg='30' md='20' />
+              <p className='cs-m0'>
                 Global Living định hướng trở thành đơn vị tiên phong trong lĩnh
                 vực đầu tư và phát triển bất động sản cao cấp. Với sự tận tâm và
                 chuyên nghiệp, chúng tôi luôn đặt mục tiêu mang đến cho khách
@@ -181,11 +193,11 @@ export default function Home() {
                 trong tâm trí khách hàng là một đơn vị uy tín với chất lượng
                 dịch vụ hàng đầu.
               </p>
-              <Spacing lg="15" md="15" />
+              <Spacing lg='15' md='15' />
 
-              <Spacing lg="30" md="30" />
-              <Div className="cs-separator cs-accent_bg"></Div>
-              <Spacing lg="25" md="0" />
+              <Spacing lg='30' md='30' />
+              <Div className='cs-separator cs-accent_bg'></Div>
+              <Spacing lg='25' md='0' />
             </SectionHeading>
           </Div>
         </Div>
@@ -193,13 +205,13 @@ export default function Home() {
       {/* End Why Choose Section */}
 
       {/* Start Why Choose Section */}
-      <Spacing lg="100" md="80" />
-      <Div className="container">
-        <Div className="row">
-          <Div className="col-xl-5 offset-xl-1 col-lg-6">
-            <SectionHeading title="Sứ mệnh" subtitle="">
-              <Spacing lg="30" md="20" />
-              <p className="cs-m0">
+      <Spacing lg='100' md='80' />
+      <Div className='container'>
+        <Div className='row'>
+          <Div className='col-xl-5 offset-xl-1 col-lg-6'>
+            <SectionHeading title='Sứ mệnh' subtitle=''>
+              <Spacing lg='30' md='20' />
+              <p className='cs-m0'>
                 Sứ mệnh của Global Living là đồng hành cùng khách hàng qua từng
                 bước trên hành trình đầu tư bất động sản cao cấp tại các quốc
                 gia phát triển. Không chỉ dừng lại ở những sản phẩm đầu tư quốc
@@ -212,48 +224,48 @@ export default function Home() {
                 và luôn nỗ lực để mang đến cho họ sự hài lòng và những trải
                 nghiệm tốt nhất trên con đường thành công và thịnh vượng.
               </p>
-              <Spacing lg="15" md="15" />
+              <Spacing lg='15' md='15' />
 
-              <Spacing lg="30" md="30" />
-              <Div className="cs-separator cs-accent_bg"></Div>
-              <Spacing lg="25" md="0" />
+              <Spacing lg='30' md='30' />
+              <Div className='cs-separator cs-accent_bg'></Div>
+              <Spacing lg='25' md='0' />
             </SectionHeading>
           </Div>
-          <Div className="col-xl-5 col-lg-6">
-            <Div className="cs-image_layer cs-style1">
-              <Div className="cs-image_layer_in">
+          <Div className='col-xl-5 col-lg-6'>
+            <Div className='cs-image_layer cs-style1'>
+              <Div className='cs-image_layer_in'>
                 <img
-                  src="/images/about_img_4.jpeg"
-                  alt="About"
-                  className="w-100 cs-radius_15"
+                  src='/images/about_img_4.jpeg'
+                  alt='About'
+                  className='w-100 cs-radius_15'
                 />
               </Div>
             </Div>
-            <Spacing lg="0" md="40" />
+            <Spacing lg='0' md='40' />
           </Div>
         </Div>
       </Div>
       {/* End Why Choose Section */}
 
       {/* Start MovingText Section */}
-      <Spacing lg="125" md="70" />
-      <MovingText text="Global Living - Đầu tư không biên giới  - " />
+      {/* <Spacing lg="125" md="70" />
+			<MovingText text="Global Living - Đầu tư không biên giới  - " /> */}
       {/* <Spacing lg="105" md="70" /> */}
       {/* End MovingText Section */}
 
       {/* Start Video Block Section */}
       {/* <Spacing lg="130" md="70" /> */}
-      <Div className="container">
-        {/* <h2 className="cs-font_50 cs-m0 text-center cs-line_height_4">
+      {/* <Div className="container"> */}
+      {/* <h2 className="cs-font_50 cs-m0 text-center cs-line_height_4">
           Our agile process is ability to adapt and respond to change. Agile
           organizations view change as an opportunity, not a threat.
         </h2> */}
-        <Spacing lg="70" md="70" />
-        <VideoModal
-          videoSrc="https://www.youtube.com/watch?v=Yn2VYwTvPSQ"
-          bgUrl="/images/video_bg_3.jpeg"
-        />
-      </Div>
+      {/* <Spacing lg="70" md="70" />
+				<VideoModal
+					videoSrc="https://www.youtube.com/watch?v=Yn2VYwTvPSQ"
+					bgUrl="/images/video_bg_3.jpeg"
+				/>
+			</Div> */}
       {/* End Video Block Section */}
 
       {/* Start Service Section */}
@@ -344,32 +356,32 @@ export default function Home() {
       {/* End Awards Section */}
 
       {/* Start Portfolio Section */}
-      <Spacing lg="150" md="50" />
+      <Spacing lg='150' md='50' />
       <Div>
-        <Div className="container">
+        <Div className='container'>
           <SectionHeading
-            title="Tài liệu dự án mới nhất"
-            subtitle="Sale kits"
-            variant="cs-style1 text-center"
+            title='Tài liệu dự án mới nhất'
+            subtitle='Sale kits'
+            variant='cs-style1 text-center'
           />
-          <Spacing lg="90" md="45" />
+          <Spacing lg='90' md='45' />
         </Div>
         <PortfolioSlider />
       </Div>
       {/* End Portfolio Section */}
 
       {/* Start Team Section */}
-      <Spacing lg="145" md="80" />
-      <Div className="container">
+      <Spacing lg='145' md='80' />
+      <Div className='container'>
         <SectionHeading
-          title="Quỹ căn <br/> Budapest"
-          subtitle=""
-          variant="cs-style1"
+          title='Quỹ căn <br/> Budapest'
+          subtitle=''
+          variant='cs-style1'
         />
-        <Spacing lg="85" md="45" />
+        <Spacing lg='85' md='45' />
         <TeamSlider />
       </Div>
-      <Spacing lg="150" md="80" />
+      <Spacing lg='150' md='80' />
       {/* End Team Section */}
 
       {/* Start Testimonial Section */}
@@ -377,23 +389,23 @@ export default function Home() {
       {/* End Testimonial Section */}
 
       {/* Start Blog Section */}
-      <Spacing lg="150" md="80" />
-      <Div className="cs-shape_wrap_4">
-        <Div className="cs-shape_4"></Div>
-        <Div className="cs-shape_4"></Div>
-        <Div className="container">
-          <Div className="row">
-            <Div className="col-xl-4">
+      <Spacing lg='150' md='80' />
+      <Div className='cs-shape_wrap_4'>
+        <Div className='cs-shape_4'></Div>
+        <Div className='cs-shape_4'></Div>
+        <Div className='container'>
+          <Div className='row'>
+            <Div className='col-xl-4'>
               <SectionHeading
-                title="Tin tức <br /> mới nhất"
-                subtitle="Our Blog"
-                btnText="Xem thêm"
-                btnLink="/blog"
+                title='Tin tức <br /> mới nhất'
+                subtitle='Our Blog'
+                btnText='Xem thêm'
+                btnLink='/blog'
               />
-              <Spacing lg="90" md="45" />
+              <Spacing lg='90' md='45' />
             </Div>
-            <Div className="col-xl-7 offset-xl-1">
-              <Div className="cs-half_of_full_width">
+            <Div className='col-xl-7 offset-xl-1'>
+              <Div className='cs-half_of_full_width'>
                 <PostSlider />
               </Div>
             </Div>
@@ -409,9 +421,9 @@ export default function Home() {
       {/* End MovingText Section */}
 
       {/* Start MovingLogo Section */}
-      <Spacing lg="125" md="70" />
-      <MovingLogo text="" />
-      <Spacing lg="105" md="70" />
+      <Spacing lg='125' md='70' />
+      <MovingLogo text='' />
+      <Spacing lg='105' md='70' />
       {/* End MovingLogo Section */}
 
       {/* Start LogoList Section */}
@@ -422,12 +434,12 @@ export default function Home() {
       {/* End LogoList Section */}
 
       {/* Start CTA Section */}
-      <Div className="container">
+      <Div className='container'>
         <Cta
-          title="Tham gia ngay để trở thành <br /> Đại lý/Cộng tác viên <br /> PHÂN PHỐI ĐỘC QUYỀN "
-          btnText="Đăng ký ngay."
-          btnLink="/contact"
-          bgSrc="images/portfolio_hero_bg_2.jpg"
+          title='Tham gia ngay để trở thành <br /> Đại lý/Cộng tác viên <br /> PHÂN PHỐI ĐỘC QUYỀN '
+          btnText='Đăng ký ngay.'
+          btnLink='/contact'
+          bgSrc='images/portfolio_hero_bg_2.jpg'
         />
       </Div>
       {/* End CTA Section */}

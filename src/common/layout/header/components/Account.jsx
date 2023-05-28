@@ -37,7 +37,6 @@ const HeaderAccount = () => {
 			}}
 			trigger={["click"]}
 			className={"cursor-pointer"}
-			forceRender
 			destroyPopupOnHide
 		>
 			<Avatar size={50} className={"cursor-pointer"}>

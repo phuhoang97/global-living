@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_ENPOINT } from "../constants";
 
-const BASE_URL = `${BASE_ENPOINT}/contacts`;
+const BASE_URL = `${BASE_ENPOINT}/customerinfo`;
 
 export async function getAllContacts() {
 	const response = await axios.get(BASE_URL);
