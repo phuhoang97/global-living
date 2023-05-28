@@ -96,30 +96,6 @@ const AdminAddUser = ({ closeDrawer, setReloadData }) => {
 			>
 				<Input placeholder="Nhập khu vực" />
 			</Form.Item>
-			<Form.Item
-				name={"role"}
-				label={"Quyền"}
-				rules={[
-					{
-						required: true,
-						message: "Chưa Chọn quyền",
-					},
-				]}
-			>
-				<Select
-					placeholder="Chọn quyền"
-					options={[
-						{
-							label: "Người dùng",
-							value: 2,
-						},
-						{
-							label: "Quản trị",
-							value: 1,
-						},
-					]}
-				/>
-			</Form.Item>
 
 			<Button htmlType="submit">Thêm mới</Button>
 		</Form>

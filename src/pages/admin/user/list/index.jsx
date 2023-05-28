@@ -1,11 +1,15 @@
-import { Button, Drawer, Popconfirm, Table, message } from "antd";
+import { Drawer, Popconfirm, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { DeleteOutlined } from "@ant-design/icons";
 import { deleteUser, getAllUsers } from "../../../../apis/users/api";
 import AdminAddUser from "../services/add";
+import PermissionButton from "../../../../common/permissions/button";
+import { getMe } from "../../../../apis/login/api";
 
 const AdminListUsers = () => {
+	const tokenDecode = getMe();
+	const hasPermission = tokenDecode?.role === 1 || tokenDecode?.role === 2;
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [reloadData, setReloadData] = useState(false);
@@ -72,9 +76,7 @@ const AdminListUsers = () => {
 
 	return (
 		<>
-			<div className="p-2">
-				<Button onClick={handleOpen}>Thêm mới</Button>
-			</div>
+			<PermissionButton onClick={handleOpen} isShow={hasPermission} />
 			<Table
 				dataSource={dataSource}
 				columns={columns}

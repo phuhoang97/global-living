@@ -107,7 +107,7 @@ export default function ContactPage() {
 									type="text"
 									className="cs-form_field"
 									placeholder="Nhập số điện thoại"
-									{...register("mobile")}
+									{...register("phone")}
 									required
 								/>
 								<Spacing lg="20" md="20" />
@@ -119,7 +119,7 @@ export default function ContactPage() {
 								<select
 									// type="text"
 									className="cs-form_field"
-									{...register("project_type")}
+									{...register("product")}
 									required
 								>
 									<option value="" hidden disabled selected>

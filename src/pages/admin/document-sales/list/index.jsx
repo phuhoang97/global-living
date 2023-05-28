@@ -1,4 +1,4 @@
-import { Button, Drawer, Popconfirm, Table, message } from "antd";
+import { Drawer, Popconfirm, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
 import {
@@ -9,8 +9,12 @@ import AminAddDocumentSales from "../services/add";
 import { DeleteOutlined } from "@ant-design/icons";
 import { convertCategoryName } from "../../../../helper";
 import { useLocation } from "react-router-dom";
+import PermissionButton from "../../../../common/permissions/button";
+import { getMe } from "../../../../apis/login/api";
 
 const AdminListDocumentSales = () => {
+	const tokenDecode = getMe();
+	const hasPermission = tokenDecode?.role === 1 || tokenDecode?.role === 2;
 	const { pathname } = useLocation();
 	const pathnameSplit = pathname.split("/");
 	const endpoint = pathnameSplit[pathnameSplit?.length - 1];
@@ -90,9 +94,7 @@ const AdminListDocumentSales = () => {
 
 	return (
 		<>
-			<div className="p-2">
-				<Button onClick={handleOpen}>Thêm mới</Button>
-			</div>
+			<PermissionButton onClick={handleOpen} isShow={hasPermission} />
 			<Table
 				dataSource={dataSource}
 				columns={columns}

@@ -69,7 +69,7 @@ export default function PortfolioSlider() {
 			return dateB - dateA;
 		});
 
-		return sortedResponse[0];
+		return sortedResponse[sortedResponse?.length - 1];
 	};
 
 	useEffect(() => {
