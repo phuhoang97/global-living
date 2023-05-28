@@ -9,22 +9,28 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 	const [selected, setSelected] = useState({});
 
 	const props = {
-		maxCount: 1,
-		onChange(e) {
-			handleSelectImg(e);
+		beforeUpload: (file) => {
+			getLink(file)
+				.then((response) => {
+					setSelected(response);
+				})
+				.catch(() => {});
 		},
+		maxCount: 1,
 	};
 
 	const handleSelectImg = (e) => {
-		setSelected(e.file);
+		// setSelected(e.target.files[0]);
+		// console.log("jtadd", e.target.files[0]);
+		setSelected(e.fileList[0]);
 	};
 
 	const onFinish = async (values) => {
 		try {
-			const url = await getLink(selected);
+			// const url = await getLink(selected);
 			values = {
 				...values,
-				image: url,
+				image: selected,
 			};
 
 			postDocumentSale(values).then(() => {
@@ -90,10 +96,10 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 					<Button icon={<UploadOutlined />}>Click để tải lên</Button>
 				</Upload>
 				{/* <Input
-                placeholder="Nhập image"
-                type="file"
-                onChange={handleSelectImg}
-                /> */}
+					placeholder="Nhập image"
+					type="file"
+					onChange={handleSelectImg}
+				/> */}
 			</Form.Item>
 
 			<Form.Item

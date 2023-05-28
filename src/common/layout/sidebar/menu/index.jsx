@@ -2,6 +2,7 @@ import {
 	FolderOutlined,
 	SolutionOutlined,
 	StockOutlined,
+	UserOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import React from "react";
@@ -42,6 +43,7 @@ const MenuSidebar = () => {
 			),
 			getItem("Thiết kế", "/admin/document-sales/logo_design"),
 		]),
+		getItem("Người dùng", "/admin/users", <UserOutlined />),
 	];
 
 	const onClick = ({ key }) => {

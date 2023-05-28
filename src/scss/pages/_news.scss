@@ -1,0 +1,230 @@
+.newsPage {
+	display: flex;
+	flex-direction: column;
+}
+// .newsPage > div:first-child {
+// 	background-image: url("../../../public/assits/51785.jpg");
+// 	height: 740px;
+// 	width: 100%;
+// 	background-size: cover;
+// }
+.newsPage > div:first-child > p:last-child {
+	font-family: "Inika";
+	font-style: normal;
+	font-weight: 800;
+	font-size: 80px;
+	line-height: 120px;
+	text-align: center;
+	letter-spacing: -0.019em;
+	color: #efcd7f;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* text-shadow: 2px 2px 2px #f4ed93; */
+}
+.latestNews {
+	background-color: #000000;
+	height: 600px;
+	position: relative;
+}
+.latestNews > div:first-child {
+	display: flex;
+	width: 1000px;
+	justify-content: space-evenly;
+	padding: 40px 0px;
+}
+.latestNews > div:first-child > p {
+	width: 573px;
+	height: 62px;
+	font-family: "IM FELL Double Pica SC";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 45px;
+	line-height: 68px;
+	letter-spacing: -0.019em;
+	color: #efcd7f;
+}
+.latestNews > div:first-child > select {
+	width: 284px;
+	height: 62px;
+	background: linear-gradient(
+		54deg,
+		#e0a23b 0%,
+		#f4ed93 18.23%,
+		#fcb045 51.16%,
+		#f4ed93 82.29%,
+		#e0a23b 99.99%,
+		#f4ed93 100%
+	);
+	box-shadow: 0px 4px 4px rgba(213, 210, 210, 0.25);
+	border-radius: 30px;
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 42px;
+	text-align: center;
+	letter-spacing: 0.03em;
+	color: #000000;
+}
+.carouselItem {
+	padding-left: 100px;
+	margin-left: 100px;
+	position: relative;
+}
+.carouselItem > p:first-child {
+	font-family: "Inika";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 36px;
+	text-align: center;
+	letter-spacing: -0.019em;
+	color: #ffffff;
+	position: absolute;
+	top: 15%;
+	left: 10px;
+	background: transparent;
+	z-index: 1;
+}
+.carouselItem > p:nth-child(2) {
+	background: transparent;
+	position: absolute;
+	top: 30%;
+	font-family: "Inika";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 36px;
+	text-align: center;
+	letter-spacing: -0.019em;
+	width: 300px;
+	z-index: 1;
+	color: #ffffff;
+	left: 10px;
+	text-align: left;
+	margin-top: 10px;
+	line-height: 50px;
+}
+.carouselItem > button {
+	position: absolute;
+	top: 80%;
+	z-index: 1;
+	left: 10px;
+	border: none;
+	background: transparent;
+	color: #ffbf3e;
+}
+.carouselItem > img {
+	height: 263px;
+	z-index: 0;
+}
+.questions {
+	background: url("../../../public/assits/Rectangle152.png");
+	object-fit: cover;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(20, 21, 25);
+	height: 80vh;
+	background-size: cover;
+}
+
+.questions-text p {
+	margin-top: 20px;
+	color: #efcd7f;
+	font-family: "IM FELL Double Pica SC";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 30px;
+	line-height: 150%;
+}
+.questions > img:first-child {
+	height: 233px;
+	width: 100%;
+	z-index: 0;
+}
+.questions > p:first-child {
+	position: absolute;
+	z-index: 1;
+	font-family: "IM FELL Double Pica SC";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 48px;
+	line-height: 72px;
+	letter-spacing: -0.019em;
+	color: #efcd7f;
+}
+.questions > div:first-child {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.questions > div > div > select {
+	display: block;
+	margin: 0 auto;
+	font-family: "Inika";
+	border-radius: 5px;
+	font-size: 20px;
+	box-shadow: 2px;
+	text-align: center;
+	width: 800px;
+	height: 65px;
+	margin: 20px 0;
+	background: linear-gradient(
+		54deg,
+		#e0a23b 0%,
+		#f4ed93 18.23%,
+		#fcb045 51.16%,
+		#f4ed93 82.29%,
+		#e0a23b 99.99%,
+		#f4ed93 100%
+	);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	z-index: 2;
+}
+
+.questions-text button {
+	background: linear-gradient(
+		54deg,
+		#e0a23b 0%,
+		#f4ed93 18.23%,
+		#fcb045 51.16%,
+		#f4ed93 82.29%,
+		#e0a23b 99.99%,
+		#f4ed93 100%
+	);
+	border: none;
+	box-shadow: 0px 4px 4px rgba(213, 210, 210, 0.25);
+	border-radius: 30px;
+	font-family: "Inter";
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 42px;
+	padding: 10px 40px;
+}
+
+.latestNews__slide > button {
+	width: 50px;
+	height: 50px;
+	border: none;
+	background-color: #ffcd2966;
+	border-radius: 50%;
+}
+
+.latestNews__slide .prev {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translate(50%, -50%);
+}
+
+.latestNews__slide .next {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}

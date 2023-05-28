@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Div from "../Div";
 import ContactInfoWidget from "../Widget/ContactInfoWidget";
 import MenuWidget from "../Widget/MenuWidget";
@@ -8,6 +9,7 @@ import TextWidget from "../Widget/TextWidget";
 import "./footer.scss";
 
 export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
+	const navigate = useNavigate();
 	const copyrightLinks = [
 		{
 			title: "Terms of Use",
@@ -64,11 +66,24 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 						</Div>
 						<Div className="col-lg-3 col-sm-6">
 							<Div className="cs-footer_item">
-								<Newsletter
+								{/* <Newsletter
 									title="Đăng ký nhận thông tin"
 									subtitle="Nhận thông tin đầu tư mới nhất từ Global Living Group"
 									placeholder="Email hoặc Số điện thoại"
-								/>
+                                /> */}
+								<Div className="cs-newsletter cs-style1">
+									<form
+										className="cs-newsletter_form"
+										onSubmit={(e) => e.preventDefault()}
+									>
+										<button
+											className="cs-newsletter_btn !relative"
+											onClick={() => navigate("/contact")}
+										>
+											<span>Đăng ký</span>
+										</button>
+									</form>
+								</Div>
 							</Div>
 						</Div>
 					</Div>

@@ -1,3 +1,21 @@
 .ant-spin-nested-loading .ant-spin-blur::after {
 	opacity: 0;
 }
+
+.ant-upload-wrapper .ant-upload-list .ant-upload-list-item-error,
+.ant-upload-wrapper
+	.ant-upload-list
+	.ant-upload-list-item-error
+	.ant-upload-icon
+	.anticon,
+.ant-upload-wrapper
+	.ant-upload-list
+	.ant-upload-list-item-error
+	.ant-upload-list-item-name,
+.ant-upload-wrapper
+	.ant-upload-list
+	.ant-upload-list-item-error
+	.ant-upload-list-item-actions
+	.anticon {
+	color: gray !important;
+}

@@ -25,6 +25,7 @@ import DefaultPage from "./pages/default";
 import LoginPage from "./pages/login";
 import AdminContactRouter from "./pages/admin/contact/router";
 import AdminDocumentSalesRouter from "./pages/admin/document-sales/router";
+import AdminUsersRouter from "./pages/admin/user/router";
 
 function App() {
 	return (
@@ -93,6 +94,7 @@ function App() {
 						path="document-sales/*"
 						element={<AdminDocumentSalesRouter />}
 					/>
+					<Route path="users/*" element={<AdminUsersRouter />} />
 				</Route>
 
 				<Route path="login" element={<LoginPage />} />

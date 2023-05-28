@@ -77,6 +77,7 @@ export default function ContactPage() {
 								<input
 									type="text"
 									className="cs-form_field"
+									placeholder="Nhập họ và tên"
 									{...register("full_name")}
 									required
 								/>
@@ -89,6 +90,7 @@ export default function ContactPage() {
 								<input
 									type="text"
 									className="cs-form_field"
+									placeholder="Nhập email"
 									{...register("email")}
 									required
 								/>
@@ -101,6 +103,7 @@ export default function ContactPage() {
 								<input
 									type="text"
 									className="cs-form_field"
+									placeholder="Nhập số điện thoại"
 									{...register("mobile")}
 									required
 								/>
@@ -110,12 +113,31 @@ export default function ContactPage() {
 								<label className="cs-primary_color">
 									Sản phẩm quan tâm*
 								</label>
-								<input
-									type="text"
+								<select
+									// type="text"
 									className="cs-form_field"
 									{...register("project_type")}
 									required
-								/>
+								>
+									<option value="" hidden disabled selected>
+										Chọn sản phẩm quan tâm
+									</option>
+									<option value="1bed">
+										Căn hộ 1 phòng ngủ
+									</option>
+									<option value="2bed">
+										Căn hộ 2 phòng ngủ
+									</option>
+									<option value="3bed">
+										Căn hộ 3 phòng ngủ
+									</option>
+									<option value="4bed">
+										Căn hộ 4 phòng ngủ
+									</option>
+									<option value="studio">
+										Căn hộ studio
+									</option>
+								</select>
 								<Spacing lg="20" md="20" />
 							</Div>
 							{/* <Div className="col-sm-12">
