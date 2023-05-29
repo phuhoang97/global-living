@@ -10,11 +10,12 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { convertCategoryName } from "../../../../helper";
 import { useLocation } from "react-router-dom";
 import PermissionButton from "../../../../common/permissions/button";
-import { getMe } from "../../../../apis/login/api";
+import jwtDecode from "jwt-decode";
 
 const AdminListDocumentSales = () => {
-	const tokenDecode = getMe();
-	const hasPermission = tokenDecode?.role === 1 || tokenDecode?.role === 2;
+	const token = localStorage.getItem("token");
+	const decode = jwtDecode(token);
+	const hasPermission = decode?.role === 1 || decode?.role === 2;
 	const { pathname } = useLocation();
 	const pathnameSplit = pathname.split("/");
 	const endpoint = pathnameSplit[pathnameSplit?.length - 1];

@@ -48,3 +48,16 @@ export const convertProductName = (productName) => {
 			return productName;
 	}
 };
+
+export const convertAreaName = (areaName) => {
+	switch (areaName) {
+		case "northside":
+			return "Khu vực miền Bắc";
+		case "midside":
+			return "Khu vực miền Trung";
+		case "southside":
+			return "Khu vực miền Nam";
+		default:
+			return areaName;
+	}
+};
