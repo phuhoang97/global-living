@@ -31,3 +31,20 @@ export function convertCategoryName(category) {
 
 	return categories?.find((item) => item?.category === category)?.title;
 }
+
+export const convertProductName = (productName) => {
+	switch (productName) {
+		case "1bed":
+			return "Căn hộ 1 phòng ngủ";
+		case "2bed":
+			return "Căn hộ 2 phòng ngủ";
+		case "3bed":
+			return "Căn hộ 3 phòng ngủ";
+		case "4bed":
+			return "Căn hộ 4 phòng ngủ";
+		case "studio":
+			return "Căn hộ Studio";
+		default:
+			return productName;
+	}
+};

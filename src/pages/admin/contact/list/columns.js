@@ -8,15 +8,11 @@ export const columns = [
 		title: "Email",
 	},
 	{
-		dataIndex: "project_type",
-		title: "Project Type",
+		dataIndex: "product",
+		title: "Sản phẩm",
 	},
 	{
-		dataIndex: "mobile",
+		dataIndex: "phone",
 		title: "Số điện thoại",
-	},
-	{
-		dataIndex: "message",
-		title: "Message",
 	},
 ];
