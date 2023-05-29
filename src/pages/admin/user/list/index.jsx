@@ -5,20 +5,34 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { deleteUser, getAllUsers } from "../../../../apis/users/api";
 import AdminAddUser from "../services/add";
 import PermissionButton from "../../../../common/permissions/button";
-import { getMe } from "../../../../apis/login/api";
+import jwtDecode from "jwt-decode";
+import { useLocation } from "react-router-dom";
+import { convertAreaName } from "../../../../helper";
 
 const AdminListUsers = () => {
-	const tokenDecode = getMe();
-	const hasPermission = tokenDecode?.role === 1 || tokenDecode?.role === 2;
+	const token = localStorage.getItem("token");
+	const decode = jwtDecode(token);
+	const hasPermission = decode?.role === 1;
+	const { pathname } = useLocation();
+	const pathnameSplit = pathname.split("/");
+	const endpoint = pathnameSplit[pathnameSplit?.length - 1];
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [reloadData, setReloadData] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
 
 	const onDelete = (id) => {
+		setLoading(true);
 		deleteUser(id)
-			.then(() => message.success("Xóa người dùng thành công!"))
-			.catch(() => message.error("Xóa người dùng thất bại!"));
+			.then(() => {
+				message.success("Xóa người dùng thành công!");
+				setReloadData(true);
+				setLoading(false);
+			})
+			.catch(() => {
+				message.error("Xóa người dùng thất bại!");
+				setLoading(false);
+			});
 	};
 
 	const mapData = (data) => {
@@ -27,6 +41,7 @@ const AdminListUsers = () => {
 		return data?.map((item) => ({
 			...item,
 			key: item?.id,
+			area: convertAreaName(item?.area),
 			action: hasPermission ? (
 				<>
 					<Popconfirm
@@ -49,14 +64,20 @@ const AdminListUsers = () => {
 		getAllUsers()
 			.then((response) => {
 				setLoading(false);
-				setDataSource(mapData(response?.users));
+				setDataSource(
+					mapData(
+						response?.users?.filter(
+							(item) => item?.area === endpoint
+						)
+					)
+				);
 			})
 			.catch((err) => console.log(err));
 	};
 
 	useEffect(() => {
 		getData();
-	}, []);
+	}, [endpoint]);
 
 	useEffect(() => {
 		if (reloadData) {

@@ -90,11 +90,55 @@ const AdminAddUser = ({ closeDrawer, setReloadData }) => {
 				rules={[
 					{
 						required: true,
-						message: "Chưa nhập khu vực",
+						message: "Chưa chọn khu vực",
 					},
 				]}
 			>
-				<Input placeholder="Nhập khu vực" />
+				<Select
+					placeholder="Chọn đại lý"
+					options={[
+						{
+							label: "Khu vực miền Bắc",
+							value: "northside",
+						},
+						{
+							label: "Khu vực miền Trung",
+							value: "midside",
+						},
+						{
+							label: "Khu vực miền Nam",
+							value: "southside",
+						},
+					]}
+				/>
+			</Form.Item>
+			<Form.Item
+				name={"role_id"}
+				label={"Quyền"}
+				rules={[
+					{
+						required: true,
+						message: "Chưa chọn quyền",
+					},
+				]}
+			>
+				<Select
+					placeholder="Chọn quyền"
+					options={[
+						{
+							label: "ADMIN",
+							value: 1,
+						},
+						{
+							label: "Đại lý",
+							value: 2,
+						},
+						{
+							label: "Cộng tác viên",
+							value: 3,
+						},
+					]}
+				/>
 			</Form.Item>
 
 			<Button htmlType="submit">Thêm mới</Button>

@@ -43,7 +43,11 @@ const MenuSidebar = () => {
 			),
 			getItem("Thiết kế", "/admin/document-sales/logo_design"),
 		]),
-		getItem("Người dùng", "/admin/users", <UserOutlined />),
+		getItem("Người dùng", "/admin/users", <UserOutlined />, [
+			getItem("Khu vực miền Bắc", "/admin/users/northside"),
+			getItem("Khu vực miền Trung", "/admin/users/midside"),
+			getItem("Khu vực miền Nam", "/admin/users/southside"),
+		]),
 	];
 
 	const onClick = ({ key }) => {

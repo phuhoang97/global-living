@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import AboutPage from "./components/Pages/AboutPage";
 import BlogPage from "./components/Pages/BlogPage";
 import BlogDetailsPage from "./components/Pages/BlogDetailsPage";
@@ -26,8 +26,13 @@ import LoginPage from "./pages/login";
 import AdminContactRouter from "./pages/admin/contact/router";
 import AdminDocumentSalesRouter from "./pages/admin/document-sales/router";
 import AdminUsersRouter from "./pages/admin/user/router";
+import { Button, Result } from "antd";
 
 function App() {
+	const navigate = useNavigate();
+	const token = localStorage.getItem("token");
+	const hasPermission = token ? true : false;
+
 	return (
 		<>
 			<Routes>
@@ -87,7 +92,34 @@ function App() {
 					<Route path="main-product" element={<MainProduct />} />
 				</Route>
 
-				<Route path="/admin/*" element={<MainLayout />}>
+				<Route
+					path="/admin/*"
+					element={
+						hasPermission ? (
+							<MainLayout />
+						) : (
+							<Result
+								status="403"
+								title={<div className="text-white">403</div>}
+								subTitle={
+									<div className="text-white">
+										Sorry, you are not authorized to access
+										this page.
+									</div>
+								}
+								extra={
+									<Button
+										type="primary"
+										onClick={() => navigate("/login")}
+										className="text-white"
+									>
+										Login now
+									</Button>
+								}
+							/>
+						)
+					}
+				>
 					<Route path="analytics" element={<DefaultPage />} />
 					<Route path="contact/*" element={<AdminContactRouter />} />
 					<Route

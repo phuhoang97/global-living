@@ -15,7 +15,7 @@ export async function getMe() {
 
 	const decode = await jwtDecode(token);
 
-	if (decode) {
+	if (token) {
 		return decode;
 	} else {
 		return {
