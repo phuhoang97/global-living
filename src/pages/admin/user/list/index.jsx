@@ -12,7 +12,7 @@ import { convertAreaName } from "../../../../helper";
 const AdminListUsers = () => {
 	const token = localStorage.getItem("token");
 	const decode = jwtDecode(token);
-	const hasPermission = decode?.role === 1;
+	const hasPermission = decode?.role === 1 || decode?.role === 2;
 	const { pathname } = useLocation();
 	const pathnameSplit = pathname.split("/");
 	const endpoint = pathnameSplit[pathnameSplit?.length - 1];
@@ -35,14 +35,9 @@ const AdminListUsers = () => {
 			});
 	};
 
-	const mapData = (data) => {
-		if (!data || data?.length <= 0) return [];
-
-		return data?.map((item) => ({
-			...item,
-			key: item?.id,
-			area: convertAreaName(item?.area),
-			action: hasPermission ? (
+	const checkPermissionAction = (role, item) => {
+		if (decode?.role === 1) {
+			return (
 				<>
 					<Popconfirm
 						title="Xóa User"
@@ -53,9 +48,37 @@ const AdminListUsers = () => {
 						<DeleteOutlined className="cursor-pointer" />
 					</Popconfirm>
 				</>
-			) : (
-				<></>
-			),
+			);
+		} else {
+			if (decode?.role === 2) {
+				if (role === 1) {
+					return <></>;
+				} else {
+					return (
+						<>
+							<Popconfirm
+								title="Xóa User"
+								onConfirm={() => onDelete(item?.id)}
+								okText="Đồng ý"
+								cancelText="Hủy"
+							>
+								<DeleteOutlined className="cursor-pointer" />
+							</Popconfirm>
+						</>
+					);
+				}
+			}
+		}
+	};
+
+	const mapData = (data) => {
+		if (!data || data?.length <= 0) return [];
+
+		return data?.map((item) => ({
+			...item,
+			key: item?.id,
+			area: convertAreaName(item?.area),
+			action: checkPermissionAction(item?.role, item),
 		}));
 	};
 
