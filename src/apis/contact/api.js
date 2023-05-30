@@ -14,3 +14,9 @@ export async function postContact(contact) {
 
 	return response?.data || {};
 }
+
+export async function deleteContact(contactId) {
+	const response = await axios.delete(`${BASE_URL}/${contactId}`);
+
+	return response?.data || {};
+}

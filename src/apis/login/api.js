@@ -10,19 +10,11 @@ export async function login(userInfo) {
 	return response?.data || {};
 }
 
-export async function getMe() {
-	const token = localStorage.getItem("token");
-
-	const decode = await jwtDecode(token);
-
-	if (token) {
-		return decode;
-	} else {
-		return {
-			id: 1,
-			email: "",
-			role: 0,
-			iat: 1,
-		};
+export const getMe = () => {
+	try {
+		const token = localStorage.getItem("token");
+		return jwtDecode(token);
+	} catch (e) {
+		console.log(e);
 	}
-}
+};

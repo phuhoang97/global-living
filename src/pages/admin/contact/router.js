@@ -6,6 +6,11 @@ const AdminContactRouter = () => {
 	return (
 		<Routes path={"/"}>
 			<Route index element={<AdminListContact />} />
+			<Route path="1bed" element={<AdminListContact />} />
+			<Route path="2bed" element={<AdminListContact />} />
+			<Route path="3bed" element={<AdminListContact />} />
+			<Route path="4bed" element={<AdminListContact />} />
+			<Route path="studio" element={<AdminListContact />} />
 		</Routes>
 	);
 };
