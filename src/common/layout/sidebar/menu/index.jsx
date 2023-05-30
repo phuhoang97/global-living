@@ -33,7 +33,13 @@ const MenuSidebar = () => {
 			"group"
 		),
 		getItem(null, null, null, null, "divider"),
-		getItem("Contact", "/admin/contact", <SolutionOutlined />),
+		getItem("Contact", "/admin/contact", <SolutionOutlined />, [
+			getItem("Căn hộ 1 phòng ngủ", "/admin/contact/1bed"),
+			getItem("Căn hộ 2 phòng ngủ", "/admin/contact/2bed"),
+			getItem("Căn hộ 3 phòng ngủ", "/admin/contact/3bed"),
+			getItem("Căn hộ 4 phòng ngủ", "/admin/contact/4bed"),
+			getItem("Căn hộ Studio", "/admin/contact/studio"),
+		]),
 		getItem("Document Sales", "/admin/document-sales", <FolderOutlined />, [
 			getItem("Tư liệu truyền thông", "/admin/document-sales/web_design"),
 			getItem("Tài liệu bán hàng", "/admin/document-sales/ui_ux_design"),
@@ -59,7 +65,7 @@ const MenuSidebar = () => {
 			theme="light"
 			mode="inline"
 			style={{ border: "none" }}
-			defaultOpenKeys={rootMenuKeys}
+			// defaultOpenKeys={rootMenuKeys}
 			defaultSelectedKeys={[pathname]}
 			items={items}
 			onClick={onClick}
