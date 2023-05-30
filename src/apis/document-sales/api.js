@@ -21,6 +21,15 @@ export async function postDocumentSale(documentSales) {
 	return response?.data || {};
 }
 
+export async function updateDocumentSale(documentId, documentSales) {
+	const response = await axios.put(
+		`${BASE_URL}/${documentId}`,
+		documentSales
+	);
+
+	return response?.data || {};
+}
+
 export async function deleteDocumentSale(documentSalesId) {
 	const response = await axios.delete(`${BASE_URL}/${documentSalesId}`);
 

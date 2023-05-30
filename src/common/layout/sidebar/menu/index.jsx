@@ -48,6 +48,11 @@ const MenuSidebar = () => {
 				"/admin/document-sales/mobile_apps"
 			),
 			getItem("Thiết kế", "/admin/document-sales/logo_design"),
+			{
+				label: "Tạo category mới",
+				key: `create-category`,
+				className: "font-bold",
+			},
 		]),
 		getItem("Người dùng", "/admin/users", <UserOutlined />, [
 			getItem("Khu vực miền Bắc", "/admin/users/northside"),
@@ -64,7 +69,7 @@ const MenuSidebar = () => {
 		<Menu
 			theme="light"
 			mode="inline"
-			style={{ border: "none" }}
+			style={{ border: "none", height: "100%", overflow: "hidden auto" }}
 			// defaultOpenKeys={rootMenuKeys}
 			defaultSelectedKeys={[pathname]}
 			items={items}

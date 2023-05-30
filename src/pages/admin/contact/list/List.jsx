@@ -1,11 +1,12 @@
-import { Popconfirm, Table, message } from "antd";
+import { Drawer, Popconfirm, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { deleteContact, getAllContacts } from "../../../../apis/contact/api";
 import { convertProductName } from "../../../../helper";
 import { columns } from "./columns";
 import jwtDecode from "jwt-decode";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
+import AdminUpdateContact from "../services/update";
 
 const AdminListContact = () => {
 	const token = localStorage.getItem("token");
@@ -17,6 +18,8 @@ const AdminListContact = () => {
 	const [loading, setLoading] = useState(false);
 	const [reloadData, setReloadData] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
+	const [open, setOpen] = useState(false);
+	const [id, setId] = useState(0);
 
 	const mapData = (data) => {
 		if (!data || data?.length <= 0) return [];
@@ -35,6 +38,13 @@ const AdminListContact = () => {
 						>
 							<DeleteOutlined className="cursor-pointer" />
 						</Popconfirm>
+						<EditOutlined
+							className="cursor-pointer mx-3"
+							onClick={() => {
+								setId(item?.id);
+								setOpen(true);
+							}}
+						/>
 					</>
 				) : (
 					<></>
@@ -72,6 +82,14 @@ const AdminListContact = () => {
 			});
 	};
 
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
 	useEffect(() => {
 		getData();
 	}, [endpoint]);
@@ -87,7 +105,26 @@ const AdminListContact = () => {
 	}, [reloadData]);
 
 	return (
-		<Table columns={columns} dataSource={dataSource} loading={loading} />
+		<>
+			<Table
+				columns={columns}
+				dataSource={dataSource}
+				loading={loading}
+			/>
+			<Drawer
+				open={open}
+				title={"Cập nhật"}
+				onClose={handleClose}
+				destroyOnClose
+				width={600}
+			>
+				<AdminUpdateContact
+					id={id}
+					closeDrawer={handleClose}
+					setReloadData={setReloadData}
+				/>
+			</Drawer>
+		</>
 	);
 };
 

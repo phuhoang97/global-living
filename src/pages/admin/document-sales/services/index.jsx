@@ -1,12 +1,26 @@
-import { Button, Form, Input, Select, Upload } from "antd";
-import React, { useState } from "react";
-import { postDocumentSale } from "../../../../../apis/document-sales/api";
-import { getLink } from "../../../../../helper/getLink";
+import { Button, Form, Input, Select, Upload, message } from "antd";
+import React, { useEffect, useState } from "react";
+import {
+	getDetailDocumentSales,
+	postDocumentSale,
+	updateDocumentSale,
+} from "../../../../apis/document-sales/api";
+import { getLink } from "../../../../helper/getLink";
 import { UploadOutlined } from "@ant-design/icons";
 
-const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
+const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState({});
+
+	useEffect(() => {
+		if (id) {
+			getDetailDocumentSales(id)
+				.then((response) => {
+					form.setFieldsValue(response?.data[0]);
+				})
+				.catch(() => {});
+		}
+	}, [id]);
 
 	const props = {
 		beforeUpload: (file) => {
@@ -26,26 +40,45 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 	};
 
 	const onFinish = async (values) => {
-		try {
-			// const url = await getLink(selected);
-			values = {
-				...values,
-				image: selected,
-			};
+		values = {
+			...values,
+			image: selected,
+		};
+		// const url = await getLink(selected);
+		if (!id) {
+			postDocumentSale(values)
+				.then(() => {
+					if (closeDrawer) {
+						closeDrawer();
+					}
 
-			postDocumentSale(values).then(() => {
-				if (closeDrawer) {
-					closeDrawer();
-				}
+					if (setReloadData) {
+						setReloadData(true);
+					}
 
-				if (setReloadData) {
-					setReloadData(true);
-				}
+					message.success("Thêm mới tài liệu thành công!");
+					form.resetFields();
+				})
+				.catch(() => {
+					message.success("Thêm mới tài liệu thất bại!");
+				});
+		} else {
+			updateDocumentSale(id, values)
+				.then(() => {
+					if (closeDrawer) {
+						closeDrawer();
+					}
 
-				form.resetFields();
-			});
-		} catch (error) {
-			console.log(error);
+					if (setReloadData) {
+						setReloadData(true);
+					}
+
+					message.success("Cập nhật tài liệu thành công!");
+					form.resetFields();
+				})
+				.catch(() => {
+					message.success("Cập nhật tài liệu thất bại!");
+				});
 		}
 	};
 
@@ -110,7 +143,7 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData }) => {
 				<Input placeholder="Nhập đường dẫn" />
 			</Form.Item>
 
-			<Button htmlType="submit">Thêm mới</Button>
+			<Button htmlType="submit">{!id ? "Thêm mới" : "Cập nhật"}</Button>
 		</Form>
 	);
 };

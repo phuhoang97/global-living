@@ -19,5 +19,5 @@ export const columns = [
 		dataIndex: "phone",
 		title: "Số điện thoại",
 	},
-	{ dataIndex: "action", width: "4%" },
+	{ dataIndex: "action", width: "6%" },
 ];

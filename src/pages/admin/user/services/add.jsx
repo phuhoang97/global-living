@@ -1,25 +1,56 @@
 import { Button, Form, Input, message, Select } from "antd";
-import React from "react";
-import { postUser } from "../../../../apis/users/api";
+import React, { useEffect } from "react";
+import { postUser, updateUser } from "../../../../apis/users/api";
+import { getDetailUsers } from "../../../../apis/users/api";
 
-const AdminAddUser = ({ closeDrawer, setReloadData }) => {
+const AdminAddUser = ({ closeDrawer, setReloadData, id }) => {
 	const [form] = Form.useForm();
 
+	useEffect(() => {
+		if (id) {
+			getDetailUsers(id)
+				.then((response) => {
+					form.setFieldsValue({
+						...response[0],
+						role_id: response[0]?.role,
+					});
+				})
+				.catch(() => {});
+		}
+	}, [id]);
+
 	const onFinish = (values) => {
-		postUser(values)
-			.then(() => {
-				message.success("Thêm người dùng thành công!");
-				if (closeDrawer) {
-					closeDrawer();
-				}
+		if (!id) {
+			postUser(values)
+				.then(() => {
+					if (closeDrawer) {
+						closeDrawer();
+					}
 
-				if (setReloadData) {
-					setReloadData(true);
-				}
+					if (setReloadData) {
+						setReloadData(true);
+					}
 
-				form.resetFields();
-			})
-			.catch(() => message.error("Thêm người dùng thất bại!"));
+					message.success("Thêm người dùng thành công!");
+					form.resetFields();
+				})
+				.catch(() => message.error("Thêm người dùng thất bại!"));
+		} else {
+			updateUser(id, values)
+				.then(() => {
+					if (closeDrawer) {
+						closeDrawer();
+					}
+
+					if (setReloadData) {
+						setReloadData(true);
+					}
+
+					message.success("Cập nhật dùng thành công!");
+					form.resetFields();
+				})
+				.catch(() => message.error("Cập nhật dùng thất bại!"));
+		}
 	};
 
 	return (
@@ -141,7 +172,7 @@ const AdminAddUser = ({ closeDrawer, setReloadData }) => {
 				/>
 			</Form.Item>
 
-			<Button htmlType="submit">Thêm mới</Button>
+			<Button htmlType="submit">{!id ? "Thêm mới" : "Cập nhật"}</Button>
 		</Form>
 	);
 };
