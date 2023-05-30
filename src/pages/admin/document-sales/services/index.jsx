@@ -7,10 +7,25 @@ import {
 } from "../../../../apis/document-sales/api";
 import { getLink } from "../../../../helper/getLink";
 import { UploadOutlined } from "@ant-design/icons";
+import { getAllCategories } from "../../../../apis/category/api";
 
 const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState({});
+	const [categories, setCategories] = useState([]);
+
+	const mapCategories = (categories) => {
+		return categories?.map((category) => ({
+			label: category?.name,
+			value: category?.id,
+		}));
+	};
+
+	useEffect(() => {
+		getAllCategories().then((response) => {
+			setCategories(mapCategories(response?.categories));
+		});
+	}, []);
 
 	useEffect(() => {
 		if (id) {
@@ -99,22 +114,23 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 			>
 				<Select
 					options={[
-						{
-							label: "Tư liệu truyền thông",
-							value: "web_design",
-						},
-						{
-							label: "Tài liệu bán hàng",
-							value: "ui_ux_design",
-						},
-						{
-							label: "Thông tin chương trình",
-							value: "mobile_apps",
-						},
-						{
-							label: "Thiết kế",
-							value: "logo_design",
-						},
+						// {
+						// 	label: "Tư liệu truyền thông",
+						// 	value: "web_design",
+						// },
+						// {
+						// 	label: "Tài liệu bán hàng",
+						// 	value: "ui_ux_design",
+						// },
+						// {
+						// 	label: "Thông tin chương trình",
+						// 	value: "mobile_apps",
+						// },
+						// {
+						// 	label: "Thiết kế",
+						// 	value: "logo_design",
+						// },
+						...categories,
 					]}
 					placeholder="Chọn mục"
 				/>

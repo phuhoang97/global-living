@@ -10,6 +10,7 @@ import SectionHeading from "../SectionHeading";
 import Spacing from "../Spacing";
 import { getAllDocumentSales } from "../../apis/document-sales/api";
 import { Spin } from "antd";
+import { getAllCategories } from "../../apis/category/api";
 
 export default function PortfolioPage() {
 	pageTitle("Portfolio");
@@ -18,6 +19,7 @@ export default function PortfolioPage() {
 	const [active, setActive] = useState("all");
 	const [itemShow, setItemShow] = useState(7);
 	const [dataSource, setDataSource] = useState([]);
+	const [categories, setCategories] = useState([]);
 
 	const categoryMenu = [
 		{
@@ -57,6 +59,10 @@ export default function PortfolioPage() {
 			setDataSource(mapData(response?.data));
 			setLoading(false);
 		});
+
+		getAllCategories().then((response) => {
+			setCategories(response?.categories);
+		});
 	}, []);
 
 	return (
@@ -80,17 +86,15 @@ export default function PortfolioPage() {
 									All
 								</span>
 							</li>
-							{categoryMenu.map((item, index) => (
+							{categories.map((item, index) => (
 								<li
 									className={
-										active === item.category ? "active" : ""
+										active === item.id ? "active" : ""
 									}
-									key={index}
+									key={item?.id}
 								>
-									<span
-										onClick={() => setActive(item.category)}
-									>
-										{item.title}
+									<span onClick={() => setActive(item.id)}>
+										{item.name}
 									</span>
 								</li>
 							))}

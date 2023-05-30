@@ -3,7 +3,7 @@ import { BASE_ENPOINT } from "../constants";
 
 const BASE_URL = `${BASE_ENPOINT}/category`;
 
-export async function getAllCategorys() {
+export async function getAllCategories() {
 	const response = await axios.get(BASE_URL);
 
 	return response?.data || [];
