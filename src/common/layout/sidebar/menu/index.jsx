@@ -18,7 +18,7 @@ function getItem(label, key, icon, children, type) {
 	};
 }
 
-const rootMenuKeys = ["/admin/document-sales"];
+const rootMenuKeys = ["/admin/document-sales", "/admin/users"];
 
 const MenuSidebar = () => {
 	const navigate = useNavigate();
