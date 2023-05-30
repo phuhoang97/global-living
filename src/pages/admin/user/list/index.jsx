@@ -1,7 +1,7 @@
 import { Drawer, Popconfirm, Table, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { columns } from "./columns";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { deleteUser, getAllUsers } from "../../../../apis/users/api";
 import AdminAddUser from "../services/add";
 import PermissionButton from "../../../../common/permissions/button";
@@ -18,6 +18,7 @@ const AdminListUsers = () => {
 	const endpoint = pathnameSplit[pathnameSplit?.length - 1];
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [id, setId] = useState(0);
 	const [reloadData, setReloadData] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
 
@@ -47,6 +48,13 @@ const AdminListUsers = () => {
 					>
 						<DeleteOutlined className="cursor-pointer" />
 					</Popconfirm>
+					<EditOutlined
+						className="cursor-pointer mx-3"
+						onClick={() => {
+							setId(item?.id);
+							setOpen(true);
+						}}
+					/>
 				</>
 			);
 		} else {
@@ -64,6 +72,13 @@ const AdminListUsers = () => {
 							>
 								<DeleteOutlined className="cursor-pointer" />
 							</Popconfirm>
+							<EditOutlined
+								className="cursor-pointer mx-3"
+								onClick={() => {
+									setId(item?.id);
+									setOpen(true);
+								}}
+							/>
 						</>
 					);
 				}
@@ -131,11 +146,13 @@ const AdminListUsers = () => {
 
 			<Drawer
 				open={open}
-				title={"Thêm mới"}
+				title={!id ? "Thêm mới" : "Cập nhật"}
 				onClose={handleClose}
 				destroyOnClose
+				width={600}
 			>
 				<AdminAddUser
+					id={id}
 					closeDrawer={handleClose}
 					setReloadData={setReloadData}
 				/>
