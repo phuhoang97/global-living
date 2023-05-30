@@ -21,6 +21,12 @@ export async function postUser(user) {
 	return response?.data || {};
 }
 
+export async function updateUser(userId, user) {
+	const response = await axios.put(`${BASE_URL}/${userId}`, user);
+
+	return response?.data || {};
+}
+
 export async function deleteUser(userId) {
 	const response = await axios.delete(`${BASE_URL}/${userId}`);
 

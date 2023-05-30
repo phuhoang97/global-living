@@ -4,6 +4,7 @@ import Div from "../Div";
 import Slider from "react-slick";
 import { useState } from "react";
 import { getAllDocumentSales } from "../../apis/document-sales/api";
+import { getAllCategories } from "../../apis/category/api";
 
 export default function PortfolioSlider() {
 	const [dataSource, setDataSource] = useState([]);
@@ -56,10 +57,12 @@ export default function PortfolioSlider() {
 
 	const mapData = (data) => {
 		if (!data || data?.length <= 0) return [];
-		return data?.map((item) => ({
-			...item,
-			subtitle: "See Details",
-		}));
+		return data?.map((item) => {
+			return {
+				...item,
+				subtitle: "See Details",
+			};
+		});
 	};
 
 	const sortLatestItem = (items) => {
@@ -73,51 +76,73 @@ export default function PortfolioSlider() {
 	};
 
 	useEffect(() => {
-		getAllDocumentSales().then((response) => {
-			const latestUIUX = sortLatestItem(
-				response?.data?.filter(
-					(item) => item?.category === "ui_ux_design"
-				)
-			);
-			const latestWebDesign = sortLatestItem(
-				response?.data?.filter(
-					(item) => item?.category === "web_design"
-				)
-			);
-			const latestMobileApps = sortLatestItem(
-				response?.data?.filter(
-					(item) => item?.category === "mobile_apps"
-				)
-			);
-			const latestLogoDesign = sortLatestItem(
-				response?.data?.filter(
-					(item) => item?.category === "logo_design"
-				)
+		(async function fetchData() {
+			// const latestUIUX = sortLatestItem(
+			//     response?.data?.filter(
+			//         (item) => item?.category === "ui_ux_design"
+			//     )
+			// );
+			// const latestWebDesign = sortLatestItem(
+			//     response?.data?.filter(
+			//         (item) => item?.category === "web_design"
+			//     )
+			// );
+			// const latestMobileApps = sortLatestItem(
+			//     response?.data?.filter(
+			//         (item) => item?.category === "mobile_apps"
+			//     )
+			// );
+			// const latestLogoDesign = sortLatestItem(
+			//     response?.data?.filter(
+			//         (item) => item?.category === "logo_design"
+			//     )
+			// );
+
+			// const mapItems = [
+			//     latestUIUX,
+			//     latestWebDesign,
+			//     latestMobileApps,
+			//     latestLogoDesign,
+			// ];
+
+			const categoriesData = await getAllCategories().then((response) => {
+				return response?.categories;
+			});
+
+			const documentSalesData = await getAllDocumentSales().then(
+				(response) => {
+					return response?.data;
+				}
 			);
 
-			const mapItems = [
-				latestUIUX,
-				latestWebDesign,
-				latestMobileApps,
-				latestLogoDesign,
-			];
+			const mergedArray = categoriesData.map((category) => {
+				const index = documentSalesData.findIndex(
+					(document) => document?.category === category?.id
+				);
+				if (index !== -1) {
+					return { ...category, ...documentSalesData[index] };
+				}
+				return category;
+			});
 
-			setDataSource(mapData(mapItems));
-		});
+			setDataSource(mapData(mergedArray));
+		})();
 	}, []);
 
 	return (
 		<Slider {...settings} className="cs-slider cs-style3 cs-gap-24">
-			{dataSource.map((item, index) => (
-				<Div key={index}>
-					<Portfolio
-						title={item.title}
-						subtitle={item.subtitle}
-						href={item.link}
-						src={item.image}
-					/>
-				</Div>
-			))}
+			{dataSource?.map((item) => {
+				return (
+					<Div key={item?.id}>
+						<Portfolio
+							title={item.title}
+							subtitle={item.subtitle}
+							href={item.link}
+							src={item.image}
+						/>
+					</Div>
+				);
+			})}
 		</Slider>
 	);
 }

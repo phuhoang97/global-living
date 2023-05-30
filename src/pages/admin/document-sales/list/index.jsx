@@ -5,8 +5,8 @@ import {
 	deleteDocumentSale,
 	getAllDocumentSales,
 } from "../../../../apis/document-sales/api";
-import AminAddDocumentSales from "../services/add";
-import { DeleteOutlined } from "@ant-design/icons";
+import AminAddDocumentSales from "../services";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { convertCategoryName } from "../../../../helper";
 import { useLocation } from "react-router-dom";
 import PermissionButton from "../../../../common/permissions/button";
@@ -21,6 +21,7 @@ const AdminListDocumentSales = () => {
 	const endpoint = pathnameSplit[pathnameSplit?.length - 1];
 	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [id, setId] = useState(0);
 	const [reloadData, setReloadData] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
 
@@ -52,6 +53,13 @@ const AdminListDocumentSales = () => {
 					>
 						<DeleteOutlined className="cursor-pointer" />
 					</Popconfirm>
+					<EditOutlined
+						className="cursor-pointer mx-3"
+						onClick={() => {
+							setId(item?.id);
+							setOpen(true);
+						}}
+					/>
 				</>
 			) : (
 				<></>
@@ -106,11 +114,13 @@ const AdminListDocumentSales = () => {
 
 			<Drawer
 				open={open}
-				title={"Thêm mới"}
+				title={!id ? "Thêm mới" : "Cập nhật"}
 				onClose={handleClose}
 				destroyOnClose
+				width={600}
 			>
 				<AminAddDocumentSales
+					id={id}
 					closeDrawer={handleClose}
 					setReloadData={setReloadData}
 				/>

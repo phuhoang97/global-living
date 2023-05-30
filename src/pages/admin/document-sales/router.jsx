@@ -10,6 +10,7 @@ const AdminDocumentSalesRouter = () => {
 			<Route path="ui_ux_design" element={<AdminListDocumentSales />} />
 			<Route path="mobile_apps" element={<AdminListDocumentSales />} />
 			<Route path="logo_design" element={<AdminListDocumentSales />} />
+			<Route path="*" element={<AdminListDocumentSales />} />
 		</Routes>
 	);
 };
