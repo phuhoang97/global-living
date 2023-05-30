@@ -39,7 +39,7 @@ const AdminListUsers = () => {
 	const checkPermissionAction = (role, item) => {
 		if (decode?.role === 1) {
 			return (
-				<>
+				<div className="w-full flex items-center justify-center">
 					<Popconfirm
 						title="Xóa User"
 						onConfirm={() => onDelete(item?.id)}
@@ -55,7 +55,7 @@ const AdminListUsers = () => {
 							setOpen(true);
 						}}
 					/>
-				</>
+				</div>
 			);
 		} else {
 			if (decode?.role === 2) {
@@ -63,7 +63,7 @@ const AdminListUsers = () => {
 					return <></>;
 				} else {
 					return (
-						<>
+						<div className="w-full flex items-center justify-center">
 							<Popconfirm
 								title="Xóa User"
 								onConfirm={() => onDelete(item?.id)}
@@ -79,7 +79,7 @@ const AdminListUsers = () => {
 									setOpen(true);
 								}}
 							/>
-						</>
+						</div>
 					);
 				}
 			}

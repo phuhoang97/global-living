@@ -1,13 +1,23 @@
 import {
+	DeleteOutlined,
+	EditOutlined,
+	ExclamationCircleOutlined,
 	FolderOutlined,
+	MoreOutlined,
 	SolutionOutlined,
 	StockOutlined,
 	UserOutlined,
 } from "@ant-design/icons";
-import { Form, Input, Menu, Modal, message } from "antd";
+import { Form, Input, Menu, Modal, message, Dropdown, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getAllCategories, postCategory } from "../../../../apis/category/api";
+import {
+	deleteCategory,
+	getAllCategories,
+	getDetailCategory,
+	postCategory,
+	updateCategory,
+} from "../../../../apis/category/api";
 
 function getItem(label, key, icon, children, type) {
 	return {
@@ -26,8 +36,66 @@ const MenuSidebar = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const [open, setOpen] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [idCategory, setIdCategory] = useState(0);
 	const [reloadData, setReloadData] = useState(false);
 	const [menuDocumentSales, setMenuDocumentSales] = useState([]);
+	const [modal, contextHolder] = Modal.useModal();
+
+	const confirm = (id) => {
+		modal.confirm({
+			title: "Xác nhận xóa category?",
+			icon: <ExclamationCircleOutlined />,
+			okText: "Đồng ý",
+			cancelText: "Hủy",
+			onOk: () =>
+				deleteCategory(id).then(() => {
+					message.success("Xóa category thành công!");
+					setReloadData(true);
+				}),
+		});
+	};
+
+	const itemsMenuCategory = [
+		{
+			label: (
+				<div>
+					<DeleteOutlined className="mr-2" />
+					Xóa
+				</div>
+			),
+			key: "delete",
+		},
+		{
+			label: (
+				<div>
+					<EditOutlined className="mr-2" />
+					Sửa
+				</div>
+			),
+			key: "update",
+		},
+	];
+
+	const onClickMenuCategory = ({ key }, id) => {
+		if (key === "delete") {
+			confirm(id);
+		} else if (key === "update") {
+			setOpen(true);
+			setIdCategory(id);
+			setLoading(true);
+			getDetailCategory(id)
+				.then((response) => {
+					setLoading(false);
+					form.setFieldsValue({
+						category: response?.category[0]?.category,
+					});
+				})
+				.catch(() => {
+					setLoading(false);
+				});
+		}
+	};
 
 	const getDataMenu = () => {
 		getAllCategories()
@@ -47,7 +115,21 @@ const MenuSidebar = () => {
 					// ),
 					// getItem("Thiết kế", "/admin/document-sales/logo_design"),
 					...response?.categories?.map((item) => ({
-						label: item?.name,
+						label: (
+							<div className="flex items-center justify-between">
+								{item?.category}
+								<Dropdown
+									menu={{
+										items: itemsMenuCategory,
+										onClick: (e) =>
+											onClickMenuCategory(e, item?.id),
+									}}
+									trigger={["click"]}
+								>
+									<MoreOutlined />
+								</Dropdown>
+							</div>
+						),
 						key: `/admin/document-sales/${item?.id}`,
 					})),
 					{
@@ -110,14 +192,34 @@ const MenuSidebar = () => {
 	};
 
 	const onFinish = (values) => {
-		postCategory(values)
-			.then(() => {
-				message.success("Thêm mới category thành công!");
-				setReloadData(true);
-				setOpen(false);
-				form.resetFields();
-			})
-			.catch(() => {});
+		setLoading(true);
+		if (!idCategory) {
+			postCategory(values)
+				.then(() => {
+					message.success("Thêm mới category thành công!");
+					setReloadData(true);
+					setOpen(false);
+					setLoading(false);
+					form.resetFields();
+				})
+				.catch(() => {
+					setLoading(false);
+					message.error("Thêm mới category thất bại!");
+				});
+		} else {
+			updateCategory(idCategory, values)
+				.then(() => {
+					message.success("Cập nhật category thành công!");
+					setReloadData(true);
+					setOpen(false);
+					form.resetFields();
+					setLoading(false);
+				})
+				.catch(() => {
+					setLoading(false);
+					message.error("Cập nhật category thất bại!");
+				});
+		}
 	};
 
 	return (
@@ -138,26 +240,34 @@ const MenuSidebar = () => {
 
 			<Modal
 				open={open}
-				title="Tạo mới category"
+				title={idCategory ? "Cập nhật category" : "Tạo mới category"}
 				destroyOnClose
-				onCancel={() => setOpen(false)}
+				onCancel={() => {
+					setOpen(false);
+					form.resetFields();
+					setIdCategory(0);
+				}}
 				onOk={() => form.submit()}
 			>
-				<Form form={form} onFinish={onFinish} layout="vertical">
-					<Form.Item
-						name="category"
-						label="Category"
-						rules={[
-							{
-								required: true,
-								message: "Chưa nhập category",
-							},
-						]}
-					>
-						<Input placeholder="Nhập category" />
-					</Form.Item>
-				</Form>
+				<Spin spinning={loading}>
+					<Form form={form} onFinish={onFinish} layout="vertical">
+						<Form.Item
+							name="category"
+							label="Category"
+							rules={[
+								{
+									required: true,
+									message: "Chưa nhập category",
+								},
+							]}
+						>
+							<Input placeholder="Nhập category" />
+						</Form.Item>
+					</Form>
+				</Spin>
 			</Modal>
+
+			{contextHolder}
 		</>
 	);
 };

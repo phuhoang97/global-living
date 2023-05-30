@@ -44,7 +44,7 @@ const AdminListDocumentSales = () => {
 			key: item?.id,
 			category: convertCategoryName(item?.category),
 			action: hasPermission ? (
-				<>
+				<div className="w-full flex items-center justify-center">
 					<Popconfirm
 						title="Xóa Document sales"
 						onConfirm={() => onDelete(item?.id)}
@@ -60,7 +60,7 @@ const AdminListDocumentSales = () => {
 							setOpen(true);
 						}}
 					/>
-				</>
+				</div>
 			) : (
 				<></>
 			),
