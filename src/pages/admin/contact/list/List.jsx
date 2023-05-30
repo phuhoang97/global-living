@@ -29,7 +29,7 @@ const AdminListContact = () => {
 				key: item?.id,
 				product: convertProductName(item?.product),
 				action: hasPermission ? (
-					<>
+					<div className="w-full flex items-center justify-center">
 						<Popconfirm
 							title="Xóa Contact?"
 							onConfirm={() => onDelete(item?.id)}
@@ -45,7 +45,7 @@ const AdminListContact = () => {
 								setOpen(true);
 							}}
 						/>
-					</>
+					</div>
 				) : (
 					<></>
 				),

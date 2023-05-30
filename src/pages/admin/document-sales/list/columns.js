@@ -28,5 +28,5 @@ export const columns = [
 		width: "30%",
 		ellipsis: true,
 	},
-	{ dataIndex: "action", width: "6%" },
+	{ dataIndex: "action", width: "10%" },
 ];

@@ -35,7 +35,6 @@ const LoginPage = () => {
 		setLoading(true);
 		login(values)
 			.then((response) => {
-				console.log("jtadd", response);
 				localStorage.setItem("token", response?.token);
 				setLoading(false);
 				message.success("Đăng nhập thành công!");
