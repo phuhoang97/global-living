@@ -11,6 +11,7 @@ import Spacing from "../Spacing";
 import { getAllDocumentSales } from "../../apis/document-sales/api";
 import { Spin, Tabs } from "antd";
 import { getAllCategories } from "../../apis/category/api";
+import { getAllCategoriesDetailByCategoryId } from "../../apis/category/detail";
 
 export default function PortfolioPage() {
 	pageTitle("Portfolio");
@@ -20,6 +21,8 @@ export default function PortfolioPage() {
 	const [itemShow, setItemShow] = useState(7);
 	const [dataSource, setDataSource] = useState([]);
 	const [categories, setCategories] = useState([]);
+	const [detailCategories, setDetailCategories] = useState([]);
+	const [activeDetail, setActiveDetail] = useState("all");
 
 	const categoryMenu = [
 		{
@@ -125,6 +128,14 @@ export default function PortfolioPage() {
 		}));
 	};
 
+	const mapDetailCategories = (data) => {
+		if (!data || data?.length <= 0) return [];
+		return data?.map((item) => ({
+			label: item?.detail,
+			key: item?.id,
+		}));
+	};
+
 	const mapData = (data) => {
 		if (!data || data?.length <= 0) return [];
 		return data?.map((item) => ({
@@ -151,8 +162,27 @@ export default function PortfolioPage() {
 
 		getAllCategories().then((response) => {
 			setCategories(mapDataCategories(response?.categories));
+
+			const data = response?.data;
+			const childData = [];
+			data?.map((item) => childData.push(...item?.children));
+
+			console.log("jtadd", childData);
+
+			setDetailCategories(mapDetailCategories(childData));
 		});
 	}, []);
+
+	const handleGetDetail = (key) => {
+		setActive(key);
+		if (key !== "all") {
+			getAllCategoriesDetailByCategoryId({ category_id: key })
+				.then((response) => {
+					setDetailCategories(mapDetailCategories(response?.data));
+				})
+				.catch(() => {});
+		}
+	};
 
 	return (
 		<>
@@ -190,10 +220,48 @@ export default function PortfolioPage() {
 						</ul>
 					</Div> */}
 				</Div>
-				<Tabs items={categories} />
+				<Div className="cs-filter_menu cs-style1">
+					<ul className="cs-mp0 cs-center">
+						<li className={active === "all" ? "active" : ""}>
+							<span onClick={() => setActive("all")}>All</span>
+						</li>
+						{categories.map((item) => (
+							<li
+								className={active === item?.key ? "active" : ""}
+								key={item?.key}
+							>
+								<span
+									onClick={() => handleGetDetail(item?.key)}
+								>
+									{item.label}
+								</span>
+							</li>
+						))}
+					</ul>
+				</Div>
+				<Div className="cs-filter_menu cs-style1">
+					<ul className="cs-mp0 cs-center">
+						<li className={active === "all" ? "active" : ""}>
+							<span onClick={() => setActive("all")}>All</span>
+						</li>
+						{detailCategories.map((item) => (
+							<li
+								className={active === item?.key ? "active" : ""}
+								key={item?.key}
+							>
+								<span
+									onClick={() => handleGetDetail(item?.key)}
+								>
+									{item.label}
+								</span>
+							</li>
+						))}
+					</ul>
+				</Div>
+				{/* <Tabs items={categories} /> */}
 				<Spacing lg="90" md="45" />
 				<Spin spinning={loading} size="large">
-					{/* <Div className="row">
+					<Div className="row">
 						{dataSource.slice(0, itemShow).map((item, index) => {
 							return (
 								<Div
@@ -238,7 +306,7 @@ export default function PortfolioPage() {
 								</span>
 							</>
 						)}
-					</Div> */}
+					</Div>
 				</Spin>
 			</Div>
 			<Spacing lg="145" md="80" />
