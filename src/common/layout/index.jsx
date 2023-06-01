@@ -1,4 +1,4 @@
-import { Layout, notification } from "antd";
+import { ConfigProvider, Layout } from "antd";
 import React, { useEffect, useState } from "react";
 import { useMemo } from "react";
 import { LayoutContext } from "../../contexts";
@@ -26,23 +26,37 @@ const MainLayout = () => {
 	}, [collapsed]);
 
 	return (
-		<LayoutContext.Provider value={contextValues}>
-			<Layout
-				style={{
-					maxHeight: "100vh",
-					height: "100vh",
-					maxWidth: "100vw",
-					width: "100vw",
-					overflow: "hidden",
-				}}
-			>
-				<MainHeader />
-				<Layout>
-					<MainSidebar />
-					<MainContent />
+		<ConfigProvider
+			theme={{
+				token: {
+					fontSize: 16,
+					colorPrimary: "#7c3ab7",
+				},
+				components: {
+					Spin: {
+						colorPrimary: "#fcb617",
+					},
+				},
+			}}
+		>
+			<LayoutContext.Provider value={contextValues}>
+				<Layout
+					style={{
+						maxHeight: "100vh",
+						height: "100vh",
+						maxWidth: "100vw",
+						width: "100vw",
+						overflow: "hidden",
+					}}
+				>
+					<MainHeader />
+					<Layout>
+						<MainSidebar />
+						<MainContent />
+					</Layout>
 				</Layout>
-			</Layout>
-		</LayoutContext.Provider>
+			</LayoutContext.Provider>
+		</ConfigProvider>
 	);
 };
 

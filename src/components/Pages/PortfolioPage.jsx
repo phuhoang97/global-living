@@ -9,7 +9,7 @@ import Div from "../Div";
 import SectionHeading from "../SectionHeading";
 import Spacing from "../Spacing";
 import { getAllDocumentSales } from "../../apis/document-sales/api";
-import { Spin } from "antd";
+import { Spin, Tabs } from "antd";
 import { getAllCategories } from "../../apis/category/api";
 
 export default function PortfolioPage() {
@@ -40,6 +40,91 @@ export default function PortfolioPage() {
 		},
 	];
 
+	const mapDataCategories = (data) => {
+		if (!data || data?.length <= 0) return [];
+		return data?.map((item) => ({
+			label: item?.category,
+			key: item?.id,
+			children:
+				item?.children?.length > 0 ? (
+					<Tabs
+						items={item?.children?.map((child) => ({
+							label: child?.detail,
+							key: child?.id,
+							children: (
+								<>
+									<Div className="row">
+										{child?.documents
+											?.slice(0, itemShow)
+											.map((item, index) => {
+												return (
+													<Div
+														className={`${
+															index === 3 ||
+															index === 6
+																? "col-lg-8"
+																: "col-lg-4"
+														} ${
+															active === "all"
+																? ""
+																: !(
+																		active ===
+																		item.category
+																  )
+																? "d-none"
+																: ""
+														}`}
+														key={index}
+													>
+														<Portfolio
+															title={item.title}
+															subtitle={
+																item.subtitle
+															}
+															href={item.link}
+															src={item.image}
+															variant="cs-style1 cs-type1"
+														/>
+														<Spacing
+															lg="25"
+															md="25"
+														/>
+													</Div>
+												);
+											})}
+									</Div>
+
+									<Div className="text-center">
+										{child?.documents?.length <=
+										itemShow ? (
+											""
+										) : (
+											<>
+												<Spacing lg="65" md="40" />
+												<span
+													className="cs-text_btn"
+													onClick={() =>
+														setItemShow(
+															itemShow + 3
+														)
+													}
+												>
+													<span>Load More</span>
+													<Icon icon="bi:arrow-right" />
+												</span>
+											</>
+										)}
+									</Div>
+								</>
+							),
+						}))}
+					/>
+				) : (
+					<></>
+				),
+		}));
+	};
+
 	const mapData = (data) => {
 		if (!data || data?.length <= 0) return [];
 		return data?.map((item) => ({
@@ -52,16 +137,20 @@ export default function PortfolioPage() {
 		window.scrollTo(0, 0);
 	}, []);
 
-	useEffect(() => {
-		setLoading(true);
-
+	const getDataDocument = () => {
 		getAllDocumentSales().then((response) => {
 			setDataSource(mapData(response?.data));
 			setLoading(false);
 		});
+	};
+
+	useEffect(() => {
+		setLoading(true);
+
+		getDataDocument();
 
 		getAllCategories().then((response) => {
-			setCategories(response?.categories);
+			setCategories(mapDataCategories(response?.categories));
 		});
 	}, []);
 
@@ -79,7 +168,7 @@ export default function PortfolioPage() {
 						title="Some recent work"
 						subtitle="Our Portfolio"
 					/>
-					<Div className="cs-filter_menu cs-style1">
+					{/* <Div className="cs-filter_menu cs-style1">
 						<ul className="cs-mp0 cs-center">
 							<li className={active === "all" ? "active" : ""}>
 								<span onClick={() => setActive("all")}>
@@ -99,11 +188,12 @@ export default function PortfolioPage() {
 								</li>
 							))}
 						</ul>
-					</Div>
+					</Div> */}
 				</Div>
+				<Tabs items={categories} />
 				<Spacing lg="90" md="45" />
 				<Spin spinning={loading} size="large">
-					<Div className="row">
+					{/* <Div className="row">
 						{dataSource.slice(0, itemShow).map((item, index) => {
 							return (
 								<Div
@@ -148,7 +238,7 @@ export default function PortfolioPage() {
 								</span>
 							</>
 						)}
-					</Div>
+					</Div> */}
 				</Spin>
 			</Div>
 			<Spacing lg="145" md="80" />

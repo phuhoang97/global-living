@@ -4,6 +4,7 @@ import {
 	ExclamationCircleOutlined,
 	FolderOutlined,
 	MoreOutlined,
+	PlusCircleOutlined,
 	SolutionOutlined,
 	StockOutlined,
 	UserOutlined,
@@ -97,6 +98,14 @@ const MenuSidebar = () => {
 		}
 	};
 
+	const mapDetailCategory = (data) => {
+		if (!data || data?.length <= 0) return [];
+		return data?.map((item) => ({
+			label: item?.detail,
+			key: item?.id,
+		}));
+	};
+
 	const getDataMenu = () => {
 		getAllCategories()
 			.then((response) => {
@@ -131,6 +140,14 @@ const MenuSidebar = () => {
 							</div>
 						),
 						key: `/admin/document-sales/${item?.id}`,
+						children: [
+							...mapDetailCategory(item?.children),
+							{
+								label: <PlusCircleOutlined />,
+								key: `create-detail-category-${item?.id}`,
+								className: "font-bold text-center !pl-0",
+							},
+						],
 					})),
 					{
 						label: "Tạo category mới",
@@ -142,17 +159,17 @@ const MenuSidebar = () => {
 			.catch(() => {});
 	};
 
-	useEffect(() => {
-		getDataMenu();
-	}, []);
+	// useEffect(() => {
+	// 	getDataMenu();
+	// }, []);
 
-	useEffect(() => {
-		if (reloadData) {
-			getDataMenu();
-		}
+	// useEffect(() => {
+	// 	if (reloadData) {
+	// 		getDataMenu();
+	// 	}
 
-		return () => setReloadData(false);
-	}, [reloadData]);
+	// 	return () => setReloadData(false);
+	// }, [reloadData]);
 
 	const items = [
 		getItem(
@@ -173,8 +190,8 @@ const MenuSidebar = () => {
 		getItem(
 			"Document Sales",
 			"/admin/document-sales",
-			<FolderOutlined />,
-			menuDocumentSales
+			<FolderOutlined />
+			// menuDocumentSales
 		),
 		getItem("Người dùng", "/admin/users", <UserOutlined />, [
 			getItem("Khu vực miền Bắc", "/admin/users/northside"),

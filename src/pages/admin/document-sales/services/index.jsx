@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, Upload, message } from "antd";
+import { Button, Form, Input, Select, Spin, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
 import {
 	getDetailDocumentSales,
@@ -8,23 +8,41 @@ import {
 import { getLink } from "../../../../helper/getLink";
 import { UploadOutlined } from "@ant-design/icons";
 import { getAllCategories } from "../../../../apis/category/api";
+import { getAllCategoriesDetailByCategoryId } from "../../../../apis/category/detail";
 
 const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 	const [form] = Form.useForm();
+	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState({});
 	const [categories, setCategories] = useState([]);
+	const [detailCategories, setDetailCategories] = useState([]);
 
-	const mapCategories = (categories) => {
+	const mapDetailCategories = (categories) => {
 		return categories?.map((category) => ({
-			label: category?.name,
+			label: category?.detail,
 			value: category?.id,
 		}));
 	};
 
-	useEffect(() => {
-		getAllCategories().then((response) => {
-			setCategories(mapCategories(response?.categories));
+	const mapCategories = (categories) => {
+		return categories?.map((category) => {
+			return {
+				label: category?.category,
+				value: category?.id,
+			};
 		});
+	};
+
+	useEffect(() => {
+		setLoading(true);
+		getAllCategories()
+			.then((response) => {
+				setLoading(false);
+				setCategories(mapCategories(response?.categories));
+			})
+			.catch(() => {
+				setLoading(false);
+			});
 	}, []);
 
 	useEffect(() => {
@@ -36,6 +54,18 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 				.catch(() => {});
 		}
 	}, [id]);
+
+	const onSelectCategory = (id) => {
+		setLoading(true);
+		getAllCategoriesDetailByCategoryId({ category_id: id })
+			.then((response) => {
+				setDetailCategories(mapDetailCategories(response?.data));
+				setLoading(false);
+			})
+			.catch(() => {
+				setLoading(false);
+			});
+	};
 
 	const props = {
 		beforeUpload: (file) => {
@@ -75,7 +105,7 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 					form.resetFields();
 				})
 				.catch(() => {
-					message.success("Thêm mới tài liệu thất bại!");
+					message.error("Thêm mới tài liệu thất bại!");
 				});
 		} else {
 			updateDocumentSale(id, values)
@@ -92,75 +122,80 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 					form.resetFields();
 				})
 				.catch(() => {
-					message.success("Cập nhật tài liệu thất bại!");
+					message.error("Cập nhật tài liệu thất bại!");
 				});
 		}
 	};
 
 	return (
-		<Form form={form} layout="vertical" onFinish={onFinish}>
-			<Form.Item
-				name={"title"}
-				label={"Tiêu đề"}
-				rules={[{ required: true, message: "Chưa nhập tiêu đề" }]}
-			>
-				<Input placeholder="Nhập tiêu đề" />
-			</Form.Item>
+		<Spin spinning={loading}>
+			<Form form={form} layout="vertical" onFinish={onFinish}>
+				<Form.Item
+					name={"title"}
+					label={"Tiêu đề"}
+					rules={[{ required: true, message: "Chưa nhập tiêu đề" }]}
+				>
+					<Input placeholder="Nhập tiêu đề" />
+				</Form.Item>
 
-			<Form.Item
-				name={"category"}
-				label={"Mục"}
-				rules={[{ required: true, message: "Chưa chọn mục" }]}
-			>
-				<Select
-					options={[
-						// {
-						// 	label: "Tư liệu truyền thông",
-						// 	value: "web_design",
-						// },
-						// {
-						// 	label: "Tài liệu bán hàng",
-						// 	value: "ui_ux_design",
-						// },
-						// {
-						// 	label: "Thông tin chương trình",
-						// 	value: "mobile_apps",
-						// },
-						// {
-						// 	label: "Thiết kế",
-						// 	value: "logo_design",
-						// },
-						...categories,
+				<Form.Item
+					name={"category_id"}
+					label={"Category"}
+					rules={[{ required: true, message: "Chưa chọn category" }]}
+				>
+					<Select
+						options={categories}
+						placeholder="Chọn category"
+						onSelect={onSelectCategory}
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name={"detailcategory_id"}
+					label={"Detail category"}
+					rules={[
+						{
+							required: true,
+							message: "Chưa chọn detail category",
+						},
 					]}
-					placeholder="Chọn mục"
-				/>
-			</Form.Item>
+				>
+					<Select
+						options={detailCategories}
+						placeholder="Chọn detail category"
+					/>
+				</Form.Item>
 
-			<Form.Item
-				name={"image"}
-				label={"Ảnh"}
-				rules={[{ required: true, message: "Chưa chọn ảnh" }]}
-			>
-				<Upload {...props}>
-					<Button icon={<UploadOutlined />}>Click để tải lên</Button>
-				</Upload>
-				{/* <Input
+				<Form.Item
+					name={"image"}
+					label={"Ảnh"}
+					rules={[{ required: true, message: "Chưa chọn ảnh" }]}
+				>
+					<Upload {...props}>
+						<Button icon={<UploadOutlined />}>
+							Click để tải lên
+						</Button>
+					</Upload>
+					{/* <Input
 					placeholder="Nhập image"
 					type="file"
 					onChange={handleSelectImg}
 				/> */}
-			</Form.Item>
+				</Form.Item>
 
-			<Form.Item
-				name={"link"}
-				label={"Đường dẫn"}
-				rules={[{ required: true, message: "Chưa nhập đường dẫn" }]}
-			>
-				<Input placeholder="Nhập đường dẫn" />
-			</Form.Item>
+				<Form.Item
+					name={"link"}
+					label={"Đường dẫn"}
+					rules={[{ required: true, message: "Chưa nhập đường dẫn" }]}
+				>
+					<Input placeholder="Nhập đường dẫn" />
+				</Form.Item>
 
-			<Button htmlType="submit">{!id ? "Thêm mới" : "Cập nhật"}</Button>
-		</Form>
+				<Button htmlType="submit">
+					{!id ? "Thêm mới" : "Cập nhật"}
+				</Button>
+			</Form>
+		</Spin>
 	);
 };
 
