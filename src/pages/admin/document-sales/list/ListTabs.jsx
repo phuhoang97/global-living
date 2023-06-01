@@ -144,45 +144,134 @@ const ListTabs = () => {
 		setLoading(true);
 		getAllCategories()
 			.then((response) => {
+				const data = response?.categories;
+				const allChildren = [];
+				const allDocsChild = [];
+
+				data?.map((item) => allChildren.push(...item?.children));
+
+				allChildren?.map((child) =>
+					allDocsChild.push(...child?.documents)
+				);
+
 				setMenuDocumentSales([
-					...response?.categories?.map((item) => ({
-						label: (
-							<>
-								{item?.category}
-								<EditOutlined
-									className="ml-3 text-gray-400"
-									onClick={() => handleEditCategory(item?.id)}
-								/>
-							</>
-						),
-						key: item?.id,
+					{
+						label: "Tất cả",
+						key: "all",
+						closable: false,
 						children: (
-							<>
-								<Tabs
-									items={item?.children?.map((child) => ({
-										label: (
-											<>
-												{child?.detail}
-												<EditOutlined
-													className="ml-3 text-gray-400"
-													onClick={() =>
-														handleEditDetailCategory(
-															child?.id
-														)
-													}
-												/>
-											</>
-										),
-										key: child?.id,
+							<Tabs
+								items={[
+									{
+										label: "Tất cả",
+										key: "all",
+										closable: false,
 										children: (
 											<AdminDocumentSalesTable
-												data={child?.documents}
+												data={allDocsChild}
 												setReloadData={setReloadData}
 												setLoading={setLoading}
 												loading={loading}
 											/>
 										),
-									}))}
+									},
+									...allChildren?.map((child) => {
+										return {
+											label: (
+												<>
+													{child?.detail}
+													<EditOutlined
+														className="ml-3 text-gray-400"
+														onClick={() =>
+															handleEditDetailCategory(
+																child?.id
+															)
+														}
+													/>
+												</>
+											),
+											key: child?.id,
+											children: (
+												<AdminDocumentSalesTable
+													data={child?.documents}
+													setReloadData={
+														setReloadData
+													}
+													setLoading={setLoading}
+													loading={loading}
+												/>
+											),
+										};
+									}),
+								]}
+								type="editable-card"
+							/>
+						),
+					},
+					...data?.map((item) => {
+						const allDocs = [];
+						item?.children?.map((child) =>
+							allDocs.push(...child?.documents)
+						);
+
+						return {
+							label: (
+								<>
+									{item?.category}
+									<EditOutlined
+										className="ml-3 text-gray-400"
+										onClick={() =>
+											handleEditCategory(item?.id)
+										}
+									/>
+								</>
+							),
+							key: item?.id,
+							children: (
+								<Tabs
+									items={[
+										{
+											label: "Tất cả",
+											key: "all",
+											closable: false,
+											children: (
+												<AdminDocumentSalesTable
+													data={allDocs}
+													setReloadData={
+														setReloadData
+													}
+													setLoading={setLoading}
+													loading={loading}
+												/>
+											),
+										},
+										...item?.children?.map((child) => ({
+											label: (
+												<>
+													{child?.detail}
+													<EditOutlined
+														className="ml-3 text-gray-400"
+														onClick={() =>
+															handleEditDetailCategory(
+																child?.id
+															)
+														}
+													/>
+												</>
+											),
+											key: child?.id,
+											children: (
+												<AdminDocumentSalesTable
+													data={child?.documents}
+													setReloadData={
+														setReloadData
+													}
+													setLoading={setLoading}
+													loading={loading}
+												/>
+											),
+										})),
+									]}
 									type="editable-card"
 									onEdit={(targetKey, action) =>
 										onEditDetail(
@@ -192,9 +281,9 @@ const ListTabs = () => {
 										)
 									}
 								/>
-							</>
-						),
-					})),
+							),
+						};
+					}),
 				]);
 
 				setLoading(false);
@@ -289,6 +378,7 @@ const ListTabs = () => {
 				items={menuDocumentSales}
 				type="editable-card"
 				onEdit={onEdit}
+				defaultActiveKey="all"
 			/>
 
 			<Modal
