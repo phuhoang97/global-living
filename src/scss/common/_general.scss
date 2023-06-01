@@ -290,7 +290,17 @@ hr {
 
 .cs-accent_bg,
 .cs-accent_bg_hover:hover {
-	background-color: $accent;
+	background-color: black;
+}
+
+.cs-portfolio_info {
+	.cs-portfolio_title {
+		color: $accent;
+	}
+
+	.cs-portfolio_subtitle {
+		color: $accent !important;
+	}
 }
 
 .cs-primary_bg,

@@ -1,3 +1,4 @@
+import { UploadOutlined } from "@ant-design/icons";
 import React from "react";
 import { Link } from "react-router-dom";
 import Div from "../Div";
@@ -17,6 +18,11 @@ export default function Portfolio({ href, src, title, subtitle, variant }) {
 				<Div
 					className="cs-portfolio_bg cs-bg"
 					style={{ backgroundImage: `url("${src}")` }}
+				/>
+				<UploadOutlined
+					className="absolute top-[50%] left-[50%] text-[50px]"
+					style={{ transform: "translate(-50%, -50%)", zIndex: 3 }}
+					onClick={(e) => e.preventDefault()}
 				/>
 				<Div className="cs-portfolio_info">
 					<Div className="cs-portfolio_info_bg cs-accent_bg" />
