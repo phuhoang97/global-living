@@ -9,13 +9,15 @@ import Div from "../Div";
 import SectionHeading from "../SectionHeading";
 import Spacing from "../Spacing";
 import { getAllDocumentSales } from "../../apis/document-sales/api";
-import { Spin, Tabs } from "antd";
+import { Radio, Spin, Tabs, theme } from "antd";
 import { getAllCategories } from "../../apis/category/api";
 import { getAllCategoriesDetailByCategoryId } from "../../apis/category/detail";
 
 export default function PortfolioPage() {
 	pageTitle("Portfolio");
 
+	const { useToken } = theme;
+	const { token } = useToken();
 	const [loading, setLoading] = useState(false);
 	const [active, setActive] = useState("all");
 	const [itemShow, setItemShow] = useState(7);
@@ -132,7 +134,11 @@ export default function PortfolioPage() {
 		if (!data || data?.length <= 0) return [];
 		return data?.map((item) => ({
 			label: item?.detail,
-			key: item?.id,
+			value: item?.id,
+			style: {
+				border: `1px solid ${token.colorPrimary}`,
+				padding: "3px 14px",
+			},
 		}));
 	};
 
@@ -157,11 +163,11 @@ export default function PortfolioPage() {
 		getAllCategories().then((response) => {
 			setCategories(mapDataCategories(response?.categories));
 
-			const data = response?.categories;
-			const childData = [];
-			data?.map((item) => childData.push(...item?.children));
+			// const data = response?.categories;
+			// const childData = [];
+			// data?.map((item) => childData.push(...item?.children));
 
-			setDetailCategories(mapDetailCategories(childData));
+			// setDetailCategories(mapDetailCategories(childData));
 		});
 	};
 
@@ -229,6 +235,8 @@ export default function PortfolioPage() {
 					childData?.map((child) =>
 						docsData?.push(...child?.documents)
 					);
+
+					setDataSource(mapData(docsData));
 				}
 
 				setLoading(false);
@@ -241,10 +249,15 @@ export default function PortfolioPage() {
 	const handleGetDetail = (key) => {
 		setActive(key);
 		setActiveDetail("all");
+		setActiveDetail("all");
 	};
 
 	const handleGetDocuments = (key) => {
 		setActiveDetail(key);
+	};
+
+	const onChangeRadio = ({ target: { value } }) => {
+		setActiveDetail(value);
 	};
 
 	return (
@@ -304,7 +317,7 @@ export default function PortfolioPage() {
 				</Div>
 				{active !== "all" ? (
 					<Spin spinning={loading}>
-						<Div className="cs-filter_menu cs-style1">
+						{/* <Div className="cs-filter_menu cs-style1">
 							<ul className="cs-mp0 cs-center">
 								<li
 									className={
@@ -336,7 +349,25 @@ export default function PortfolioPage() {
 									</li>
 								))}
 							</ul>
-						</Div>
+						</Div> */}
+						<Radio.Group
+							options={[
+								{
+									label: "All",
+									value: "all",
+									style: {
+										border: `1px solid ${token.colorPrimary}`,
+										padding: "3px 14px",
+									},
+								},
+								...detailCategories,
+							]}
+							onChange={onChangeRadio}
+							value={activeDetail}
+							optionType="button"
+							buttonStyle="solid"
+							className="mt-4 w-full flex items-center justify-center"
+						/>
 					</Spin>
 				) : (
 					<></>
@@ -345,7 +376,7 @@ export default function PortfolioPage() {
 				<Spacing lg="90" md="45" />
 				<Spin spinning={loading} size="large">
 					<Div className="row">
-						{dataSource.slice(0, itemShow).map((item, index) => {
+						{dataSource?.map((item, index) => {
 							return (
 								<Div
 									// className={`${
@@ -375,7 +406,7 @@ export default function PortfolioPage() {
 						})}
 					</Div>
 
-					<Div className="text-center">
+					{/* <Div className="text-center">
 						{dataSource.length <= itemShow ? (
 							""
 						) : (
@@ -390,7 +421,7 @@ export default function PortfolioPage() {
 								</span>
 							</>
 						)}
-					</Div>
+					</Div> */}
 				</Spin>
 			</Div>
 			<Spacing lg="145" md="80" />

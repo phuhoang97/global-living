@@ -9,7 +9,7 @@ import copy from "clipboard-copy";
 export default function Portfolio({ href, src, title, subtitle, variant }) {
 	const handleCopy = () => {
 		copy(href);
-		message.success("Đã sao chép vào clipboard");
+		message.success("Đã sao chép!");
 	};
 
 	return (

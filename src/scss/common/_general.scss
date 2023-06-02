@@ -1443,6 +1443,10 @@ label {
 }
 
 .cs-filter_menu.cs-style1 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	li {
 		margin-top: 10px;
 		&:not(:last-child) {
