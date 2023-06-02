@@ -21,6 +21,9 @@ export default function Layout({ headerVariant }) {
 						Tabs: {
 							colorText: "#fff",
 						},
+						Radio: {
+							colorPrimaryBg: "#fcb617",
+						},
 					},
 				}}
 			>

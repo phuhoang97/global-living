@@ -27,3 +27,37 @@
 .ant-tabs .ant-tabs-tab-remove {
 	margin-left: 0;
 }
+
+.ant-radio-button-wrapper {
+	height: unset;
+}
+
+.ant-radio-button-wrapper-checked:not(
+		:where(
+				.css-dev-only-do-not-override-1mx2m0
+			).ant-radio-button-wrapper-disabled
+	)::before {
+	display: none;
+}
+
+.ant-radio-group-solid
+	:where(
+		.css-dev-only-do-not-override-1w0m64l
+	).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+	background: black;
+	color: #fcb617;
+}
+
+.ant-radio-button-wrapper {
+	background: transparent;
+	color: white;
+}
+
+.ant-radio-group-solid
+	:where(
+		.css-dev-only-do-not-override-1w0m64l
+	).ant-radio-button-wrapper-checked:not(
+		.ant-radio-button-wrapper-disabled
+	):hover {
+	background: black;
+}
