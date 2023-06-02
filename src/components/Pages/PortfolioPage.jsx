@@ -226,9 +226,7 @@ export default function PortfolioPage() {
 			.catch(() => {
 				setLoading(false);
 			});
-	}, [activeDetail]);
-
-	console.log("jtadd", dataSource);
+	}, [active, activeDetail]);
 
 	const handleGetDetail = (key) => {
 		setActive(key);
@@ -333,17 +331,18 @@ export default function PortfolioPage() {
 						{dataSource.slice(0, itemShow).map((item, index) => {
 							return (
 								<Div
-									className={`${
-										index === 3 || index === 6
-											? "col-lg-8"
-											: "col-lg-4"
-									} ${
-										active === "all"
-											? ""
-											: !(active === item.category)
-											? "d-none"
-											: ""
-									}`}
+									// className={`${
+									// 	index === 3 || index === 6
+									// 		? "col-lg-8"
+									// 		: "col-lg-4"
+									// } ${
+									// 	active === "all"
+									// 		? ""
+									// 		: !(active === item.category)
+									// 		? "d-none"
+									// 		: ""
+									// }`}
+									className="col-lg-4"
 									key={index}
 								>
 									<Portfolio
