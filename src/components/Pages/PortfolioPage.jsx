@@ -182,20 +182,21 @@ export default function PortfolioPage() {
 				.catch(() => {
 					setLoading(false);
 				});
-		} else {
-			getAllCategories()
-				.then((response) => {
-					const data = response?.categories;
-					const childData = [];
-					data?.map((item) => childData.push(...item?.children));
-					setLoading(false);
-
-					setDetailCategories(mapDetailCategories(childData));
-				})
-				.catch(() => {
-					setLoading(false);
-				});
 		}
+		// else {
+		// 	getAllCategories()
+		// 		.then((response) => {
+		// 			const data = response?.categories;
+		// 			const childData = [];
+		// 			data?.map((item) => childData.push(...item?.children));
+		// 			setLoading(false);
+
+		// 			setDetailCategories(mapDetailCategories(childData));
+		// 		})
+		// 		.catch(() => {
+		// 			setLoading(false);
+		// 		});
+		// }
 	}, [active]);
 
 	useEffect(() => {
@@ -207,18 +208,27 @@ export default function PortfolioPage() {
 				const docsData = [];
 				data?.map((item) => childData.push(...item?.children));
 
-				if (activeDetail === "all") {
+				if (active !== "all") {
+					if (activeDetail === "all") {
+						const filterCat = data?.filter(
+							(item) => item?.id === active
+						);
+						filterCat[0]?.children?.map((child) =>
+							docsData?.push(...child?.documents)
+						);
+						setDataSource(mapData(docsData));
+					} else {
+						childData?.filter((child) => {
+							if (child?.id === activeDetail) {
+								docsData?.push(...child?.documents);
+							}
+						});
+						setDataSource(mapData(docsData));
+					}
+				} else {
 					childData?.map((child) =>
 						docsData?.push(...child?.documents)
 					);
-					setDataSource(mapData(docsData));
-				} else {
-					childData?.filter((child) => {
-						if (child?.id === activeDetail) {
-							docsData?.push(...child?.documents);
-						}
-					});
-					setDataSource(mapData(docsData));
 				}
 
 				setLoading(false);
@@ -230,6 +240,7 @@ export default function PortfolioPage() {
 
 	const handleGetDetail = (key) => {
 		setActive(key);
+		setActiveDetail("all");
 	};
 
 	const handleGetDocuments = (key) => {
@@ -246,10 +257,10 @@ export default function PortfolioPage() {
 			<Spacing lg="145" md="80" />
 			<Div className="container">
 				<Div className="cs-portfolio_1_heading">
-					<SectionHeading
+					{/* <SectionHeading
 						title="Some recent work"
 						subtitle="Our Portfolio"
-					/>
+					/> */}
 					{/* <Div className="cs-filter_menu cs-style1">
 						<ul className="cs-mp0 cs-center">
 							<li className={active === "all" ? "active" : ""}>
@@ -291,39 +302,45 @@ export default function PortfolioPage() {
 						))}
 					</ul>
 				</Div>
-				<Spin spinning={loading}>
-					<Div className="cs-filter_menu cs-style1">
-						<ul className="cs-mp0 cs-center">
-							<li
-								className={
-									activeDetail === "all" ? "active" : ""
-								}
-							>
-								<span onClick={() => setActiveDetail("all")}>
-									All
-								</span>
-							</li>
-							{detailCategories.map((item) => (
+				{active !== "all" ? (
+					<Spin spinning={loading}>
+						<Div className="cs-filter_menu cs-style1">
+							<ul className="cs-mp0 cs-center">
 								<li
 									className={
-										activeDetail === item?.key
-											? "active"
-											: ""
+										activeDetail === "all" ? "active" : ""
 									}
-									key={item?.key}
 								>
 									<span
-										onClick={() =>
-											handleGetDocuments(item?.key)
-										}
+										onClick={() => setActiveDetail("all")}
 									>
-										{item.label}
+										All
 									</span>
 								</li>
-							))}
-						</ul>
-					</Div>
-				</Spin>
+								{detailCategories.map((item) => (
+									<li
+										className={
+											activeDetail === item?.key
+												? "active"
+												: ""
+										}
+										key={item?.key}
+									>
+										<span
+											onClick={() =>
+												handleGetDocuments(item?.key)
+											}
+										>
+											{item.label}
+										</span>
+									</li>
+								))}
+							</ul>
+						</Div>
+					</Spin>
+				) : (
+					<></>
+				)}
 				{/* <Tabs items={categories} /> */}
 				<Spacing lg="90" md="45" />
 				<Spin spinning={loading} size="large">

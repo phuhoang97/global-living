@@ -303,6 +303,18 @@ hr {
 	}
 }
 
+.cs-portfolio {
+	.cs-portfolio_icon {
+		display: none;
+	}
+
+	&:hover {
+		.cs-portfolio_icon {
+			display: flex;
+		}
+	}
+}
+
 .cs-primary_bg,
 .cs-primary_bg_hover:hover {
 	background-color: $primary;
