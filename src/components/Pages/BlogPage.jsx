@@ -73,33 +73,35 @@ export default function BlogPage() {
 				pageLinkText="Blog"
 			/>
 			<Spacing lg="150" md="80" />
-			{/* <Div className="container">
-        <Div className="row">
-          <Div className="col-lg-8">
-            {postData.map((item, index)=> (
-              <Div key={index}>
-                <PostStyle2 
-                  thumb={item.thumb}
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  date={item.date}
-                  category={item.category}
-                  categoryHref={item.categoryHref}
-                  href={item.href}
-                />
-                {postData.length>index+1 && <Spacing lg='95' md='60'/>}
-              </Div>
-            ))}
-            <Spacing lg='60' md='40'/>
-            <Pagination/>
-          </Div>
-          <Div className="col-xl-3 col-lg-4 offset-xl-1">
-            <Spacing lg='0' md='80'/>
-            <Sidebar/>
-          </Div>
-        </Div>
-      </Div> */}
-			<div className="latestNews">
+			<Div className="container">
+				<Div className="row">
+					<Div className="col-lg-8">
+						{postData.map((item, index) => (
+							<Div key={index}>
+								<PostStyle2
+									thumb={item.thumb}
+									title={item.title}
+									subtitle={item.subtitle}
+									date={item.date}
+									category={item.category}
+									categoryHref={item.categoryHref}
+									href={item.href}
+								/>
+								{postData.length > index + 1 && (
+									<Spacing lg="95" md="60" />
+								)}
+							</Div>
+						))}
+						<Spacing lg="60" md="40" />
+						<Pagination />
+					</Div>
+					<Div className="col-xl-3 col-lg-4 offset-xl-1">
+						<Spacing lg="0" md="80" />
+						<Sidebar />
+					</Div>
+				</Div>
+			</Div>
+			{/* <div className="latestNews">
 				<div>
 					<p>TIN TỨC MỚI NHẤT VỀ</p>
 					<select>
@@ -172,8 +174,8 @@ export default function BlogPage() {
 						</select>
 					</div>
 				</div>
-			</div>
-			{/* <Spacing lg="150" md="80" />
+			</div> */}
+			<Spacing lg="150" md="80" />
 			<Div className="container">
 				<Cta
 					title="Trở thành Đại lý/Cộng tác viên <br />phân phối <i>ĐỘC QUYỀN</i>"
@@ -181,7 +183,7 @@ export default function BlogPage() {
 					btnLink="/contact"
 					bgSrc="/images/cta_bg.jpeg"
 				/>
-			</Div> */}
+			</Div>
 		</>
 	);
 }
