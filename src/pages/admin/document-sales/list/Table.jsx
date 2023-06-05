@@ -71,6 +71,7 @@ const AdminDocumentSalesTable = ({
 
 	const handleClose = () => {
 		setOpen(false);
+		setId(0);
 	};
 
 	return (

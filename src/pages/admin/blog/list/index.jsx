@@ -1,24 +1,21 @@
-import { Drawer, Popconfirm, Table, message } from "antd";
-import React, { useEffect, useState } from "react";
-import { deleteContact, getAllContacts } from "../../../../apis/contact/api";
-import { convertProductName } from "../../../../helper";
-import { columns } from "./columns";
-import jwtDecode from "jwt-decode";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { useLocation } from "react-router-dom";
-import AdminUpdateContact from "../services/update";
+import { Drawer, message, Popconfirm, Table } from "antd";
+import jwtDecode from "jwt-decode";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { deleteBlog, getAllBlogs } from "../../../../apis/blog/api";
+import PermissionButton from "../../../../common/permissions/button";
+import AdminBlogUpdate from "../services";
+import { columns } from "./columns";
 
-const AdminListContact = () => {
+const AdminBlogList = () => {
 	const token = localStorage.getItem("token");
 	const decode = jwtDecode(token);
 	const hasPermission = decode?.role === 1 || decode?.role === 2;
-	const { pathname } = useLocation();
-	const pathnameSplit = pathname.split("/");
-	const endpoint = pathnameSplit[pathnameSplit?.length - 1];
-	const [loading, setLoading] = useState(false);
-	const [reloadData, setReloadData] = useState(false);
 	const [dataSource, setDataSource] = useState([]);
+	const [loading, setLoading] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [reloadData, setReloadData] = useState(false);
 	const [id, setId] = useState(0);
 
 	const mapData = (data) => {
@@ -27,11 +24,10 @@ const AdminListContact = () => {
 			return {
 				...item,
 				key: item?.id,
-				product: convertProductName(item?.product),
 				action: hasPermission ? (
 					<div className="w-full flex items-center justify-center">
 						<Popconfirm
-							title="Xóa Contact?"
+							title="Xóa bài viết?"
 							onConfirm={() => onDelete(item?.id)}
 							okText="Đồng ý"
 							cancelText="Hủy"
@@ -54,7 +50,7 @@ const AdminListContact = () => {
 	};
 
 	const onDelete = (id) => {
-		deleteContact(id)
+		deleteBlog(id)
 			.then(() => {
 				message.success("Xóa thành công!");
 				setReloadData(true);
@@ -66,15 +62,9 @@ const AdminListContact = () => {
 
 	const getData = () => {
 		setLoading(true);
-		getAllContacts()
+		getAllBlogs()
 			.then((response) => {
-				setDataSource(
-					mapData(
-						response?.users?.filter(
-							(item) => item?.product === endpoint
-						)
-					)
-				);
+				setDataSource(mapData(response?.data));
 				setLoading(false);
 			})
 			.catch(() => {
@@ -82,13 +72,18 @@ const AdminListContact = () => {
 			});
 	};
 
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
 	const handleClose = () => {
 		setOpen(false);
+		setId(0);
 	};
 
 	useEffect(() => {
 		getData();
-	}, [endpoint]);
+	}, []);
 
 	useEffect(() => {
 		if (reloadData) {
@@ -102,6 +97,7 @@ const AdminListContact = () => {
 
 	return (
 		<>
+			<PermissionButton onClick={handleOpen} isShow={hasPermission} />
 			<Table
 				columns={columns}
 				dataSource={dataSource}
@@ -109,12 +105,12 @@ const AdminListContact = () => {
 			/>
 			<Drawer
 				open={open}
-				title={"Cập nhật"}
+				title={id ? "Cập nhật" : "Thêm mới"}
 				onClose={handleClose}
 				destroyOnClose
 				width={600}
 			>
-				<AdminUpdateContact
+				<AdminBlogUpdate
 					id={id}
 					closeDrawer={handleClose}
 					setReloadData={setReloadData}
@@ -124,4 +120,4 @@ const AdminListContact = () => {
 	);
 };
 
-export default AdminListContact;
+export default AdminBlogList;

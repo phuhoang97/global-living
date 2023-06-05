@@ -15,8 +15,12 @@ import {
 	updateCategoryDetail,
 } from "../../../../apis/category/detail";
 import AdminDocumentSalesTable from "./Table";
+import jwtDecode from "jwt-decode";
 
 const ListTabs = () => {
+	const token = localStorage.getItem("token");
+	const decode = jwtDecode(token);
+	const hasPermission = decode?.role === 1 || decode?.role === 2;
 	const [form] = Form.useForm();
 	const [formDetail] = Form.useForm();
 	const [reloadData, setReloadData] = useState(false);
@@ -204,7 +208,7 @@ const ListTabs = () => {
 										};
 									}),
 								]}
-								type="editable-card"
+								type={hasPermission ? "editable-card" : "card"}
 							/>
 						),
 					},
@@ -218,12 +222,14 @@ const ListTabs = () => {
 							label: (
 								<>
 									{item?.category}
-									<EditOutlined
-										className="ml-3 text-gray-400"
-										onClick={() =>
-											handleEditCategory(item?.id)
-										}
-									/>
+									{hasPermission ? (
+										<EditOutlined
+											className="ml-3 text-gray-400"
+											onClick={() =>
+												handleEditCategory(item?.id)
+											}
+										/>
+									) : null}
 								</>
 							),
 							key: item?.id,
@@ -249,14 +255,16 @@ const ListTabs = () => {
 											label: (
 												<>
 													{child?.detail}
-													<EditOutlined
-														className="ml-3 text-gray-400"
-														onClick={() =>
-															handleEditDetailCategory(
-																child?.id
-															)
-														}
-													/>
+													{hasPermission ? (
+														<EditOutlined
+															className="ml-3 text-gray-400"
+															onClick={() =>
+																handleEditDetailCategory(
+																	child?.id
+																)
+															}
+														/>
+													) : null}
 												</>
 											),
 											key: child?.id,
@@ -272,7 +280,9 @@ const ListTabs = () => {
 											),
 										})),
 									]}
-									type="editable-card"
+									type={
+										hasPermission ? "editable-card" : "card"
+									}
 									onEdit={(targetKey, action) =>
 										onEditDetail(
 											targetKey,

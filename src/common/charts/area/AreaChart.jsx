@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Area } from "@ant-design/plots";
+// import { Area } from "@ant-design/plots";
 
 const AreaChart = () => {
 	const [data, setData] = useState([]);
@@ -33,7 +33,8 @@ const AreaChart = () => {
 		},
 	};
 
-	return <Area {...config} />;
+	// return <Area {...config} />;
+	return <div></div>;
 };
 
 export default AreaChart;
