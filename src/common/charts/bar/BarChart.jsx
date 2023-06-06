@@ -1,5 +1,5 @@
 import React from "react";
-import { Bar } from "@ant-design/plots";
+// import { Bar } from "@ant-design/plots";
 
 const BarChart = () => {
 	const data = [
@@ -33,7 +33,8 @@ const BarChart = () => {
 			position: "top-left",
 		},
 	};
-	return <Bar {...config} />;
+	// return <Bar {...config} />;
+	return <div></div>;
 };
 
 export default BarChart;

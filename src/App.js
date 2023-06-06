@@ -27,6 +27,7 @@ import AdminContactRouter from "./pages/admin/contact/router";
 import AdminDocumentSalesRouter from "./pages/admin/document-sales/router";
 import AdminUsersRouter from "./pages/admin/user/router";
 import { Button, Result } from "antd";
+import AdminBlogRouter from "./pages/admin/blog/router";
 
 function App() {
 	const navigate = useNavigate();
@@ -120,13 +121,14 @@ function App() {
 						)
 					}
 				>
-					<Route path="analytics" element={<DefaultPage />} />
+					{/* <Route path="analytics" element={<DefaultPage />} /> */}
 					<Route path="contact/*" element={<AdminContactRouter />} />
 					<Route
 						path="document-sales/*"
 						element={<AdminDocumentSalesRouter />}
 					/>
 					<Route path="users/*" element={<AdminUsersRouter />} />
+					<Route path="blog/*" element={<AdminBlogRouter />} />
 				</Route>
 
 				<Route path="login" element={<LoginPage />} />

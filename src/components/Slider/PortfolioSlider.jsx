@@ -72,7 +72,7 @@ export default function PortfolioSlider() {
 			return dateB - dateA;
 		});
 
-		return sortedResponse[sortedResponse?.length - 1];
+		return sortedResponse;
 	};
 
 	useEffect(() => {
@@ -115,17 +115,17 @@ export default function PortfolioSlider() {
 				}
 			);
 
-			const mergedArray = categoriesData.map((category) => {
-				const index = documentSalesData.findIndex(
-					(document) => document?.category === category?.id
+			const mergedArray = documentSalesData.map((document) => {
+				const index = categoriesData.findIndex(
+					(category) => category?.id === document?.category
 				);
 				if (index !== -1) {
-					return { ...category, ...documentSalesData[index] };
+					return { ...document, ...categoriesData[index] };
 				}
-				return category;
+				return document;
 			});
 
-			setDataSource(mapData(mergedArray));
+			setDataSource(mapData(sortLatestItem(mergedArray?.slice(0, 5))));
 		})();
 	}, []);
 

@@ -133,6 +133,7 @@ const AdminListUsers = () => {
 
 	const handleClose = () => {
 		setOpen(false);
+		setId(0);
 	};
 
 	return (

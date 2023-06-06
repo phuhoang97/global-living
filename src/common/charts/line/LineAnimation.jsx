@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Line } from "@ant-design/plots";
+// import { Line } from "@ant-design/plots";
 
 const LineChartAnimation = () => {
 	const [data, setData] = useState([]);
@@ -42,7 +42,8 @@ const LineChartAnimation = () => {
 		},
 	};
 
-	return <Line {...config} />;
+	// return <Line {...config} />;
+	return <div></div>;
 };
 
 export default LineChartAnimation;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { pageTitle } from "../../helper";
 import Cta from "../Cta";
 import PageHeading from "../PageHeading";
@@ -9,8 +9,27 @@ import Sidebar from "../Sidebar.jsx";
 import Spacing from "../Spacing";
 import Slider from "react-slick";
 import "react-multi-carousel/lib/styles.css";
+import dayjs from "dayjs";
+import { getAllBlogs } from "../../apis/blog/api";
 
 export default function BlogPage() {
+	const [dataSource, setDataSource] = useState([]);
+
+	const mapData = (data) => {
+		if (!data || data?.length <= 0) return [];
+		return data?.map((item) => {
+			return {
+				...item,
+				key: item?.id,
+				thumb: item?.img,
+				title: item?.title,
+				subtitle: item?.content,
+				date: dayjs(item?.createDate)?.format("DD/MM/YYYY"),
+				href: `/blog/${item?.id}`,
+			};
+		});
+	};
+
 	pageTitle("Tin Tức");
 	const settings = {
 		arrows: false,
@@ -65,6 +84,12 @@ export default function BlogPage() {
 		window.scrollTo(0, 0);
 	}, []);
 
+	useEffect(() => {
+		getAllBlogs().then((response) => {
+			setDataSource(mapData(response?.data));
+		});
+	}, []);
+
 	return (
 		<>
 			<PageHeading
@@ -73,33 +98,35 @@ export default function BlogPage() {
 				pageLinkText="Blog"
 			/>
 			<Spacing lg="150" md="80" />
-			{/* <Div className="container">
-        <Div className="row">
-          <Div className="col-lg-8">
-            {postData.map((item, index)=> (
-              <Div key={index}>
-                <PostStyle2 
-                  thumb={item.thumb}
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  date={item.date}
-                  category={item.category}
-                  categoryHref={item.categoryHref}
-                  href={item.href}
-                />
-                {postData.length>index+1 && <Spacing lg='95' md='60'/>}
-              </Div>
-            ))}
-            <Spacing lg='60' md='40'/>
-            <Pagination/>
-          </Div>
-          <Div className="col-xl-3 col-lg-4 offset-xl-1">
-            <Spacing lg='0' md='80'/>
-            <Sidebar/>
-          </Div>
-        </Div>
-      </Div> */}
-			<div className="latestNews">
+			<Div className="container">
+				<Div className="row items-center justify-center">
+					<Div className="col-lg-8">
+						{dataSource.map((item, index) => (
+							<Div key={index}>
+								<PostStyle2
+									thumb={item.thumb}
+									title={item.title}
+									subtitle={item.subtitle}
+									date={item.date}
+									category={item.category}
+									categoryHref={item.categoryHref}
+									href={item.href}
+								/>
+								{dataSource.length > index + 1 && (
+									<Spacing lg="95" md="60" />
+								)}
+							</Div>
+						))}
+						{/* <Spacing lg="60" md="40" /> */}
+						{/* <Pagination /> */}
+					</Div>
+					{/* <Div className="col-xl-3 col-lg-4 offset-xl-1">
+						<Spacing lg="0" md="80" />
+						<Sidebar />
+					</Div> */}
+				</Div>
+			</Div>
+			{/* <div className="latestNews">
 				<div>
 					<p>TIN TỨC MỚI NHẤT VỀ</p>
 					<select>
@@ -172,8 +199,8 @@ export default function BlogPage() {
 						</select>
 					</div>
 				</div>
-			</div>
-			{/* <Spacing lg="150" md="80" />
+			</div> */}
+			<Spacing lg="150" md="80" />
 			<Div className="container">
 				<Cta
 					title="Trở thành Đại lý/Cộng tác viên <br />phân phối <i>ĐỘC QUYỀN</i>"
@@ -181,7 +208,7 @@ export default function BlogPage() {
 					btnLink="/contact"
 					bgSrc="/images/cta_bg.jpeg"
 				/>
-			</Div> */}
+			</Div>
 		</>
 	);
 }

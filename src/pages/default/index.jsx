@@ -10,23 +10,17 @@ const DefaultPage = () => {
 		<Row gutter={12} wrap>
 			<Col span={12}>
 				<Card className="shadow-lg">
-					<LineChartAnimation />
+					{/* <LineChartAnimation /> */}
 				</Card>
 			</Col>
 			<Col span={12}>
-				<Card className="shadow-lg">
-					<ColumnChart />
-				</Card>
+				<Card className="shadow-lg">{/* <ColumnChart /> */}</Card>
 			</Col>
 			<Col span={12}>
-				<Card className="shadow-lg">
-					<BarChart />
-				</Card>
+				<Card className="shadow-lg">{/* <BarChart /> */}</Card>
 			</Col>
 			<Col span={12}>
-				<Card className="shadow-lg">
-					<AreaChart />
-				</Card>
+				<Card className="shadow-lg">{/* <AreaChart /> */}</Card>
 			</Col>
 		</Row>
 	);

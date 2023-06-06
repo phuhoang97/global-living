@@ -1,5 +1,5 @@
 import React from "react";
-import { Column } from "@ant-design/charts";
+// import { Column } from "@ant-design/charts";
 
 const ColumnChart = () => {
 	const data = [
@@ -62,7 +62,8 @@ const ColumnChart = () => {
 			},
 		},
 	};
-	return <Column {...config} />;
+	// return <Column {...config} />;
+	return <div></div>;
 };
 
 export default ColumnChart;
