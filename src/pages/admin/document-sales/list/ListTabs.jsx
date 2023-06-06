@@ -184,14 +184,16 @@ const ListTabs = () => {
 											label: (
 												<>
 													{child?.detail}
-													<EditOutlined
-														className="ml-3 text-gray-400"
-														onClick={() =>
-															handleEditDetailCategory(
-																child?.id
-															)
-														}
-													/>
+													{hasPermission ? (
+														<EditOutlined
+															className="ml-3 text-gray-400"
+															onClick={() =>
+																handleEditDetailCategory(
+																	child?.id
+																)
+															}
+														/>
+													) : null}
 												</>
 											),
 											key: child?.id,
@@ -386,7 +388,7 @@ const ListTabs = () => {
 		<Spin spinning={loading}>
 			<Tabs
 				items={menuDocumentSales}
-				type="editable-card"
+				type={hasPermission ? "editable-card" : "card"}
 				onEdit={onEdit}
 				defaultActiveKey="all"
 			/>
