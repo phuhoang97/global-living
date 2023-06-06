@@ -193,7 +193,7 @@ export default function Header({ variant }) {
 															Tài liệu
 														</Link>
 													</li>
-													{/* <li>
+													<li>
 														<Link
 															to="faq"
 															onClick={() =>
@@ -205,7 +205,7 @@ export default function Header({ variant }) {
 															FAQ - Câu hỏi thường
 															gặp
 														</Link>
-													</li> */}
+													</li>
 												</ul>
 											</DropDown>
 										</li>

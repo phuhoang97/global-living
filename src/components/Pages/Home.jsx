@@ -380,16 +380,16 @@ export default function Home() {
 			{/* End Portfolio Section */}
 
 			{/* Start Team Section */}
-			{/* <Spacing lg="145" md="80" />
-			<Div className="container">
-				<SectionHeading
-					title="Quỹ căn <br/> Budapest"
-					subtitle=""
-					variant="cs-style1"
-				/>
-				<Spacing lg="85" md="45" />
-				<TeamSlider />
-			</Div> */}
+			<Spacing lg="145" md="80" />
+			{/* <Div className='container'>
+        <SectionHeading
+          title='Quỹ căn <br/> Budapest'
+          subtitle=''
+          variant='cs-style1'
+        />
+        <Spacing lg='85' md='45' />
+        <TeamSlider />
+      </Div> */}
 			<Spacing lg="150" md="80" />
 			{/* End Team Section */}
 
@@ -446,8 +446,8 @@ export default function Home() {
 			<Div className="container">
 				<Cta
 					title="Tham gia ngay để trở thành <br /> Đại lý/Cộng tác viên <br /> PHÂN PHỐI ĐỘC QUYỀN "
-					btnText="Đăng ký ngay."
-					btnLink="/contact"
+					btnText="Đăng ký ngay tham gia làm Cộng tác viên/ Đại lý."
+					btnLink="https://global-living-deploy.vercel.app/register"
 					bgSrc="images/portfolio_hero_bg_2.jpg"
 				/>
 			</Div>
