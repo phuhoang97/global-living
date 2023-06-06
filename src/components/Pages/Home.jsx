@@ -17,8 +17,13 @@ import VideoModal from "../VideoModal";
 import { pageTitle } from "../../helper";
 import Hero3 from "../Hero/Hero3";
 import MovingLogo from "../MovingLogo";
+import { useState } from "react";
+import { getAllDataHomePage } from "../../apis/home/api";
 
 export default function Home() {
+	const [videoSrc, setVideoSrc] = useState("");
+	const [userComment, setUserComment] = useState([]);
+
 	pageTitle("Home");
 
 	// Hero Social Links
@@ -59,6 +64,24 @@ export default function Home() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+	}, []);
+
+	useEffect(() => {
+		getAllDataHomePage()
+			.then((response) => {
+				const data = response?.data;
+
+				setVideoSrc(
+					data?.filter(
+						(item) => item?.title?.toLowerCase() === "video"
+					)[0]?.video
+				);
+
+				setUserComment(
+					data?.filter((item) => item?.title === "comment")
+				);
+			})
+			.catch(() => {});
 	}, []);
 
 	return (
@@ -271,7 +294,8 @@ export default function Home() {
 				</h2> */}
 				{/* <Spacing lg="70" md="70" /> */}
 				<VideoModal
-					videoSrc="https://www.youtube.com/watch?v=Yn2VYwTvPSQ"
+					// videoSrc="https://www.youtube.com/watch?v=Yn2VYwTvPSQ"
+					videoSrc={videoSrc}
 					bgUrl="/images/video_bg_3.jpeg"
 				/>
 			</Div>
@@ -394,7 +418,7 @@ export default function Home() {
 			{/* End Team Section */}
 
 			{/* Start Testimonial Section */}
-			<TestimonialSlider />
+			<TestimonialSlider dataSource={userComment} />
 			{/* End Testimonial Section */}
 
 			{/* Start Blog Section */}

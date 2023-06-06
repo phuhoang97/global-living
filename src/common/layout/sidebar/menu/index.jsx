@@ -211,7 +211,11 @@ const MenuSidebar = () => {
 			"CMS",
 			"cms",
 			null,
-			[getItem("Bài viết", "blog", <FileTextOutlined />)],
+			[
+				getItem("Bài viết", "/admin/blog", <FileTextOutlined />),
+				getItem("Video", "/admin/cms/video", <FileTextOutlined />),
+				getItem("Comment", "/admin/cms/comment", <FileTextOutlined />),
+			],
 			"group"
 		),
 	];

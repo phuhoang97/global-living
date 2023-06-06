@@ -71,11 +71,15 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 
 	const props = {
 		beforeUpload: (file) => {
+			setLoading(true);
 			getLink(file)
 				.then((response) => {
+					setLoading(false);
 					setSelected(response);
 				})
-				.catch(() => {});
+				.catch(() => {
+					setLoading(false);
+				});
 		},
 		maxCount: 1,
 	};

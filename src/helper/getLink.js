@@ -53,3 +53,35 @@ export const getLink = (file) => {
 		);
 	});
 };
+
+export const getLinkVideo = (video) => {
+	return new Promise((resolve, reject) => {
+		const metadata = {
+			contentType: "video/mp4",
+		};
+
+		const storageRef = ref(storage, "video/" + video.name);
+		const uploadTask = uploadBytesResumable(storageRef, video, metadata);
+
+		uploadTask.on(
+			"state_changed",
+			(snapshot) => {
+				// Track progress if needed
+			},
+			(error) => {
+				// Handle upload error
+				reject(error);
+			},
+			() => {
+				// Upload completed successfully, get the download URL
+				getDownloadURL(uploadTask.snapshot.ref)
+					.then((downloadURL) => {
+						resolve(downloadURL);
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			}
+		);
+	});
+};
