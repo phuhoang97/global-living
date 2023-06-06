@@ -40,7 +40,6 @@ const AdminDocumentSalesTable = ({
 		return data?.map((item) => ({
 			...item,
 			key: item?.id,
-			category: convertCategoryName(item?.category),
 			action: hasPermission ? (
 				<div className="w-full flex items-center justify-center">
 					<Popconfirm

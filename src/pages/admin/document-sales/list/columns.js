@@ -6,10 +6,6 @@ export const columns = [
 		title: "Tiêu đề",
 	},
 	{
-		dataIndex: "category",
-		title: "Mục",
-	},
-	{
 		dataIndex: "image",
 		title: "Ảnh",
 		render: (text) => (
