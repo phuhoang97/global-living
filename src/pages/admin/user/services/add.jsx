@@ -12,7 +12,6 @@ const AdminAddUser = ({ closeDrawer, setReloadData, id }) => {
 				.then((response) => {
 					form.setFieldsValue({
 						...response[0],
-						role_id: response[0]?.role,
 					});
 				})
 				.catch(() => {});
