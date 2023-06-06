@@ -11,6 +11,8 @@ import Slider from "react-slick";
 import "react-multi-carousel/lib/styles.css";
 import dayjs from "dayjs";
 import { getAllBlogs } from "../../apis/blog/api";
+import SectionHeading from "../SectionHeading";
+import PostSlider from "../Slider/PostSlider";
 
 export default function BlogPage() {
 	const [dataSource, setDataSource] = useState([]);
@@ -98,7 +100,7 @@ export default function BlogPage() {
 				pageLinkText="Blog"
 			/>
 			<Spacing lg="150" md="80" />
-			<Div className="container">
+			{/* <Div className="container">
 				<Div className="row items-center justify-center">
 					<Div className="col-lg-8">
 						{dataSource.map((item, index) => (
@@ -117,15 +119,38 @@ export default function BlogPage() {
 								)}
 							</Div>
 						))}
-						{/* <Spacing lg="60" md="40" /> */}
-						{/* <Pagination /> */}
 					</Div>
-					{/* <Div className="col-xl-3 col-lg-4 offset-xl-1">
+				</Div>
+			</Div> */}
+
+			<Div className="container">
+				<Div className="row">
+					<Div className="col-xl-12 text-center">
+						<SectionHeading
+							title="Tin tức"
+							subtitle="Our Blog"
+							// btnText="Xem thêm"
+							// btnLink="/blog"
+						/>
+						<Spacing lg="90" md="45" />
+					</Div>
+					<Div
+						// className="col-xl-12 offset-xl-1"
+						className="col-xl-12"
+					>
+						<Div className="cs-half_of_full_width">
+							<PostSlider />
+						</Div>
+					</Div>
+				</Div>
+			</Div>
+
+			{/* <Spacing lg="60" md="40" /> */}
+			{/* <Pagination /> */}
+			{/* <Div className="col-xl-3 col-lg-4 offset-xl-1">
 						<Spacing lg="0" md="80" />
 						<Sidebar />
 					</Div> */}
-				</Div>
-			</Div>
 			{/* <div className="latestNews">
 				<div>
 					<p>TIN TỨC MỚI NHẤT VỀ</p>

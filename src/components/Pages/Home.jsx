@@ -380,7 +380,7 @@ export default function Home() {
 			{/* End Portfolio Section */}
 
 			{/* Start Team Section */}
-			<Spacing lg="145" md="80" />
+			{/* <Spacing lg="145" md="80" />
 			<Div className="container">
 				<SectionHeading
 					title="Quỹ căn <br/> Budapest"
@@ -389,7 +389,7 @@ export default function Home() {
 				/>
 				<Spacing lg="85" md="45" />
 				<TeamSlider />
-			</Div>
+			</Div> */}
 			<Spacing lg="150" md="80" />
 			{/* End Team Section */}
 
@@ -415,7 +415,7 @@ export default function Home() {
 						</Div>
 						<Div className="col-xl-7 offset-xl-1">
 							<Div className="cs-half_of_full_width">
-								<PostSlider />
+								<PostSlider noArrow={true} />
 							</Div>
 						</Div>
 					</Div>
