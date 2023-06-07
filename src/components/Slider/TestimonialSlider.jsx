@@ -102,7 +102,7 @@ export default function TestimonialSlider({ dataSource }) {
 								centerPadding="0px"
 								arrows={false}
 							>
-								{(dataSource?.lengtj > 0
+								{(dataSource?.length > 0
 									? mapData(dataSource)
 									: testimonialData
 								)?.map((item, index) => (
@@ -130,7 +130,7 @@ export default function TestimonialSlider({ dataSource }) {
 								nextArrow={<SlickArrowRight />}
 								className="cs-arrow_style1"
 							>
-								{(dataSource?.lengtj > 0
+								{(dataSource?.length > 0
 									? mapData(dataSource)
 									: testimonialData
 								)?.map((item, index) => (

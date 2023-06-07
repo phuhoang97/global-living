@@ -179,7 +179,11 @@ export default function Home() {
 						overview?.detail ||
 						"Chương trình cấp thẻ cư trú nhân Hungary thông qua hình thức đầu tư bất động sản. Với mức đầu tư tối thiểu chỉ từ 175k Euro - tương đương khoảng 4.6 tỷ VND, Nhà đầu tư sẽ vừa sở hữu tài sản nhà đất ở địa thế vàng - Trái tim của Châu Âu, vừa mang lại cho cả 3 thế hệ gia đình những đặc quyền vô giá của một công dân toàn cầu."
 					}
-					data={overview?.funfaceData || funfaceData}
+					data={
+						overview?.funfaceData
+							? overview?.funfaceData
+							: funfaceData
+					}
 					// data={funfaceData}
 				/>
 			</div>
