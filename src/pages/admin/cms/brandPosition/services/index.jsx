@@ -7,11 +7,13 @@ import {
 	updateDataHomePage,
 } from "../../../../../apis/home/api";
 import { UploadOutlined } from "@ant-design/icons";
+import ReactQuill from "react-quill";
 
 const AdminCMSBrandPositionServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const [detail, setDetail] = useState("");
 
 	const props = {
 		beforeUpload: (file) => {
@@ -65,6 +67,7 @@ const AdminCMSBrandPositionServices = ({ id, closeDrawer, setReloadData }) => {
 			invest: "",
 			comment: "",
 			userComment: "",
+			detail: detail,
 		};
 
 		setLoading(true);
@@ -131,7 +134,12 @@ const AdminCMSBrandPositionServices = ({ id, closeDrawer, setReloadData }) => {
 						},
 					]}
 				>
-					<Input placeholder="Nhập nội dung" />
+					{/* <Input placeholder="Nhập nội dung" /> */}
+					<ReactQuill
+						theme="snow"
+						value={detail}
+						onChange={setDetail}
+					/>
 				</Form.Item>
 
 				<Form.Item

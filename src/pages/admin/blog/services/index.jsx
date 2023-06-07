@@ -1,14 +1,72 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Spin, Upload } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getDetailBlog, postBlog, updateBlog } from "../../../../apis/blog/api";
 import { getLink } from "../../../../helper/getLink";
+import ReactQuill from "react-quill";
 
 const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
+	const quillRef = useRef();
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
-	const [fileList, setFileList] = useState([]);
+	const [content, setContent] = useState("");
+
+	const imageHandler = (e) => {
+		const editor = quillRef.current.getEditor();
+		const input = document.createElement("input");
+		input.setAttribute("type", "file");
+		input.setAttribute("accept", "image/*");
+		input.click();
+
+		input.onchange = async () => {
+			const file = input.files[0];
+			const url = await getLink(file)
+				.then((response) => {
+					return response;
+				})
+				.catch(() => {});
+
+			editor.insertEmbed(editor.getSelection().index, "image", url);
+		};
+	};
+
+	const modules = {
+		toolbar: {
+			container: [
+				[{ header: [1, 2, 3, 4, 5, 6, false] }],
+				["bold", "italic", "underline", "strike", "blockquote"],
+				[{ size: [] }],
+				[{ font: [] }],
+				[{ align: ["right", "center", "justify"] }],
+				[{ list: "ordered" }, { list: "bullet" }],
+				["link", "image"],
+				[{ color: ["red", "#785412"] }],
+				[{ background: ["red", "#785412"] }],
+			],
+			// handlers: {
+			// 	image: imageHandler,
+			// },
+		},
+	};
+
+	const formats = [
+		"header",
+		"bold",
+		"italic",
+		"underline",
+		"strike",
+		"blockquote",
+		"list",
+		"bullet",
+		"link",
+		"color",
+		"image",
+		"background",
+		"align",
+		"size",
+		"font",
+	];
 
 	const props = {
 		beforeUpload: (file) => {
@@ -23,7 +81,6 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 				});
 		},
 		maxCount: 1,
-		fileList: [fileList],
 	};
 
 	useEffect(() => {
@@ -33,21 +90,6 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 				.then((response) => {
 					form.setFieldsValue(response?.data[0]);
 					setLoading(false);
-
-					const urlSplit = response?.data[0]?.img?.split("/");
-					const imagesString = urlSplit?.filter((item) =>
-						item?.includes("images")
-					)[0];
-					const imagesStringSplit = imagesString?.split("?");
-					const imagesStringSplit2 = imagesStringSplit?.split("%")[1];
-
-					setFileList([
-						{
-							uid: "1",
-							name: imagesStringSplit2,
-							url: response?.data[0]?.img,
-						},
-					]);
 				})
 				.catch(() => {
 					setLoading(false);
@@ -58,7 +100,9 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			img: selected,
+			// img: selected,
+			img: "",
+			content: content,
 		};
 
 		setLoading(true);
@@ -124,9 +168,17 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 						},
 					]}
 				>
-					<Input.TextArea placeholder="Nhập nội dung" />
+					{/* <Input.TextArea placeholder="Nhập nội dung" /> */}
+					<ReactQuill
+						ref={quillRef}
+						theme="snow"
+						value={content}
+						onChange={setContent}
+						modules={modules}
+						formats={formats}
+					/>
 				</Form.Item>
-				<Form.Item
+				{/* <Form.Item
 					name={"img"}
 					label={"Ảnh"}
 					rules={[{ required: true, message: "Chưa chọn ảnh" }]}
@@ -136,7 +188,7 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 							Click để tải lên
 						</Button>
 					</Upload>
-				</Form.Item>
+				</Form.Item> */}
 
 				<Button htmlType="submit">
 					{id ? "Cập nhật" : "Thêm mới"}

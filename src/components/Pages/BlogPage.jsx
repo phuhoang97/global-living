@@ -230,7 +230,7 @@ export default function BlogPage() {
 				<Cta
 					title="Trở thành Đại lý/Cộng tác viên <br />phân phối <i>ĐỘC QUYỀN</i>"
 					btnText="Đăng ký ngay tham gia làm Cộng tác viên/ Đại lý"
-					btnLink="/contact"
+					btnLink="/register"
 					bgSrc="/images/cta_bg.jpeg"
 				/>
 			</Div>

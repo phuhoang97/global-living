@@ -1,8 +1,9 @@
 @import "../../scss/default/color_variable";
 
 .cs-hero_social_wrap {
+	font-weight: 800;
 	display: flex;
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	writing-mode: vertical-lr;
 	transform: rotate(180deg) translateY(85%);

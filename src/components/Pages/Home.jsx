@@ -19,6 +19,7 @@ import Hero3 from "../Hero/Hero3";
 import MovingLogo from "../MovingLogo";
 import { useState } from "react";
 import { getAllDataHomePage } from "../../apis/home/api";
+import parse from "html-react-parser";
 
 export default function Home() {
 	const [banner, setBanner] = useState({});
@@ -36,11 +37,11 @@ export default function Home() {
 	const heroSocialLinks = [
 		{
 			name: "Fanpage",
-			links: "/",
+			links: "https://www.facebook.com/globalliving.group",
 		},
 		{
 			name: "Youtube",
-			links: "/",
+			links: "https://www.youtube.com/@GlobalLivingGroup",
 		},
 	];
 
@@ -140,7 +141,7 @@ export default function Home() {
 				// subtitle="BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY <br/>Xu hướng đầu tư của kỷ nguyên mới"
 				subtitle={
 					banner?.detail ||
-					"BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY Xu hướng đầu tư của kỷ nguyên mới"
+					"BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY <br/>Xu hướng đầu tư của kỷ nguyên mới"
 				}
 				btnLink="https://info.globalliving-group.com/hungary?fbclid=IwAR2hyJCSClRp4e-rkqJR63DoTRQnDVBzXs0776Ead3lyjVmBK4RU8u19qWU"
 				btnText={`Xem chi tiết chương trình`}
@@ -203,7 +204,14 @@ export default function Home() {
 							subtitle=""
 						>
 							<Spacing lg="30" md="20" />
-							<p className="cs-m0">
+							<p
+								className="cs-m0"
+								dangerouslySetInnerHTML={{
+									__html:
+										brandPosition?.detail ||
+										"Global Living là thương hiệu hàng đầu tại Việt Nam trong lĩnh vực tư vấn và phát triển bất động sản cao cấp. Với uy tín và kinh nghiệm, chúng tôi đã và đang mang tới cho khách hàng những giải pháp đầu tư bất động sản tối ưu tại cả trong và ngoài nước, kết hợp với các dịch vụ hỗ trợ định cư độc đáo, giúp khách hàng tiếp cận những đặc quyền của công dân toàn cầu. Chúng tôi luôn cam kết mang đến sự hài lòng và thành công cho khách hàng trong mỗi giao dịch và dự án.",
+								}}
+							>
 								{/* Global Living là thương hiệu hàng đầu tại Việt
 								Nam trong lĩnh vực tư vấn và phát triển bất động
 								sản cao cấp. Với uy tín và kinh nghiệm, chúng
@@ -214,8 +222,9 @@ export default function Home() {
 								những đặc quyền của công dân toàn cầu. Chúng tôi
 								luôn cam kết mang đến sự hài lòng và thành công
 								cho khách hàng trong mỗi giao dịch và dự án. */}
-								{brandPosition?.detail ||
-									"Global Living là thương hiệu hàng đầu tại Việt Nam trong lĩnh vực tư vấn và phát triển bất động sản cao cấp. Với uy tín và kinh nghiệm, chúng tôi đã và đang mang tới cho khách hàng những giải pháp đầu tư bất động sản tối ưu tại cả trong và ngoài nước, kết hợp với các dịch vụ hỗ trợ định cư độc đáo, giúp khách hàng tiếp cận những đặc quyền của công dân toàn cầu. Chúng tôi luôn cam kết mang đến sự hài lòng và thành công cho khách hàng trong mỗi giao dịch và dự án."}
+								{/* {(brandPosition?.detail &&
+									parse(brandPosition?.detail)) ||
+									} */}
 							</p>
 							<Spacing lg="30" md="30" />
 							<Div className="cs-separator cs-accent_bg"></Div>
@@ -223,42 +232,51 @@ export default function Home() {
 						</SectionHeading>
 					</Div>
 					<Div className="col-lg-5 offset-xl-2">
-						<img
-							// src="./images/about_img_1.jpeg"
-							src={
-								brandPosition?.img
-									? brandPosition?.img[0]
-									: "./images/about_img_1.jpeg"
-							}
-							alt="About"
-							className="w-100 cs-radius_15 gs"
-						/>
+						{brandPosition?.img && brandPosition?.img[0] ? (
+							<img
+								src={brandPosition?.img[0]}
+								alt="About"
+								className="w-100 cs-radius_15 gs"
+							/>
+						) : (
+							<img
+								src="./images/about_img_1.jpeg"
+								alt="About"
+								className="w-100 cs-radius_15 gs"
+							/>
+						)}
 						<Spacing lg="25" md="25" />
 					</Div>
 					<Div className="col-lg-7">
-						<img
-							// src="./images/about_img_2.jpeg"
-							src={
-								brandPosition?.img
-									? brandPosition?.img[1]
-									: "./images/about_img_2.jpeg"
-							}
-							alt="About"
-							className="w-100 cs-radius_15 gs"
-						/>
+						{brandPosition?.img && brandPosition?.img[1] ? (
+							<img
+								src={brandPosition?.img[1]}
+								alt="About"
+								className="w-100 cs-radius_15 gs"
+							/>
+						) : (
+							<img
+								src="./images/about_img_2.jpeg"
+								alt="About"
+								className="w-100 cs-radius_15 gs"
+							/>
+						)}
 						<Spacing lg="25" md="25" />
 					</Div>
 					<Div className="col-lg-5">
-						<img
-							// src="./images/about_img_3.jpeg"
-							src={
-								brandPosition?.img
-									? brandPosition?.img[2]
-									: "./images/about_img_3.jpeg"
-							}
-							alt="About"
-							className="w-100 cs-radius_15 gs"
-						/>
+						{brandPosition?.img && brandPosition?.img[2] ? (
+							<img
+								src={brandPosition?.img[2]}
+								alt="About"
+								className="w-100 cs-radius_15 gs"
+							/>
+						) : (
+							<img
+								src={"./images/about_img_3.jpeg"}
+								alt="About"
+								className="w-100 cs-radius_15 gs"
+							/>
+						)}
 						<Spacing lg="25" md="25" />
 					</Div>
 				</Div>
@@ -267,10 +285,7 @@ export default function Home() {
 			{/* End About Section */}
 			<Hero
 				// title="Đầu tư Bất động sản<br/>Nhận thẻ cư trú Hungary"
-				title={
-					invest?.heading ||
-					"Đầu tư Bất động sản Nhận thẻ cư trú Hungary"
-				}
+				title={invest?.heading}
 				subtitle="Tìm hiểu những đặc quyền chỉ có ở Đầu tư Bất Động Sản Hungary"
 				btnText="Xem chi tiết chương trình"
 				btnLink="/main-product"
@@ -311,7 +326,14 @@ export default function Home() {
 							subtitle=""
 						>
 							<Spacing lg="30" md="20" />
-							<p className="cs-m0">
+							<p
+								className="cs-m0"
+								dangerouslySetInnerHTML={{
+									__html:
+										vision?.detail ||
+										"Global Living định hướng trở thành đơn vị tiên phong trong lĩnh vực đầu tư và phát triển bất động sản cao cấp. Với sự tận tâm và chuyên nghiệp, chúng tôi luôn đặt mục tiêu mang đến cho khách hàng những cơ hội đầu tư đắt giá và tấm thẻ định cư quyền lực, tại những quốc gia mà sự tiến bộ và tiềm năng phát triển còn rất lớn. Chúng tôi luôn nỗ lực không ngừng để giữ vững được vị thế trong tâm trí khách hàng là một đơn vị uy tín với chất lượng dịch vụ hàng đầu.",
+								}}
+							>
 								{/* Global Living định hướng trở thành đơn vị tiên
 								phong trong lĩnh vực đầu tư và phát triển bất
 								động sản cao cấp. Với sự tận tâm và chuyên
@@ -322,8 +344,6 @@ export default function Home() {
 								Chúng tôi luôn nỗ lực không ngừng để giữ vững
 								được vị thế trong tâm trí khách hàng là một đơn
 								vị uy tín với chất lượng dịch vụ hàng đầu. */}
-								{vision?.detail ||
-									"Global Living định hướng trở thành đơn vị tiên phong trong lĩnh vực đầu tư và phát triển bất động sản cao cấp. Với sự tận tâm và chuyên nghiệp, chúng tôi luôn đặt mục tiêu mang đến cho khách hàng những cơ hội đầu tư đắt giá và tấm thẻ định cư quyền lực, tại những quốc gia mà sự tiến bộ và tiềm năng phát triển còn rất lớn. Chúng tôi luôn nỗ lực không ngừng để giữ vững được vị thế trong tâm trí khách hàng là một đơn vị uy tín với chất lượng dịch vụ hàng đầu."}
 							</p>
 							<Spacing lg="15" md="15" />
 
@@ -347,7 +367,14 @@ export default function Home() {
 							subtitle=""
 						>
 							<Spacing lg="30" md="20" />
-							<p className="cs-m0">
+							<p
+								className="cs-m0"
+								dangerouslySetInnerHTML={{
+									__html:
+										mission?.detail ||
+										"Sứ mệnh của Global Living là đồng hành cùng khách hàng qua từng bước trên hành trình đầu tư bất động sản cao cấp tại các quốc gia phát triển. Không chỉ dừng lại ở những sản phẩm đầu tư quốc tế với chất lượng vượt trội, chúng tôi còn mong muốn hỗ trợ khách hàng sở hữu tấm thẻ định cư quý giá để tận hưởng những lợi ích của một công dân toàn cầu. Giúp cho khách hàng hiện thực hóa ước mơ sống và làm việc tại một môi trường an toàn, tiện nghi với chất lượng cuộc sống đẳng cấp chính là nhiệm vụ của Global Living. Chúng tôi tự hào là đối tác đáng tin cậy của khách hàng, và luôn nỗ lực để mang đến cho họ sự hài lòng và những trải nghiệm tốt nhất trên con đường thành công và thịnh vượng.",
+								}}
+							>
 								{/* Sứ mệnh của Global Living là đồng hành cùng
 								khách hàng qua từng bước trên hành trình đầu tư
 								bất động sản cao cấp tại các quốc gia phát
@@ -363,8 +390,6 @@ export default function Home() {
 								của khách hàng, và luôn nỗ lực để mang đến cho
 								họ sự hài lòng và những trải nghiệm tốt nhất
 								trên con đường thành công và thịnh vượng. */}
-								{mission?.detail ||
-									"Sứ mệnh của Global Living là đồng hành cùng khách hàng qua từng bước trên hành trình đầu tư bất động sản cao cấp tại các quốc gia phát triển. Không chỉ dừng lại ở những sản phẩm đầu tư quốc tế với chất lượng vượt trội, chúng tôi còn mong muốn hỗ trợ khách hàng sở hữu tấm thẻ định cư quý giá để tận hưởng những lợi ích của một công dân toàn cầu. Giúp cho khách hàng hiện thực hóa ước mơ sống và làm việc tại một môi trường an toàn, tiện nghi với chất lượng cuộc sống đẳng cấp chính là nhiệm vụ của Global Living. Chúng tôi tự hào là đối tác đáng tin cậy của khách hàng, và luôn nỗ lực để mang đến cho họ sự hài lòng và những trải nghiệm tốt nhất trên con đường thành công và thịnh vượng."}
 							</p>
 							<Spacing lg="15" md="15" />
 
@@ -515,6 +540,8 @@ export default function Home() {
 						title="Tài liệu dự án mới nhất"
 						subtitle="Sale kits"
 						variant="cs-style1 text-center"
+						btnLink={"/blog"}
+						btnText="Xem thêm"
 					/>
 					<Spacing lg="90" md="45" />
 				</Div>
@@ -590,7 +617,7 @@ export default function Home() {
 				<Cta
 					title="Tham gia ngay để trở thành <br /> Đại lý/Cộng tác viên <br /> PHÂN PHỐI ĐỘC QUYỀN "
 					btnText="Đăng ký ngay tham gia làm Cộng tác viên/ Đại lý."
-					btnLink="https://global-living-deploy.vercel.app/register"
+					btnLink="/register"
 					bgSrc="images/portfolio_hero_bg_2.jpg"
 				/>
 			</Div>

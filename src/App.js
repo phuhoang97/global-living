@@ -29,6 +29,7 @@ import AdminUsersRouter from "./pages/admin/user/router";
 import { Button, Result } from "antd";
 import AdminBlogRouter from "./pages/admin/blog/router";
 import AdminCMSRouter from "./pages/admin/cms/router";
+import Register from "./components/Pages/Register";
 
 function App() {
 	const navigate = useNavigate();
@@ -134,6 +135,7 @@ function App() {
 				</Route>
 
 				<Route path="login" element={<LoginPage />} />
+				<Route path="register" element={<Register />} />
 				<Route path="*" element={<ErrorPage />} />
 			</Routes>
 		</>

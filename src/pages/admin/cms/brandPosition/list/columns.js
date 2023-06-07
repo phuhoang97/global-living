@@ -6,6 +6,13 @@ export const columnsBrandPosition = [
 	{
 		dataIndex: "detail",
 		title: "Nội dung",
+		render: (text) => (
+			<p
+				dangerouslySetInnerHTML={{
+					__html: text,
+				}}
+			></p>
+		),
 	},
 	{
 		dataIndex: "img",

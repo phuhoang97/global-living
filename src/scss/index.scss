@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "react-quill/dist/quill.snow.css";
 
 /* width */
 ::-webkit-scrollbar {
@@ -31,4 +32,5 @@
 @import "common/sidebar";
 @import "pages/login";
 @import "pages/news";
+@import "pages/register";
 @import "overrides/overrides";
