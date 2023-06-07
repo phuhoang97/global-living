@@ -46,7 +46,7 @@ const AdminCMSCommentServices = ({ id, closeDrawer, setReloadData }) => {
 		values = {
 			...values,
 			title: "comment",
-			img: selected,
+			img: [selected],
 			number: 0,
 			descriptionNumber: 0,
 			video: null,
