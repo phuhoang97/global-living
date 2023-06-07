@@ -1,14 +1,17 @@
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Spin, Upload } from "antd";
+import { Button, Form, Input, Spin, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { getDetailBlog, postBlog, updateBlog } from "../../../../apis/blog/api";
-import { getLink } from "../../../../helper/getLink";
+import { getLink } from "../../../../../helper/getLink";
+import {
+	getDetailDataHomePage,
+	postDataHomePage,
+	updateDataHomePage,
+} from "../../../../../apis/home/api";
+import { UploadOutlined } from "@ant-design/icons";
 
-const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
+const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
-	const [fileList, setFileList] = useState([]);
 
 	const props = {
 		beforeUpload: (file) => {
@@ -23,31 +26,15 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 				});
 		},
 		maxCount: 1,
-		fileList: [fileList],
 	};
 
 	useEffect(() => {
 		if (id) {
 			setLoading(true);
-			getDetailBlog(id)
+			getDetailDataHomePage(id)
 				.then((response) => {
 					form.setFieldsValue(response?.data[0]);
 					setLoading(false);
-
-					const urlSplit = response?.data[0]?.img?.split("/");
-					const imagesString = urlSplit?.filter((item) =>
-						item?.includes("images")
-					)[0];
-					const imagesStringSplit = imagesString?.split("?");
-					const imagesStringSplit2 = imagesStringSplit?.split("%")[1];
-
-					setFileList([
-						{
-							uid: "1",
-							name: imagesStringSplit2,
-							url: response?.data[0]?.img,
-						},
-					]);
 				})
 				.catch(() => {
 					setLoading(false);
@@ -58,12 +45,20 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			img: selected,
+			title: "banner",
+			img: [selected],
+			number: 0,
+			descriptionNumber: 0,
+			video: "",
+			invest: "",
+			comment: "",
+			userComment: "",
+			heading: "",
 		};
 
 		setLoading(true);
 		if (!id) {
-			postBlog(values)
+			postDataHomePage(values)
 				.then(() => {
 					if (closeDrawer) {
 						closeDrawer();
@@ -73,14 +68,14 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 						setReloadData(true);
 					}
 					setLoading(false);
-					message.success("Thêm mới bài viết thành công!");
+					message.success("Thêm mới thành công!");
 				})
 				.catch(() => {
 					setLoading(false);
-					message.error("Thêm mới bài viết thất bại!");
+					message.error("Thêm mới thất bại!");
 				});
 		} else {
-			updateBlog(id, values)
+			updateDataHomePage(id, values)
 				.then((response) => {
 					if (closeDrawer) {
 						closeDrawer();
@@ -90,11 +85,11 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 						setReloadData(true);
 					}
 					setLoading(false);
-					message.success("Cập nhật bài viết thành công!");
+					message.success("Cập nhật thành công!");
 				})
 				.catch(() => {
 					setLoading(false);
-					message.error("Cập nhật bài viết thất bại!");
+					message.error("Cập nhật thất bại!");
 				});
 		}
 	};
@@ -103,29 +98,18 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 		<Spin spinning={loading}>
 			<Form form={form} onFinish={onFinish} layout="vertical">
 				<Form.Item
-					name="title"
-					label="Tiêu đề"
+					name={"detail"}
+					label={"Nội dung"}
 					rules={[
 						{
 							required: true,
-							message: "Chưa nhập tiêu đề",
+							message: "Chưa nhập nội dung",
 						},
 					]}
 				>
-					<Input placeholder="Nhập tiêu đề" />
+					<Input placeholder="Nhập nội dung" />
 				</Form.Item>
-				<Form.Item
-					name="content"
-					label="Nội dung"
-					rules={[
-						{
-							required: true,
-							message: "Chưa nhập nội dung",
-						},
-					]}
-				>
-					<Input.TextArea placeholder="Nhập nội dung" />
-				</Form.Item>
+
 				<Form.Item
 					name={"img"}
 					label={"Ảnh"}
@@ -146,4 +130,4 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	);
 };
 
-export default AdminBlogUpdate;
+export default AdminCMSBannerServices;

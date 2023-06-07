@@ -25,7 +25,8 @@ export default function Hero3({
 					<Div className="container">
 						<Div className="cs-hero_text text-center">
 							<h1 className="cs-hero_title">{parse(title)}</h1>
-							<h3>{parse(subtitle)}</h3>
+							{/* <h3>{parse(subtitle)}</h3> */}
+							<h3>{subtitle}</h3>
 							<Button btnLink={btnLink} btnText={btnText} />
 						</Div>
 					</Div>

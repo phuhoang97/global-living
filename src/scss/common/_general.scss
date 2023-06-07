@@ -296,6 +296,10 @@ hr {
 .cs-portfolio_info {
 	.cs-portfolio_title {
 		color: $accent;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
 	}
 
 	.cs-portfolio_subtitle {

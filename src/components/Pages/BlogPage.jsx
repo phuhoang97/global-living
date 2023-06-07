@@ -11,120 +11,147 @@ import Slider from "react-slick";
 import "react-multi-carousel/lib/styles.css";
 import dayjs from "dayjs";
 import { getAllBlogs } from "../../apis/blog/api";
+import SectionHeading from "../SectionHeading";
+import PostSlider from "../Slider/PostSlider";
 
 export default function BlogPage() {
-  const [dataSource, setDataSource] = useState([]);
+	const [dataSource, setDataSource] = useState([]);
 
-  const mapData = (data) => {
-    if (!data || data?.length <= 0) return [];
-    return data?.map((item) => {
-      return {
-        ...item,
-        key: item?.id,
-        thumb: item?.img,
-        title: item?.title,
-        subtitle: item?.content,
-        date: dayjs(item?.createDate)?.format("DD/MM/YYYY"),
-        href: `/blog/${item?.id}`,
-      };
-    });
-  };
+	const mapData = (data) => {
+		if (!data || data?.length <= 0) return [];
+		return data?.map((item) => {
+			return {
+				...item,
+				key: item?.id,
+				thumb: item?.img,
+				title: item?.title,
+				subtitle: item?.content,
+				date: dayjs(item?.createDate)?.format("DD/MM/YYYY"),
+				href: `/blog/${item?.id}`,
+			};
+		});
+	};
 
-  pageTitle("Tin Tức");
-  const settings = {
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
-  const sliderRef = useRef(null);
-  const postData = [
-    {
-      thumb: "/images/post_4.jpeg",
-      title: "A.I will take all human job within next year",
-      subtitle:
-        "Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Tortor posuere ac ut consequat semper viverra nam libero justo. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Aliquam purus sit amet luctus venenatis lectus magna fringilla urna. Purus sit amet luctus venenatis lectus. Nunc aliquet bibendum enim facilisis. Pretium viverra suspendisse potenti nullam ac tortor vitae.",
-      date: "07 Mar 2022",
-      category: "Tech",
-      categoryHref: "/blog",
-      href: "/blog/blog-details",
-    },
-    {
-      thumb: "/images/post_5.jpeg",
-      title: "Creative studio programm coming soon",
-      subtitle:
-        "Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Tortor posuere ac ut consequat semper viverra nam libero justo. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Aliquam purus sit amet luctus venenatis lectus magna fringilla urna. Purus sit amet luctus venenatis lectus. Nunc aliquet bibendum enim facilisis. Pretium viverra suspendisse potenti nullam ac tortor vitae.",
-      date: "05 Mar 2022",
-      category: "Photography",
-      categoryHref: "/blog",
-      href: "/blog/blog-details",
-    },
-    {
-      thumb: "/images/post_6.jpeg",
-      title: "Artistic mind will be great for creation",
-      subtitle:
-        "Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Tortor posuere ac ut consequat semper viverra nam libero justo. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Aliquam purus sit amet luctus venenatis lectus magna fringilla urna. Purus sit amet luctus venenatis lectus. Nunc aliquet bibendum enim facilisis. Pretium viverra suspendisse potenti nullam ac tortor vitae.",
-      date: "04 Mar 2022",
-      category: "Tech",
-      categoryHref: "/blog",
-      href: "/blog/blog-details",
-    },
-  ];
+	pageTitle("Tin Tức");
+	const settings = {
+		arrows: false,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 2,
+		slidesToScroll: 2,
+		responsive: [
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 1,
+				},
+			},
+		],
+	};
+	const sliderRef = useRef(null);
+	const postData = [
+		{
+			thumb: "/images/post_4.jpeg",
+			title: "A.I will take all human job within next year",
+			subtitle:
+				"Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Tortor posuere ac ut consequat semper viverra nam libero justo. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Aliquam purus sit amet luctus venenatis lectus magna fringilla urna. Purus sit amet luctus venenatis lectus. Nunc aliquet bibendum enim facilisis. Pretium viverra suspendisse potenti nullam ac tortor vitae.",
+			date: "07 Mar 2022",
+			category: "Tech",
+			categoryHref: "/blog",
+			href: "/blog/blog-details",
+		},
+		{
+			thumb: "/images/post_5.jpeg",
+			title: "Creative studio programm coming soon",
+			subtitle:
+				"Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Tortor posuere ac ut consequat semper viverra nam libero justo. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Aliquam purus sit amet luctus venenatis lectus magna fringilla urna. Purus sit amet luctus venenatis lectus. Nunc aliquet bibendum enim facilisis. Pretium viverra suspendisse potenti nullam ac tortor vitae.",
+			date: "05 Mar 2022",
+			category: "Photography",
+			categoryHref: "/blog",
+			href: "/blog/blog-details",
+		},
+		{
+			thumb: "/images/post_6.jpeg",
+			title: "Artistic mind will be great for creation",
+			subtitle:
+				"Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Tortor posuere ac ut consequat semper viverra nam libero justo. Mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Aliquam purus sit amet luctus venenatis lectus magna fringilla urna. Purus sit amet luctus venenatis lectus. Nunc aliquet bibendum enim facilisis. Pretium viverra suspendisse potenti nullam ac tortor vitae.",
+			date: "04 Mar 2022",
+			category: "Tech",
+			categoryHref: "/blog",
+			href: "/blog/blog-details",
+		},
+	];
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
-  useEffect(() => {
-    getAllBlogs().then((response) => {
-      setDataSource(mapData(response?.data));
-    });
-  }, []);
+	useEffect(() => {
+		getAllBlogs().then((response) => {
+			setDataSource(mapData(response?.data));
+		});
+	}, []);
 
-  return (
-    <>
-      <PageHeading
-        title='Tin Tức'
-        bgSrc='/images/blog_hero_bg.jpeg'
-        pageLinkText='Blog'
-      />
-      <Spacing lg='150' md='80' />
-      <Div className='container'>
-        <Div className='row items-center justify-center'>
-          <Div className='col-lg-8'>
-            {dataSource.map((item, index) => (
-              <Div key={index}>
-                <PostStyle2
-                  thumb={item.thumb}
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  date={item.date}
-                  category={item.category}
-                  categoryHref={item.categoryHref}
-                  href={item.href}
-                />
-                {dataSource.length > index + 1 && <Spacing lg='95' md='60' />}
-              </Div>
-            ))}
-            {/* <Spacing lg="60" md="40" /> */}
-            {/* <Pagination /> */}
-          </Div>
-          {/* <Div className="col-xl-3 col-lg-4 offset-xl-1">
+	return (
+		<>
+			<PageHeading
+				title="Tin Tức"
+				bgSrc="/images/blog_hero_bg.jpeg"
+				pageLinkText="Blog"
+			/>
+			<Spacing lg="150" md="80" />
+			{/* <Div className="container">
+				<Div className="row items-center justify-center">
+					<Div className="col-lg-8">
+						{dataSource.map((item, index) => (
+							<Div key={index}>
+								<PostStyle2
+									thumb={item.thumb}
+									title={item.title}
+									subtitle={item.subtitle}
+									date={item.date}
+									category={item.category}
+									categoryHref={item.categoryHref}
+									href={item.href}
+								/>
+								{dataSource.length > index + 1 && (
+									<Spacing lg="95" md="60" />
+								)}
+							</Div>
+						))}
+					</Div>
+				</Div>
+			</Div> */}
+
+			<Div className="container">
+				<Div className="row">
+					<Div className="col-xl-12 text-center">
+						<SectionHeading
+							title="Tin tức"
+							subtitle="Our Blog"
+							// btnText="Xem thêm"
+							// btnLink="/blog"
+						/>
+						<Spacing lg="90" md="45" />
+					</Div>
+					<Div
+						// className="col-xl-12 offset-xl-1"
+						className="col-xl-12"
+					>
+						<Div className="cs-half_of_full_width">
+							<PostSlider />
+						</Div>
+					</Div>
+				</Div>
+			</Div>
+
+			{/* <Spacing lg="60" md="40" /> */}
+			{/* <Pagination /> */}
+			{/* <Div className="col-xl-3 col-lg-4 offset-xl-1">
 						<Spacing lg="0" md="80" />
 						<Sidebar />
 					</Div> */}
-        </Div>
-      </Div>
-      {/* <div className="latestNews">
+			{/* <div className="latestNews">
 				<div>
 					<p>TIN TỨC MỚI NHẤT VỀ</p>
 					<select>
@@ -198,15 +225,15 @@ export default function BlogPage() {
 					</div>
 				</div>
 			</div> */}
-      <Spacing lg='150' md='80' />
-      <Div className='container'>
-        <Cta
-          title='Trở thành Đại lý/Cộng tác viên <br />phân phối <i>ĐỘC QUYỀN</i>'
-          btnText='Đăng ký ngay tham gia làm Cộng tác viên/ Đại lý'
-          btnLink='/contact'
-          bgSrc='/images/cta_bg.jpeg'
-        />
-      </Div>
-    </>
-  );
+			<Spacing lg="150" md="80" />
+			<Div className="container">
+				<Cta
+					title="Trở thành Đại lý/Cộng tác viên <br />phân phối <i>ĐỘC QUYỀN</i>"
+					btnText="Đăng ký ngay tham gia làm Cộng tác viên/ Đại lý"
+					btnLink="/contact"
+					bgSrc="/images/cta_bg.jpeg"
+				/>
+			</Div>
+		</>
+	);
 }
