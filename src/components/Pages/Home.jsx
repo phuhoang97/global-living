@@ -273,10 +273,10 @@ export default function Home() {
 				scrollDownId="#service"
 				socialLinksHeading="Follow Us"
 				heroSocialLinks={heroSocialLinks}
-				// bgImageUrl="/images/hero_bg_5.jpeg"
-				bgImageUrl={
-					invest?.img ? invest?.img[0] : "/images/hero_bg_5.jpeg"
-				}
+				bgImageUrl="/images/hero_bg_5.jpeg"
+				// bgImageUrl={
+				// 	invest?.img ? invest?.img[0] : "/images/hero_bg_5.jpeg"
+				// }
 			/>
 
 			{/* Start Why Choose Section */}

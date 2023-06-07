@@ -1,14 +1,32 @@
-import { Button, Form, Input, Spin, message } from "antd";
+import { Button, Form, Input, Spin, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
 import {
 	getDetailDataHomePage,
 	postDataHomePage,
 	updateDataHomePage,
 } from "../../../../../apis/home/api";
+import { getLink } from "../../../../../helper/getLink";
+import { UploadOutlined } from "@ant-design/icons";
 
 const AdminCMSInvestServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
+	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
+
+	const props = {
+		beforeUpload: (file) => {
+			setLoading(true);
+			getLink(file)
+				.then((response) => {
+					setLoading(false);
+					setSelected(response);
+				})
+				.catch(() => {
+					setLoading(false);
+				});
+		},
+		maxCount: 1,
+	};
 
 	useEffect(() => {
 		if (id) {
@@ -91,6 +109,18 @@ const AdminCMSInvestServices = ({ id, closeDrawer, setReloadData }) => {
 				>
 					<Input placeholder="Nhập tiêu đề" />
 				</Form.Item>
+
+				{/* <Form.Item
+					name={"img"}
+					label={"Ảnh"}
+					rules={[{ required: true, message: "Chưa chọn ảnh" }]}
+				>
+					<Upload {...props}>
+						<Button icon={<UploadOutlined />}>
+							Click để tải lên
+						</Button>
+					</Upload>
+				</Form.Item> */}
 
 				<Button htmlType="submit">
 					{id ? "Cập nhật" : "Thêm mới"}
