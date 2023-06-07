@@ -1,32 +1,14 @@
-import { Button, Form, Input, Spin, Upload, message } from "antd";
+import { Button, Form, Input, InputNumber, Spin, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { getLink } from "../../../../../helper/getLink";
 import {
 	getDetailDataHomePage,
 	postDataHomePage,
 	updateDataHomePage,
 } from "../../../../../apis/home/api";
-import { UploadOutlined } from "@ant-design/icons";
 
-const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
+const AdminCMSOverviewServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
-
-	const props = {
-		beforeUpload: (file) => {
-			setLoading(true);
-			getLink(file)
-				.then((response) => {
-					setLoading(false);
-					setSelected(response);
-				})
-				.catch(() => {
-					setLoading(false);
-				});
-		},
-		maxCount: 1,
-	};
 
 	useEffect(() => {
 		if (id) {
@@ -45,15 +27,11 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			title: "banner",
-			img: [selected],
-			number: 0,
-			descriptionNumber: 0,
+			title: "realState",
+			img: [],
 			video: "",
-			invest: "",
 			comment: "",
 			userComment: "",
-			heading: "",
 		};
 
 		setLoading(true);
@@ -98,6 +76,19 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 		<Spin spinning={loading}>
 			<Form form={form} onFinish={onFinish} layout="vertical">
 				<Form.Item
+					name={"heading"}
+					label={"Tiêu đề"}
+					rules={[
+						{
+							required: true,
+							message: "Chưa nhập tiêu đề",
+						},
+					]}
+				>
+					<Input placeholder="Nhập tiêu đề" />
+				</Form.Item>
+
+				<Form.Item
 					name={"detail"}
 					label={"Nội dung"}
 					rules={[
@@ -111,15 +102,48 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 				</Form.Item>
 
 				<Form.Item
-					name={"img"}
-					label={"Ảnh"}
-					rules={[{ required: true, message: "Chưa chọn ảnh" }]}
+					name={"number"}
+					label={"Chi phí làm thẻ"}
+					rules={[
+						{
+							required: true,
+							message: "Chưa nhập chi phí làm thẻ",
+						},
+					]}
 				>
-					<Upload {...props}>
-						<Button icon={<UploadOutlined />}>
-							Click để tải lên
-						</Button>
-					</Upload>
+					<InputNumber
+						placeholder="Nhập chi phí làm thẻ"
+						className="w-full"
+					/>
+				</Form.Item>
+
+				<Form.Item
+					name={"descriptionNumber"}
+					label={"Tháng"}
+					rules={[
+						{
+							required: true,
+							message: "Chưa nhập tháng",
+						},
+					]}
+				>
+					<InputNumber placeholder="Nhập tháng" className="w-full" />
+				</Form.Item>
+
+				<Form.Item
+					name={"invest"}
+					label={"Chi phí đầu tư tối thiểu"}
+					rules={[
+						{
+							required: true,
+							message: "Chưa nhập chi phí đầu tư tối thiểu",
+						},
+					]}
+				>
+					<InputNumber
+						placeholder="Nhập chi phí đầu tư tối thiểu"
+						className="w-full"
+					/>
 				</Form.Item>
 
 				<Button htmlType="submit">
@@ -130,4 +154,4 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	);
 };
 
-export default AdminCMSBannerServices;
+export default AdminCMSOverviewServices;

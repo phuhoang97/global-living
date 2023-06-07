@@ -7,4 +7,8 @@ export const columnsComment = [
 		dataIndex: "comment",
 		title: "Bình luận",
 	},
+	{
+		dataIndex: "action",
+		width: "10%",
+	},
 ];

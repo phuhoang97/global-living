@@ -1,32 +1,14 @@
-import { Button, Form, Input, Spin, Upload, message } from "antd";
+import { Button, Form, Input, Spin, message } from "antd";
 import React, { useEffect, useState } from "react";
-import { getLink } from "../../../../../helper/getLink";
 import {
 	getDetailDataHomePage,
 	postDataHomePage,
 	updateDataHomePage,
 } from "../../../../../apis/home/api";
-import { UploadOutlined } from "@ant-design/icons";
 
-const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
+const AdminCMSInvestServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
-
-	const props = {
-		beforeUpload: (file) => {
-			setLoading(true);
-			getLink(file)
-				.then((response) => {
-					setLoading(false);
-					setSelected(response);
-				})
-				.catch(() => {
-					setLoading(false);
-				});
-		},
-		maxCount: 1,
-	};
 
 	useEffect(() => {
 		if (id) {
@@ -45,15 +27,15 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			title: "banner",
-			img: [selected],
+			title: "invest",
+			img: [],
 			number: 0,
 			descriptionNumber: 0,
 			video: "",
 			invest: "",
 			comment: "",
 			userComment: "",
-			heading: "",
+			detail: "",
 		};
 
 		setLoading(true);
@@ -98,28 +80,16 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 		<Spin spinning={loading}>
 			<Form form={form} onFinish={onFinish} layout="vertical">
 				<Form.Item
-					name={"detail"}
-					label={"Nội dung"}
+					name={"heading"}
+					label={"Tiêu đề"}
 					rules={[
 						{
 							required: true,
-							message: "Chưa nhập nội dung",
+							message: "Chưa nhập tiêu đề",
 						},
 					]}
 				>
-					<Input placeholder="Nhập nội dung" />
-				</Form.Item>
-
-				<Form.Item
-					name={"img"}
-					label={"Ảnh"}
-					rules={[{ required: true, message: "Chưa chọn ảnh" }]}
-				>
-					<Upload {...props}>
-						<Button icon={<UploadOutlined />}>
-							Click để tải lên
-						</Button>
-					</Upload>
+					<Input placeholder="Nhập tiêu đề" />
 				</Form.Item>
 
 				<Button htmlType="submit">
@@ -130,4 +100,4 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	);
 };
 
-export default AdminCMSBannerServices;
+export default AdminCMSInvestServices;

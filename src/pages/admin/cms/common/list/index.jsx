@@ -2,7 +2,6 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Drawer, message, Popconfirm, Table } from "antd";
 import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import { useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import {
 	deleteDataHomePage,
@@ -13,6 +12,18 @@ import { columnsComment } from "../../comment/list/columns";
 import AdminCMSCommentServices from "../../comment/services";
 import { columnsVideo } from "../../video/list/columns";
 import AdminCMSVideoServices from "../../video/services";
+import { columnsBanner } from "../../banner/list/columns";
+import { columnsOverview } from "../../overview/list/columns";
+import { columnsBrandPosition } from "../../brandPosition/list/columns";
+import { columnsInvest } from "../../invest/list/columns";
+import { columnsMission } from "../../mission/list/columns";
+import { columnsVission } from "../../vision/list/columns";
+import AdminCMSBannerServices from "../../banner/services";
+import AdminCMSOverviewServices from "../../overview/services";
+import AdminCMSBrandPositionServices from "../../brandPosition/services";
+import AdminCMSInvestServices from "../../invest/services";
+import AdminCMSVisionServices from "../../vision/services";
+import AdminCMSMissionServices from "../../mission/services";
 
 const AdminCMSList = () => {
 	const token = localStorage.getItem("token");
@@ -33,6 +44,19 @@ const AdminCMSList = () => {
 			return {
 				...item,
 				key: item?.id,
+				img: (
+					<div className="flex items-center gap-[20px]">
+						{item?.img?.map((i) => {
+							return (
+								<img
+									src={i}
+									alt="image"
+									className="w-[200px]"
+								/>
+							);
+						})}
+					</div>
+				),
 				action: hasPermission ? (
 					<div className="w-full flex items-center justify-center">
 						<Popconfirm
@@ -76,7 +100,7 @@ const AdminCMSList = () => {
 				setDataSource(
 					mapData(
 						response?.data?.filter(
-							(item) => item?.title?.toLowerCase() === endpoint
+							(item) => item?.title === endpoint
 						)
 					)
 				);
@@ -112,6 +136,18 @@ const AdminCMSList = () => {
 
 	const checkTypeColumns = () => {
 		switch (endpoint) {
+			case "banner":
+				return columnsBanner;
+			case "realState":
+				return columnsOverview;
+			case "brandPosition":
+				return columnsBrandPosition;
+			case "invest":
+				return columnsInvest;
+			case "vision":
+				return columnsVission;
+			case "mission":
+				return columnsMission;
 			case "video":
 				return columnsVideo;
 			case "comment":
@@ -123,6 +159,54 @@ const AdminCMSList = () => {
 
 	const checkTypeService = () => {
 		switch (endpoint) {
+			case "banner":
+				return (
+					<AdminCMSBannerServices
+						id={id}
+						closeDrawer={handleClose}
+						setReloadData={setReloadData}
+					/>
+				);
+			case "realState":
+				return (
+					<AdminCMSOverviewServices
+						id={id}
+						closeDrawer={handleClose}
+						setReloadData={setReloadData}
+					/>
+				);
+			case "brandPosition":
+				return (
+					<AdminCMSBrandPositionServices
+						id={id}
+						closeDrawer={handleClose}
+						setReloadData={setReloadData}
+					/>
+				);
+			case "invest":
+				return (
+					<AdminCMSInvestServices
+						id={id}
+						closeDrawer={handleClose}
+						setReloadData={setReloadData}
+					/>
+				);
+			case "vision":
+				return (
+					<AdminCMSVisionServices
+						id={id}
+						closeDrawer={handleClose}
+						setReloadData={setReloadData}
+					/>
+				);
+			case "mission":
+				return (
+					<AdminCMSMissionServices
+						id={id}
+						closeDrawer={handleClose}
+						setReloadData={setReloadData}
+					/>
+				);
 			case "video":
 				return (
 					<AdminCMSVideoServices

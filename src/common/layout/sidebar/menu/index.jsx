@@ -213,6 +213,20 @@ const MenuSidebar = () => {
 			null,
 			[
 				getItem("Bài viết", "/admin/blog", <FileTextOutlined />),
+				getItem("Banner", "/admin/cms/banner", <FileTextOutlined />),
+				getItem(
+					"Tổng quan",
+					"/admin/cms/realState",
+					<FileTextOutlined />
+				),
+				getItem(
+					"Định vị thương hiệu",
+					"/admin/cms/brandPosition",
+					<FileTextOutlined />
+				),
+				getItem("Đầu tư", "/admin/cms/invest", <FileTextOutlined />),
+				getItem("Tầm nhìn", "/admin/cms/vision", <FileTextOutlined />),
+				getItem("Sứ mệnh", "/admin/cms/mission", <FileTextOutlined />),
 				getItem("Video", "/admin/cms/video", <FileTextOutlined />),
 				getItem("Comment", "/admin/cms/comment", <FileTextOutlined />),
 			],

@@ -8,9 +8,9 @@ import {
 } from "../../../../../apis/home/api";
 import { UploadOutlined } from "@ant-design/icons";
 
-const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
+const AdminCMSBrandPositionServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState({});
+	const [selected, setSelected] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	const props = {
@@ -19,13 +19,25 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 			getLink(file)
 				.then((response) => {
 					setLoading(false);
-					setSelected(response);
+					setSelected((prev) => [...prev, response]);
 				})
 				.catch(() => {
 					setLoading(false);
 				});
 		},
-		maxCount: 1,
+		multiple: true,
+		onRemove: (file) => {
+			setSelected((prev) =>
+				prev?.filter((item) => {
+					const imgCut = item?.split("/");
+					const splitImgCut = imgCut?.filter((item) =>
+						item?.includes("images")
+					)[0];
+
+					// return item !== file
+				})
+			);
+		},
 	};
 
 	useEffect(() => {
@@ -45,15 +57,14 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			title: "banner",
-			img: [selected],
+			title: "brandPosition",
+			img: selected,
 			number: 0,
 			descriptionNumber: 0,
 			video: "",
 			invest: "",
 			comment: "",
 			userComment: "",
-			heading: "",
 		};
 
 		setLoading(true);
@@ -98,6 +109,19 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 		<Spin spinning={loading}>
 			<Form form={form} onFinish={onFinish} layout="vertical">
 				<Form.Item
+					name={"heading"}
+					label={"Tiêu đề"}
+					rules={[
+						{
+							required: true,
+							message: "Chưa nhập tiêu đề",
+						},
+					]}
+				>
+					<Input placeholder="Nhập tiêu đề" />
+				</Form.Item>
+
+				<Form.Item
 					name={"detail"}
 					label={"Nội dung"}
 					rules={[
@@ -130,4 +154,4 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	);
 };
 
-export default AdminCMSBannerServices;
+export default AdminCMSBrandPositionServices;

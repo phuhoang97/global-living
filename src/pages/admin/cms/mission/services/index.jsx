@@ -8,7 +8,7 @@ import {
 } from "../../../../../apis/home/api";
 import { UploadOutlined } from "@ant-design/icons";
 
-const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
+const AdminCMSMissionServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			title: "banner",
+			title: "mission",
 			img: [selected],
 			number: 0,
 			descriptionNumber: 0,
@@ -53,7 +53,6 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 			invest: "",
 			comment: "",
 			userComment: "",
-			heading: "",
 		};
 
 		setLoading(true);
@@ -98,6 +97,19 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 		<Spin spinning={loading}>
 			<Form form={form} onFinish={onFinish} layout="vertical">
 				<Form.Item
+					name={"heading"}
+					label={"Tiêu đề"}
+					rules={[
+						{
+							required: true,
+							message: "Chưa nhập tiêu đề",
+						},
+					]}
+				>
+					<Input placeholder="Nhập tiêu đề" />
+				</Form.Item>
+
+				<Form.Item
 					name={"detail"}
 					label={"Nội dung"}
 					rules={[
@@ -130,4 +142,4 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	);
 };
 
-export default AdminCMSBannerServices;
+export default AdminCMSMissionServices;

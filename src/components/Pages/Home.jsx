@@ -21,6 +21,12 @@ import { useState } from "react";
 import { getAllDataHomePage } from "../../apis/home/api";
 
 export default function Home() {
+	const [banner, setBanner] = useState({});
+	const [overview, setOverview] = useState({});
+	const [brandPosition, setBrandPosition] = useState({});
+	const [invest, setInvest] = useState({});
+	const [vision, setVision] = useState({});
+	const [mission, setMission] = useState({});
 	const [videoSrc, setVideoSrc] = useState("");
 	const [userComment, setUserComment] = useState([]);
 
@@ -71,10 +77,51 @@ export default function Home() {
 			.then((response) => {
 				const data = response?.data;
 
+				setBanner(data?.filter((item) => item?.title === "banner")[0]);
+
+				const overviewData = data?.filter(
+					(item) => item?.title === "realState"
+				)[0];
+				setOverview({
+					...overviewData,
+					funfaceData: [
+						{
+							title: "Chi phí làm thẻ",
+							factNumber: overviewData?.number,
+							unit: "Tỷ VND",
+						},
+						{
+							title: "Chi phí đầu tư tối thiểu",
+							factNumber: overviewData?.invest,
+							unit: "Tỷ VND",
+						},
+						{
+							title: "Thời gian dự kiến",
+							factNumber: overviewData?.descriptionNumber,
+							unit: "Tháng",
+						},
+						{
+							title: "",
+							factNumber: "",
+							unit: "Xem thêm >>",
+						},
+					],
+				});
+
+				setBrandPosition(
+					data?.filter((item) => item?.title === "brandPosition")[0]
+				);
+
+				setInvest(data?.filter((item) => item?.title === "invest")[0]);
+
+				setVision(data?.filter((item) => item?.title === "vision")[0]);
+
+				setMission(
+					data?.filter((item) => item?.title === "mission")[0]
+				);
+
 				setVideoSrc(
-					data?.filter(
-						(item) => item?.title?.toLowerCase() === "video"
-					)[0]?.video
+					data?.filter((item) => item?.title === "video")[0]?.video
 				);
 
 				setUserComment(
@@ -90,13 +137,15 @@ export default function Home() {
 
 			<Hero3
 				title="Global <br />Living"
-				subtitle="BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY <br/>Xu hướng đầu tư của kỷ nguyên mới"
+				// subtitle="BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY <br/>Xu hướng đầu tư của kỷ nguyên mới"
+				subtitle={banner?.detail}
 				btnLink="https://info.globalliving-group.com/hungary?fbclid=IwAR2hyJCSClRp4e-rkqJR63DoTRQnDVBzXs0776Ead3lyjVmBK4RU8u19qWU"
 				btnText={`Xem chi tiết chương trình`}
 				socialLinksHeading="Follow Us"
 				heroSocialLinks={heroSocialLinks}
 				scrollDownId="#service"
-				bgImageUrl="./images/banner.jpg"
+				// bgImageUrl="./images/banner.jpg"
+				bgImageUrl={banner?.img[0]}
 			/>
 
 			<Spacing lg="125" md="70" />
@@ -118,9 +167,12 @@ export default function Home() {
 			<div className="container">
 				<FunFact
 					variant="cs-type1"
-					title="BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY"
-					subtitle="Chương trình cấp thẻ cư trú nhân Hungary thông qua hình thức đầu tư bất động sản. Với mức đầu tư tối thiểu chỉ từ 175k Euro - tương đương khoảng 4.6 tỷ VND, Nhà đầu tư sẽ vừa sở hữu tài sản nhà đất ở địa thế vàng - Trái tim của Châu Âu, vừa mang lại cho cả 3 thế hệ gia đình những đặc quyền vô giá của một công dân toàn cầu."
-					data={funfaceData}
+					// title="BẤT ĐỘNG SẢN ĐỊNH CƯ HUNGARY"
+					// subtitle="Chương trình cấp thẻ cư trú nhân Hungary thông qua hình thức đầu tư bất động sản. Với mức đầu tư tối thiểu chỉ từ 175k Euro - tương đương khoảng 4.6 tỷ VND, Nhà đầu tư sẽ vừa sở hữu tài sản nhà đất ở địa thế vàng - Trái tim của Châu Âu, vừa mang lại cho cả 3 thế hệ gia đình những đặc quyền vô giá của một công dân toàn cầu."
+					title={overview?.heading}
+					subtitle={overview?.detail}
+					data={overview?.funfaceData}
+					// data={funfaceData}
 				/>
 			</div>
 
@@ -131,10 +183,14 @@ export default function Home() {
 			<Div className="container">
 				<Div className="row">
 					<Div className="col-xl-5 col-lg-7">
-						<SectionHeading title="Định vị thương hiệu" subtitle="">
+						{/* <SectionHeading title="Định vị thương hiệu" subtitle=""> */}
+						<SectionHeading
+							title={brandPosition?.heading}
+							subtitle=""
+						>
 							<Spacing lg="30" md="20" />
 							<p className="cs-m0">
-								Global Living là thương hiệu hàng đầu tại Việt
+								{/* Global Living là thương hiệu hàng đầu tại Việt
 								Nam trong lĩnh vực tư vấn và phát triển bất động
 								sản cao cấp. Với uy tín và kinh nghiệm, chúng
 								tôi đã và đang mang tới cho khách hàng những
@@ -143,7 +199,8 @@ export default function Home() {
 								trợ định cư độc đáo, giúp khách hàng tiếp cận
 								những đặc quyền của công dân toàn cầu. Chúng tôi
 								luôn cam kết mang đến sự hài lòng và thành công
-								cho khách hàng trong mỗi giao dịch và dự án.
+								cho khách hàng trong mỗi giao dịch và dự án. */}
+								{brandPosition?.detail}
 							</p>
 							<Spacing lg="30" md="30" />
 							<Div className="cs-separator cs-accent_bg"></Div>
@@ -152,7 +209,8 @@ export default function Home() {
 					</Div>
 					<Div className="col-lg-5 offset-xl-2">
 						<img
-							src="./images/about_img_1.jpeg"
+							// src="./images/about_img_1.jpeg"
+							src={brandPosition?.img[0]}
 							alt="About"
 							className="w-100 cs-radius_15 gs"
 						/>
@@ -160,7 +218,8 @@ export default function Home() {
 					</Div>
 					<Div className="col-lg-7">
 						<img
-							src="./images/about_img_2.jpeg"
+							// src="./images/about_img_2.jpeg"
+							src={brandPosition?.img[1]}
 							alt="About"
 							className="w-100 cs-radius_15 gs"
 						/>
@@ -168,7 +227,8 @@ export default function Home() {
 					</Div>
 					<Div className="col-lg-5">
 						<img
-							src="./images/about_img_3.jpeg"
+							// src="./images/about_img_3.jpeg"
+							src={brandPosition?.img[2]}
 							alt="About"
 							className="w-100 cs-radius_15 gs"
 						/>
@@ -179,14 +239,17 @@ export default function Home() {
 			<Spacing lg="75" md="55" />
 			{/* End About Section */}
 			<Hero
-				title="Đầu tư Bất động sản<br/>Nhận thẻ cư trú Hungary"
+				// title="Đầu tư Bất động sản<br/>Nhận thẻ cư trú Hungary"
+				title={invest?.heading}
 				subtitle="Tìm hiểu những đặc quyền chỉ có ở Đầu tư Bất Động Sản Hungary"
+				// subtitle={invest?.detail}
 				btnText="Xem chi tiết chương trình"
 				btnLink="/main-product"
 				scrollDownId="#service"
 				socialLinksHeading="Follow Us"
 				heroSocialLinks={heroSocialLinks}
-				bgImageUrl="/images/hero_bg_5.jpeg"
+				// bgImageUrl="/images/hero_bg_5.jpeg"
+				bgImageUrl={invest?.img[0]}
 			/>
 
 			{/* Start Why Choose Section */}
@@ -197,7 +260,8 @@ export default function Home() {
 						<Div className="cs-image_layer cs-style1">
 							<Div className="cs-image_layer_in">
 								<img
-									src="/images/about_img_5.jpeg"
+									// src="/images/about_img_5.jpeg"
+									src={vision?.img[0]}
 									alt="About"
 									className="w-100 cs-radius_15"
 								/>
@@ -206,10 +270,11 @@ export default function Home() {
 						<Spacing lg="0" md="40" />
 					</Div>
 					<Div className="col-xl-5 offset-xl-1 col-lg-6">
-						<SectionHeading title="Tầm nhìn" subtitle="">
+						{/* <SectionHeading title="Tầm nhìn" subtitle=""> */}
+						<SectionHeading title={vision?.heading} subtitle="">
 							<Spacing lg="30" md="20" />
 							<p className="cs-m0">
-								Global Living định hướng trở thành đơn vị tiên
+								{/* Global Living định hướng trở thành đơn vị tiên
 								phong trong lĩnh vực đầu tư và phát triển bất
 								động sản cao cấp. Với sự tận tâm và chuyên
 								nghiệp, chúng tôi luôn đặt mục tiêu mang đến cho
@@ -218,7 +283,8 @@ export default function Home() {
 								tiến bộ và tiềm năng phát triển còn rất lớn.
 								Chúng tôi luôn nỗ lực không ngừng để giữ vững
 								được vị thế trong tâm trí khách hàng là một đơn
-								vị uy tín với chất lượng dịch vụ hàng đầu.
+								vị uy tín với chất lượng dịch vụ hàng đầu. */}
+								{vision?.detail}
 							</p>
 							<Spacing lg="15" md="15" />
 
@@ -236,10 +302,11 @@ export default function Home() {
 			<Div className="container">
 				<Div className="row">
 					<Div className="col-xl-5 offset-xl-1 col-lg-6">
-						<SectionHeading title="Sứ mệnh" subtitle="">
+						{/* <SectionHeading title="Sứ mệnh" subtitle=""> */}
+						<SectionHeading title={mission?.heading} subtitle="">
 							<Spacing lg="30" md="20" />
 							<p className="cs-m0">
-								Sứ mệnh của Global Living là đồng hành cùng
+								{/* Sứ mệnh của Global Living là đồng hành cùng
 								khách hàng qua từng bước trên hành trình đầu tư
 								bất động sản cao cấp tại các quốc gia phát
 								triển. Không chỉ dừng lại ở những sản phẩm đầu
@@ -253,7 +320,8 @@ export default function Home() {
 								Living. Chúng tôi tự hào là đối tác đáng tin cậy
 								của khách hàng, và luôn nỗ lực để mang đến cho
 								họ sự hài lòng và những trải nghiệm tốt nhất
-								trên con đường thành công và thịnh vượng.
+								trên con đường thành công và thịnh vượng. */}
+								{mission?.detail}
 							</p>
 							<Spacing lg="15" md="15" />
 
@@ -266,7 +334,8 @@ export default function Home() {
 						<Div className="cs-image_layer cs-style1">
 							<Div className="cs-image_layer_in">
 								<img
-									src="/images/about_img_4.jpeg"
+									// src="/images/about_img_4.jpeg"
+									src={mission?.img[0]}
 									alt="About"
 									className="w-100 cs-radius_15"
 								/>

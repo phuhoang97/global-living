@@ -9,8 +9,8 @@ export const columnsVideo = [
 			</a>
 		),
 	},
-	// {
-	// 	dataIndex: "action",
-	// 	width: "10%",
-	// },
+	{
+		dataIndex: "action",
+		width: "10%",
+	},
 ];

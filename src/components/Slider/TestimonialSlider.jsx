@@ -22,8 +22,6 @@ export default function TestimonialSlider({ dataSource }) {
 		});
 	};
 
-	console.log("jtadd", mapData(dataSource));
-
 	const testimonialData = [
 		{
 			testimonialThumb: "/images/member_2.jpeg",
