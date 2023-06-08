@@ -1,5 +1,7 @@
 import { Icon } from "@iconify/react";
+import { Spin } from "antd";
 import React, { useEffect, useState } from "react";
+import { getAllFaqCategories } from "../../apis/faq/api";
 import { pageTitle } from "../../helper";
 import Accordion from "../Accordion";
 import Button from "../Button";
@@ -9,34 +11,9 @@ import PageHeading from "../PageHeading";
 import Spacing from "../Spacing";
 
 export default function FaqPage() {
-	const [selected, setSelected] = useState("card");
-
-	const listItems = [
-		{
-			name: "Thẻ cư trú & Định cư",
-			key: "card",
-		},
-		{
-			name: "Quy trình & Thủ tục",
-			key: "progress",
-		},
-		{
-			name: "Quy định thẻ cư trú",
-			key: "rule",
-		},
-		{
-			name: "Giáo dục",
-			key: "education",
-		},
-		{
-			name: "Cơ hội việc làm",
-			key: "chance",
-		},
-		{
-			name: "Y tế",
-			key: "pharma",
-		},
-	];
+	const [selectedKey, setSelectedKey] = useState("");
+	const [dataSource, setDataSource] = useState([]);
+	const [loading, setLoading] = useState(false);
 
 	pageTitle("Frequently Asked Questions");
 
@@ -44,12 +21,23 @@ export default function FaqPage() {
 		window.scrollTo(0, 0);
 	}, []);
 
+	useEffect(() => {
+		setLoading(true);
+		getAllFaqCategories()
+			.then((response) => {
+				setSelectedKey(response?.data[0]?.id);
+				setDataSource(response?.data);
+				setLoading(false);
+			})
+			.catch(() => setLoading(false));
+	}, []);
+
 	const handleGetKey = (key) => {
-		setSelected(key);
+		setSelectedKey(key);
 	};
 
 	return (
-		<>
+		<Spin spinning={loading}>
 			<PageHeading
 				title="Q&A: Câu hỏi thường gặp"
 				bgSrc="/images/about_hero_bg.jpeg"
@@ -65,18 +53,18 @@ export default function FaqPage() {
 							</h2>
 							<Div className="cs-height_30 cs-height_lg_30" />
 							<ul className="cs-list cs-style1 cs-mp0">
-								{listItems?.map((item) => {
+								{dataSource?.map((item, index) => {
 									return (
 										<li
 											onClick={() =>
-												handleGetKey(item?.key)
+												handleGetKey(item?.id)
 											}
-											key={item?.key}
+											key={item?.id}
 										>
 											<Button
 												variant="cs-type2"
 												btnLink="/faq"
-												btnText={item?.name}
+												btnText={item?.category}
 												icon={
 													<Icon icon="material-symbols:content-copy-outline-rounded" />
 												}
@@ -89,7 +77,7 @@ export default function FaqPage() {
 					</Div>
 					<Div className="col-lg-7 offset-lg-1">
 						<Spacing lg="0" md="40" />
-						<Accordion keySelect={selected} />
+						<Accordion selectedKey={selectedKey} />
 					</Div>
 				</Div>
 			</Div>
@@ -104,6 +92,6 @@ export default function FaqPage() {
 				/>
 			</Div>
 			{/* End CTA Section */}
-		</>
+		</Spin>
 	);
 }
