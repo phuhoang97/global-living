@@ -13,7 +13,7 @@ import { getAllCategoriesDetailByCategoryId } from "../../../../apis/category/de
 const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
-	const [selected, setSelected] = useState({});
+	const [selected, setSelected] = useState([]);
 	const [categories, setCategories] = useState([]);
 	const [detailCategories, setDetailCategories] = useState([]);
 
