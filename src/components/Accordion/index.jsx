@@ -32,63 +32,69 @@ export default function Accordion() {
     {
       question:
         "So sánh sự khác biệt giữa THẺ CƯ TRÚ (RESIDENCE PERMIT) - THẺ THƯỜNG TRÚ (PERMANENT RESIDENCY) - HỘ CHIẾU (QUỐC TỊCH)",
-      answer:
-        "* RP (RESIDENCE PERMIT): Thẻ cư trú (tạm trú) cho phép người nước ngoài cư trú lâu dài (thời hạn thẻ 3 năm, gia hạn ít nhất 3 năm/lần, con cái phụ thuộc được học trường công miễn phí.",
-      answer:
-        "* PR (PERMANENT RESIDENCY): Thẻ thường trú cho phép người nước ngoài cư trú không thời hạn và hưởng nhiều quyền lợi hơn như công dân.",
-      answer:
-        "* PP (PASSPORT): Quốc tịch, hưởng tất cả quyền lợi như người bản xứ.",
+      answer: `
+      * RP (RESIDENCE PERMIT): Thẻ cư trú (tạm trú) cho phép người nước ngoài cư trú lâu dài (thời hạn thẻ 3 năm, gia hạn ít nhất 3 năm/lần, con cái phụ thuộc được học trường công miễn phí.",
+      <br/>
+      * PR (PERMANENT RESIDENCY): Thẻ thường trú cho phép người nước ngoài cư trú không thời hạn và hưởng nhiều quyền lợi hơn như công dân.",
+      <br/>
+      * PP (PASSPORT): Quốc tịch, hưởng tất cả quyền lợi như người bản xứ.`,
     },
     {
       question: "Quyền lợi của thẻ cư trú Hungary là gì? ",
-      answer:
-        "* Được quyền bảo hộ và nhận phúc lợi xã hội như công dân bản địa: Học tập miễn phí các trường công từ cấp 1- cấp 3; sử dụng y tế công miễn phí .",
-      answer: "* Được sinh sống, học tập & làm việc tại Hungary ",
-      answer: "* Chăm sóc y tế theo hệ thống chuẩn Châu Âu ",
-      answer: "* Sở hữu bất động sản vĩnh viễn ",
-      answer:
-        "* Tự do đi lại trong 26 quốc gia Schengen và nhiều nước Châu  u và đi lại dễ dàng tới hơn 180 quốc gia trên thế giới.",
-      answer:
-        "* Sau 03 năm có thể gia hạn thẻ và nếu đáp ứng đầy đủ ngoại ngữ, việc làm, tài sản đầu tư thì có thể xin lên thẻ xanh hay quốc tịch, theo yêu cầu của chính phủ Hungary. ",
-      answer:
-        "* Không yêu cầu có mặt tại Hungary trong thời gian được cấp thẻ cư trú.",
-      answer:
-        "* Có quyền mở công ty kinh doanh, chỉ có người đứng đơn chính không được đi làm thuê cho công ty khác.",
+      answer: `* Được quyền bảo hộ và nhận phúc lợi xã hội như công dân bản địa: Học tập miễn phí các trường công từ cấp 1- cấp 3; sử dụng y tế công miễn phí .",
+        <br/>
+        * Được sinh sống, học tập & làm việc tại Hungary.
+        <br/>
+        * Chăm sóc y tế theo hệ thống chuẩn Châu Âu.
+      <br/>  
+      * Sở hữu bất động sản vĩnh viễn.
+      <br/>
+      * Tự do đi lại trong 26 quốc gia Schengen và nhiều nước Châu  u và đi lại dễ dàng tới hơn 180 quốc gia trên thế giới.
+        <br/>
+        * Sau 03 năm có thể gia hạn thẻ và nếu đáp ứng đầy đủ ngoại ngữ, việc làm, tài sản đầu tư thì có thể xin lên thẻ xanh hay quốc tịch, theo yêu cầu của chính phủ Hungary.
+        <br/>
+        * Không yêu cầu có mặt tại Hungary trong thời gian được cấp thẻ cư trú.
+        <br/>
+        * Có quyền mở công ty kinh doanh, chỉ có người đứng đơn chính không được đi làm thuê cho công ty khác.`,
     },
     {
       question: "Đặc quyền chỉ có tại Global Living",
-      answer:
-        "* Không cần đến Hungary để lăn tay & làm thẻ mà có thể nộp hồ sơ lăn tay tại Đại sứ quán Hungary ở Hà Nội/ Lãnh sự quán Hungary ở TP HCM.",
-      answer:
-        "* Không cần đến Hungary để mua BĐS mà có thể chọn BĐS online/ trực tuyến.",
-      answer:
-        "* Không yêu cầu thời gian ở tối thiểu tại Hungary trong thời gian cấp thẻ.",
-      answer:
-        "* Khuyến khích mỗi năm nhập cảnh 1 lần để thăm nhà lựa chọn ký gửi BĐS cho thuê ngắn/ dài hạn.",
-      answer:
-        "* Nhận báo cáo dòng tiền & kết quả kinh doanh cho thuê BĐS trực tuyến 3 tháng/ lần.",
-      answer:
-        "* Hỗ trợ đóng thuế & các dịch vụ cần thiết liên quan đến tài sản BĐS.",
-      answer: "* Hỗ trợ mua bán, chuyển đổi chính tài sản BĐS.",
-      answer: "* Hỗ trợ quản lý vận hành trọn gói tài sản.",
-      answer: "* Hoàn tiền 100% nếu không nhận được thẻ cư trú.",
-      answer: "* Chuyển tiền chính thống, hợp pháp.",
+      answer: `* Không cần đến Hungary để lăn tay & làm thẻ mà có thể nộp hồ sơ lăn tay tại Đại sứ quán Hungary ở Hà Nội/ Lãnh sự quán Hungary ở TP HCM.
+        <br/>
+        * Không cần đến Hungary để mua BĐS mà có thể chọn BĐS online/ trực tuyến.
+        <br/>
+        * Không yêu cầu thời gian ở tối thiểu tại Hungary trong thời gian cấp thẻ.
+        <br/>
+        * Khuyến khích mỗi năm nhập cảnh 1 lần để thăm nhà lựa chọn ký gửi BĐS cho thuê ngắn/ dài hạn.
+        <br/>
+        * Nhận báo cáo dòng tiền & kết quả kinh doanh cho thuê BĐS trực tuyến 3 tháng/ lần.
+        <br/>
+        * Hỗ trợ đóng thuế & các dịch vụ cần thiết liên quan đến tài sản BĐS.
+        <br/>
+       * Hỗ trợ mua bán, chuyển đổi chính tài sản BĐS.
+        <br/>
+       * Hỗ trợ quản lý vận hành trọn gói tài sản.
+        <br/>
+       * Hoàn tiền 100% nếu không nhận được thẻ cư trú.
+        <br/>
+       * Chuyển tiền chính thống, hợp pháp.`,
     },
     {
       question:
         "Tổng thời gian hoàn thành cấp thẻ và mua BĐS là 4-6 tháng, đúng không?",
-      answer: "* Thời gian cấp thẻ là trong vòng 3 tháng",
-      answer: "* Khách hàng có thể chọn mua BĐS song song khi chờ thẻ.",
-      answer:
-        "* Vì thế tổng thời gian tối thiểu để làm thẻ & mua BĐS có thể là dưới 3 tháng & tối đa là 6 tháng",
+      answer: `
+      * Thời gian cấp thẻ là trong vòng 3 tháng.
+      <br/>
+     * Khách hàng có thể chọn mua BĐS song song khi chờ thẻ.
+      <br/>
+      * Vì thế tổng thời gian tối thiểu để làm thẻ & mua BĐS có thể là dưới 3 tháng & tối đa là 6 tháng. `,
     },
     {
       question:
         "Nếu làm thẻ cho các thành viên trong gia đình thì các loại phí, thuế hàng tháng phải đóng cho từng thành viên nếu sinh sống bên đó là bao nhiêu? Nếu họ về Việt Nam có phải đóng không? Và mức đóng là bao nhiêu?",
-      answer:
-        "* Thẻ này là thẻ cư trú theo diện đầu tư BĐS (nộp thuế 1 lần 4%), không phải theo diện lao động nên các thành viên trong gia đình không phải đóng thêm các khoản nào.",
-      answer:
-        "* Tuy nhiên nếu NĐT kinh doanh từ BĐS đang đầu tư tại nước đó, thì phải thực hiện nghĩa vụ thuế theo quy định.",
+      answer: `* Thẻ này là thẻ cư trú theo diện đầu tư BĐS (nộp thuế 1 lần 4%), không phải theo diện lao động nên các thành viên trong gia đình không phải đóng thêm các khoản nào.
+        <br/>
+        * Tuy nhiên nếu NĐT kinh doanh từ BĐS đang đầu tư tại nước đó, thì phải thực hiện nghĩa vụ thuế theo quy định.`,
     },
     {
       question:
@@ -121,15 +127,19 @@ export default function Accordion() {
     {
       question: "Sinh viên quốc tế có thể học cử nhân tại Hungary không?",
       answer:
-        "* Hoàn toàn có thể. Với nền giáo dục lâu đời theo tiêu chuẩn Châu  u, cùng những cải tiến vượt trội trong chất lượng giảng dạy, Hungary đang dần trở thành một điểm đến thu hút đối với du học sinh quốc tế. Theo số liệu năm 2022 có 479 du học sinh Việt Nam đang học tập tại Hungry. Tính đến thời điểm hiện tại, Nhà nước Hungary đã đào tạo cho Việt Nam gần 4000 cử nhân, kỹ sư đại học, bác sĩ, thạc sĩ và tiến sĩ, trong số đó có một số là lãnh đạo cấp cao của Đảng và Nhà nước Việt Nam. Hungary tự hào nằm trong top 20 quốc gia có số lượng người đoạt giải thưởng Nobel trên đầu người cao nhất",
+        "* Hoàn toàn có thể. Với nền giáo dục lâu đời theo tiêu chuẩn Châu âu, cùng những cải tiến vượt trội trong chất lượng giảng dạy, Hungary đang dần trở thành một điểm đến thu hút đối với du học sinh quốc tế. Theo số liệu năm 2022 có 479 du học sinh Việt Nam đang học tập tại Hungry. Tính đến thời điểm hiện tại, Nhà nước Hungary đã đào tạo cho Việt Nam gần 4000 cử nhân, kỹ sư đại học, bác sĩ, thạc sĩ và tiến sĩ, trong số đó có một số là lãnh đạo cấp cao của Đảng và Nhà nước Việt Nam. Hungary tự hào nằm trong top 20 quốc gia có số lượng người đoạt giải thưởng Nobel trên đầu người cao nhất",
     },
     {
       question: "Các chương trình tốt nhất để học tập tại Hungary là gì?",
       answer: `* Hungary cung cấp nhiều ngành nghề khác nhau ở từng trình độ cử nhân, thạc sĩ và tiến sĩ. Nổi tiếng có thể kể đến các khối ngành Y-Nha-Dược, hay các ngành về Quản lý Khách sạn, Quản lý Quốc tế, Khoa học Môi trường, Công nghệ Sinh học, Tâm lý học, Môi trường Nông nghiệp, Quan hệ Quốc tế và An toàn Thực phẩm, và Kỹ thuật. 
         Dưới đây là các trường đại học hàng đầu về Y khoa tại Hungary
+        <br/>
         - Semmelweis University
+        <br/>
         - University of Debrecen
+        <br/>
         - University of Pécs
+        <br/>
         - University of Szeged
         `,
     },
@@ -189,7 +199,10 @@ export default function Accordion() {
             </span>
           </Div>
           <Div className='cs-accordian_body'>
-            <Div className='cs-accordian_body_in'>{item.answer}</Div>
+            <Div
+              dangerouslySetInnerHTML={{ __html: item.answer }}
+              className='cs-accordian_body_in'
+            ></Div>
           </Div>
         </Div>
       ))}
