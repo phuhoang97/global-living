@@ -30,6 +30,9 @@ import { Button, Result } from "antd";
 import AdminBlogRouter from "./pages/admin/blog/router";
 import AdminCMSRouter from "./pages/admin/cms/router";
 import Register from "./components/Pages/Register";
+import BlogDetailPage1 from "./components/Pages/BlogDetailPage1";
+import BlogDetailPage2 from "./components/Pages/BlogDetailPage2";
+import BlogDetailPage3 from "./components/Pages/BlogDetailPage3";
 
 function App() {
 	const navigate = useNavigate();
@@ -65,6 +68,9 @@ function App() {
 						element={<PortfolioDetailsPage />}
 					/>
 					<Route path="blog" element={<BlogPage />} />
+					<Route path="blog/1" element={<BlogDetailPage1 />} />
+					<Route path="blog/2" element={<BlogDetailPage2 />} />
+					<Route path="blog/3" element={<BlogDetailPage3 />} />
 					<Route
 						path="blog/:blogDetailsId"
 						element={<BlogDetailsPage />}

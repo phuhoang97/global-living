@@ -15,23 +15,6 @@ import SectionHeading from "../SectionHeading";
 import PostSlider from "../Slider/PostSlider";
 
 export default function BlogPage() {
-	const [dataSource, setDataSource] = useState([]);
-
-	const mapData = (data) => {
-		if (!data || data?.length <= 0) return [];
-		return data?.map((item) => {
-			return {
-				...item,
-				key: item?.id,
-				thumb: item?.img,
-				title: item?.title,
-				subtitle: item?.content,
-				date: dayjs(item?.createDate)?.format("DD/MM/YYYY"),
-				href: `/blog/${item?.id}`,
-			};
-		});
-	};
-
 	pageTitle("Tin Tức");
 	const settings = {
 		arrows: false,
@@ -84,12 +67,6 @@ export default function BlogPage() {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-	}, []);
-
-	useEffect(() => {
-		getAllBlogs().then((response) => {
-			setDataSource(mapData(response?.data));
-		});
 	}, []);
 
 	return (
