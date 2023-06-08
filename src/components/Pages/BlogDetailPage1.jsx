@@ -8,16 +8,36 @@ import Div from "../Div";
 import Sidebar from "../Sidebar.jsx";
 import Spacing from "../Spacing";
 import ContactPage from "./ContactPage";
+import { AiOutlineLink } from "react-icons/ai";
+import copy from "clipboard-copy";
+import { message } from "antd";
 
 const BlogDetailPage1 = () => {
 	const params = useParams();
 
 	pageTitle("Blog Details");
 
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
+	const handleCopy = () => {
+		copy("https://global-living-master.vercel.app/blog/1");
+		message.success("Đã sao chép!");
+	};
+
 	return (
 		<>
 			<PageHeading
-				title="Tốc độ tăng giá BĐS"
+				title={
+					<>
+						Tốc độ tăng giá BĐS{" "}
+						<AiOutlineLink
+							className="mb-2 mx-3 text-[30px] cursor-pointer"
+							onClick={handleCopy}
+						/>
+					</>
+				}
 				bgSrc="/images/blog_details_hero_bg.jpeg"
 				pageLinkText={"Tốc độ tăng giá BĐS"}
 			/>
