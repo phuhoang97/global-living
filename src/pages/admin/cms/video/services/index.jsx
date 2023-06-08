@@ -10,9 +10,8 @@ import { getLinkVideo } from "../../../../../helper/getLink";
 
 const AdminCMSVideoServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState([]);
+	const [selected, setSelected] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [fileList, setFileList] = useState([]);
 
 	const props = {
 		beforeUpload: (file) => {
@@ -27,7 +26,6 @@ const AdminCMSVideoServices = ({ id, closeDrawer, setReloadData }) => {
 				});
 		},
 		maxCount: 1,
-		defaultFileList: fileList,
 	};
 
 	useEffect(() => {
@@ -37,7 +35,7 @@ const AdminCMSVideoServices = ({ id, closeDrawer, setReloadData }) => {
 				.then((response) => {
 					form.setFieldsValue(response?.data[0]);
 					setLoading(false);
-					setFileList(response?.data[0]?.video);
+					setSelected(response?.data[0]?.video);
 				})
 				.catch(() => {
 					setLoading(false);
@@ -49,7 +47,7 @@ const AdminCMSVideoServices = ({ id, closeDrawer, setReloadData }) => {
 		values = {
 			...values,
 			title: "video",
-			img: null,
+			img: [],
 			number: 0,
 			descriptionNumber: 0,
 			video: selected,

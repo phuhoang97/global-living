@@ -37,6 +37,7 @@ const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 				.then((response) => {
 					form.setFieldsValue(response?.data[0]);
 					setLoading(false);
+					setSelected(response?.data[0]?.img);
 				})
 				.catch(() => {
 					setLoading(false);

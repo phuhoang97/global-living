@@ -50,7 +50,7 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 			getDetailDocumentSales(id)
 				.then((response) => {
 					form.setFieldsValue(response?.data[0]);
-
+					setSelected(response?.data[0]?.image);
 					onSelectCategory(response?.data[0]?.category_id);
 				})
 				.catch(() => {});
