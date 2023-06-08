@@ -11,7 +11,7 @@ import ReactQuill from "react-quill";
 
 const AdminCMSBannerServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState({});
+	const [selected, setSelected] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [detail, setDetail] = useState("");
 

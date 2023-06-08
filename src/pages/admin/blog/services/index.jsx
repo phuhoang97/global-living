@@ -8,7 +8,7 @@ import ReactQuill from "react-quill";
 const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	const quillRef = useRef();
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState({});
+	const [selected, setSelected] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [content, setContent] = useState("");
 
