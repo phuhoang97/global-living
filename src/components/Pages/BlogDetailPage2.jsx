@@ -624,7 +624,7 @@ const BlogDetailPage2 = () => {
 						</Div>
 						{/* End Details Post Content */}
 
-						<ContactPage />
+						{/* <ContactPage /> */}
 
 						{/* Start Comment Section */}
 						{/* <Spacing lg="30" md="30" />

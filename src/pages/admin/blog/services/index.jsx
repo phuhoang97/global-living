@@ -13,40 +13,34 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	const [content, setContent] = useState("");
 
 	const imageHandler = (e) => {
-		const editor = quillRef.current.getEditor();
 		const input = document.createElement("input");
 		input.setAttribute("type", "file");
 		input.setAttribute("accept", "image/*");
-		input.click();
-
-		input.onchange = async () => {
+		input.onchange = () => {
 			const file = input.files[0];
-			const url = await getLink(file)
+			getLink(file)
 				.then((response) => {
-					return response;
+					const quill = quillRef.current.getEditor();
+					console.log("tree", quill);
+					const range = quill.getSelection();
+					quill.insertEmbed(range.index, "image", response);
 				})
 				.catch(() => {});
-
-			editor.insertEmbed(editor.getSelection().index, "image", url);
 		};
+		input.click();
 	};
 
 	const modules = {
 		toolbar: {
 			container: [
-				[{ header: [1, 2, 3, 4, 5, 6, false] }],
+				[{ header: [1, 2, 3, 4, false] }],
 				["bold", "italic", "underline", "strike", "blockquote"],
-				[{ size: [] }],
-				[{ font: [] }],
-				[{ align: ["right", "center", "justify"] }],
 				[{ list: "ordered" }, { list: "bullet" }],
 				["link", "image"],
-				[{ color: ["red", "#785412"] }],
-				[{ background: ["red", "#785412"] }],
 			],
-			// handlers: {
-			// 	image: imageHandler,
-			// },
+			handlers: {
+				image: imageHandler,
+			},
 		},
 	};
 
@@ -100,7 +94,6 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			// img: selected,
 			img: "",
 			content: content,
 		};
@@ -173,10 +166,57 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 						ref={quillRef}
 						theme="snow"
 						value={content}
-						onChange={setContent}
+						// onBlur={(value) => setContent(value)}
 						modules={modules}
 						formats={formats}
 					/>
+					{/* <ReactQuill
+						ref={quillRef}
+						value={content}
+						onChange={setContent}
+						modules={{
+							toolbar: {
+								container: [
+									[{ header: [1, 2, 3, 4, false] }],
+									[
+										"bold",
+										"italic",
+										"underline",
+										"strike",
+										"blockquote",
+									],
+									[{ list: "ordered" }, { list: "bullet" }],
+									["link", "image"],
+								],
+								handlers: {
+									image: () => {
+										const input =
+											document.createElement("input");
+										input.setAttribute("type", "file");
+										input.setAttribute("accept", "image/*");
+										input.onchange = () => {
+											const file = input.files[0];
+											getLink(file)
+												.then((response) => {
+													const quill =
+														quillRef.current.getEditor();
+													console.log("tree", quill);
+													const range =
+														quill.getSelection();
+													quill.insertEmbed(
+														range.index,
+														"image",
+														response
+													);
+												})
+												.catch(() => {});
+										};
+										input.click();
+									},
+								},
+							},
+						}}
+					/> */}
 				</Form.Item>
 				{/* <Form.Item
 					name={"img"}

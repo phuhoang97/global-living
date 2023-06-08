@@ -202,7 +202,7 @@ export default function Header({ variant }) {
 																)
 															}
 														>
-															FAQ - Câu hỏi thường
+															Q&A - Câu hỏi thường
 															gặp
 														</Link>
 													</li>

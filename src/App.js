@@ -33,6 +33,8 @@ import Register from "./components/Pages/Register";
 import BlogDetailPage1 from "./components/Pages/BlogDetailPage1";
 import BlogDetailPage2 from "./components/Pages/BlogDetailPage2";
 import BlogDetailPage3 from "./components/Pages/BlogDetailPage3";
+import BLogDetailPage4 from "./components/Pages/BLogDetailPage4";
+import BlogDetailPage5 from "./components/Pages/BlogDetailPage5";
 
 function App() {
 	const navigate = useNavigate();
@@ -70,7 +72,8 @@ function App() {
 					<Route path="blog" element={<BlogPage />} />
 					<Route path="blog/1" element={<BlogDetailPage1 />} />
 					<Route path="blog/2" element={<BlogDetailPage2 />} />
-					<Route path="blog/3" element={<BlogDetailPage3 />} />
+					<Route path="blog/3" element={<BLogDetailPage4 />} />
+					<Route path="blog/4" element={<BlogDetailPage5 />} />
 					<Route
 						path="blog/:blogDetailsId"
 						element={<BlogDetailsPage />}

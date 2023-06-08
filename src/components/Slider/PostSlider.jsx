@@ -99,7 +99,7 @@ export default function PostSlider({ noArrow }) {
 
 	/** Slider Settings **/
 	const settings = {
-		dots: false,
+		dots: true,
 		arrows: noArrow ? false : true,
 		infinite: true,
 		autoplay: true,
@@ -159,7 +159,14 @@ export default function PostSlider({ noArrow }) {
 				src: "/images/blog3.jpg",
 				alt: "Post",
 				date: "08 June 2023",
-				title: "Những lý do nên học tại Hungary",
+				title: "Quyền lợi visa Hungary",
+			},
+			{
+				url: "/blog/4",
+				src: "/images/blog4.jpg",
+				alt: "Post",
+				date: "08 June 2023",
+				title: "Khám phá 10 điểm du lịch đẹp",
 			},
 		]);
 	}, []);

@@ -17,9 +17,9 @@ const BlogDetailPage3 = () => {
 	return (
 		<>
 			<PageHeading
-				title="Những lý do nên học tại Hungary"
+				title="Quyền lợi visa Hungary "
 				bgSrc="/images/blog_details_hero_bg.jpeg"
-				pageLinkText={"Những lý do nên học tại Hungary"}
+				pageLinkText={"Quyền lợi visa Hungary "}
 			/>
 
 			<Spacing lg="150" md="80" />
@@ -37,7 +37,7 @@ const BlogDetailPage3 = () => {
 									</Link> */}
 								</Div>
 								<h2 className="cs-post_title">
-									Cơ hội việc làm rộng mở
+									Đặc quyền thẻ cư trú Hungary
 								</h2>
 
 								<p>
@@ -625,7 +625,7 @@ const BlogDetailPage3 = () => {
 						</Div>
 						{/* End Details Post Content */}
 
-						<ContactPage />
+						{/* <ContactPage /> */}
 
 						{/* Start Comment Section */}
 						{/* <Spacing lg="30" md="30" />
