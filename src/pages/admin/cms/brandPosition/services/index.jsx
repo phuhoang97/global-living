@@ -48,6 +48,7 @@ const AdminCMSBrandPositionServices = ({ id, closeDrawer, setReloadData }) => {
 			getDetailDataHomePage(id)
 				.then((response) => {
 					form.setFieldsValue(response?.data[0]);
+					setSelected(response?.data[0]?.img);
 					setLoading(false);
 				})
 				.catch(() => {
