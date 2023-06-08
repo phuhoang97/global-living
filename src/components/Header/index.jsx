@@ -177,7 +177,7 @@ export default function Header({ variant }) {
 													setMobileToggle(false)
 												}
 											>
-												Sale Kits
+												Sales Kits
 											</NavLink>
 											<DropDown>
 												<ul>
