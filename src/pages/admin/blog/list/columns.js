@@ -6,15 +6,22 @@ export const columns = [
 	{
 		dataIndex: "content",
 		title: "Nội dung",
-	},
-	{
-		dataIndex: "img",
-		title: "Ảnh",
 		render: (text) => (
-			<img src={text} alt="image" style={{ width: "100px" }} />
+			<p
+				dangerouslySetInnerHTML={{
+					__html: text,
+				}}
+			></p>
 		),
-		width: "300px",
 	},
+	// {
+	// 	dataIndex: "img",
+	// 	title: "Ảnh",
+	// 	render: (text) => (
+	// 		<img src={text} alt="image" style={{ width: "100px" }} />
+	// 	),
+	// 	width: "300px",
+	// },
 	{
 		dataIndex: "action",
 		width: "10%",

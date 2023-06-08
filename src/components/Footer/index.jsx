@@ -55,6 +55,7 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 									text="CÔNG TY CỔ PHẦN GLOBAL LIVING"
 								/>
 								<SocialWidget />
+								{/* <p className="mt-4">Hotline: 093 162 69 09</p> */}
 							</Div>
 						</Div>
 						<Div className="col-lg-3 col-sm-6">

@@ -7,11 +7,13 @@ import {
 	postDataHomePage,
 	updateDataHomePage,
 } from "../../../../../apis/home/api";
+import ReactQuill from "react-quill";
 
 const AdminCMSVisionServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
+	const [detail, setDetail] = useState("");
 
 	const props = {
 		beforeUpload: (file) => {
@@ -53,6 +55,7 @@ const AdminCMSVisionServices = ({ id, closeDrawer, setReloadData }) => {
 			invest: "",
 			comment: "",
 			userComment: "",
+			detail: detail,
 		};
 
 		setLoading(true);
@@ -119,7 +122,12 @@ const AdminCMSVisionServices = ({ id, closeDrawer, setReloadData }) => {
 						},
 					]}
 				>
-					<Input placeholder="Nhập nội dung" />
+					{/* <Input placeholder="Nhập nội dung" /> */}
+					<ReactQuill
+						theme="snow"
+						value={detail}
+						onChange={setDetail}
+					/>
 				</Form.Item>
 
 				<Form.Item

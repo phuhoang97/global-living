@@ -5,10 +5,12 @@ import {
 	postDataHomePage,
 	updateDataHomePage,
 } from "../../../../../apis/home/api";
+import ReactQuill from "react-quill";
 
 const AdminCMSOverviewServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
+	const [detail, setDetail] = useState("");
 
 	useEffect(() => {
 		if (id) {
@@ -32,6 +34,7 @@ const AdminCMSOverviewServices = ({ id, closeDrawer, setReloadData }) => {
 			video: "",
 			comment: "",
 			userComment: "",
+			detail: detail,
 		};
 
 		setLoading(true);
@@ -98,7 +101,12 @@ const AdminCMSOverviewServices = ({ id, closeDrawer, setReloadData }) => {
 						},
 					]}
 				>
-					<Input placeholder="Nhập nội dung" />
+					{/* <Input placeholder="Nhập nội dung" /> */}
+					<ReactQuill
+						theme="snow"
+						value={detail}
+						onChange={setDetail}
+					/>
 				</Form.Item>
 
 				<Form.Item

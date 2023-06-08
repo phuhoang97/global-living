@@ -26,7 +26,14 @@ export default function Hero({
 			<Div className="container">
 				<Div className="cs-hero_text">
 					{/* <h1 className="cs-hero_title">{parse(title)}</h1> */}
-					<h1 className="cs-hero_title">{title}</h1>
+					<h1
+						className="cs-hero_title"
+						dangerouslySetInnerHTML={{
+							__html:
+								title ||
+								"Đầu tư Bất động sản Nhận thẻ cư trú Hungary",
+						}}
+					></h1>
 					<Div className="cs-hero_info">
 						<Div>
 							<Button btnLink={btnLink} btnText={btnText} />
