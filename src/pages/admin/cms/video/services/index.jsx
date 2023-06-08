@@ -10,7 +10,7 @@ import { getLinkVideo } from "../../../../../helper/getLink";
 
 const AdminCMSVideoServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState({});
+	const [selected, setSelected] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [fileList, setFileList] = useState([]);
 
