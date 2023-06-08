@@ -8,6 +8,9 @@ import Div from "../Div";
 import Sidebar from "../Sidebar.jsx";
 import Spacing from "../Spacing";
 import ContactPage from "./ContactPage";
+import copy from "clipboard-copy";
+import { message } from "antd";
+import { AiOutlineLink } from "react-icons/ai";
 
 const BlogDetailPage3 = () => {
 	const params = useParams();
@@ -18,12 +21,25 @@ const BlogDetailPage3 = () => {
 		window.scrollTo(0, 0);
 	}, []);
 
+	const handleCopy = () => {
+		copy("https://global-living-master.vercel.app/blog/3");
+		message.success("Đã sao chép!");
+	};
+
 	return (
 		<>
 			<PageHeading
-				title="Quyền lợi visa Hungary "
+				title={
+					<>
+						Quyền lợi visa Hungary
+						<AiOutlineLink
+							className="mb-2 mx-3 text-[30px] cursor-pointer"
+							onClick={handleCopy}
+						/>
+					</>
+				}
 				bgSrc="/images/blog_details_hero_bg.jpeg"
-				pageLinkText={"Quyền lợi visa Hungary "}
+				pageLinkText={"Quyền lợi visa Hungary"}
 			/>
 
 			<Spacing lg="150" md="80" />

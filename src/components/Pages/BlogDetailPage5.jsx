@@ -8,6 +8,9 @@ import Div from "../Div";
 import Sidebar from "../Sidebar.jsx";
 import Spacing from "../Spacing";
 import ContactPage from "./ContactPage";
+import copy from "clipboard-copy";
+import { message } from "antd";
+import { AiOutlineLink } from "react-icons/ai";
 
 const BlogDetailPage5 = () => {
 	const params = useParams();
@@ -18,10 +21,23 @@ const BlogDetailPage5 = () => {
 		window.scrollTo(0, 0);
 	}, []);
 
+	const handleCopy = () => {
+		copy("https://global-living-master.vercel.app/blog/4");
+		message.success("Đã sao chép!");
+	};
+
 	return (
 		<>
 			<PageHeading
-				title="Khám phá 10 điểm du lịch đẹp"
+				title={
+					<>
+						Khám phá 10 điểm du lịch đẹp{" "}
+						<AiOutlineLink
+							className="mb-2 mx-3 text-[30px] cursor-pointer"
+							onClick={handleCopy}
+						/>
+					</>
+				}
 				bgSrc="/images/blog_details_hero_bg.jpeg"
 				pageLinkText={"Khám phá 10 điểm du lịch đẹp"}
 			/>
