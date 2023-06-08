@@ -20,6 +20,7 @@ import MovingLogo from "../MovingLogo";
 import { useState } from "react";
 import { getAllDataHomePage } from "../../apis/home/api";
 import parse from "html-react-parser";
+import { AiFillPhone } from "react-icons/ai";
 
 export default function Home() {
 	const [banner, setBanner] = useState({});
@@ -48,7 +49,14 @@ export default function Home() {
 			links: "https://zalo.me/2666483498675431364",
 		},
 		{
-			name: "Hotline: 093 162 69 09",
+			name: (
+				<>
+					<AiFillPhone
+						style={{ transform: "rotate(-150deg)", marginRight: 6 }}
+					/>
+					093 162 69 09
+				</>
+			),
 		},
 	];
 
@@ -152,8 +160,8 @@ export default function Home() {
 				}
 				btnLink="https://info.globalliving-group.com/hungary?fbclid=IwAR2hyJCSClRp4e-rkqJR63DoTRQnDVBzXs0776Ead3lyjVmBK4RU8u19qWU"
 				btnText={`Xem chi tiết chương trình`}
-				socialLinksHeading="Follow Us"
-				heroSocialLinks={heroSocialLinks}
+				// socialLinksHeading="Follow Us"
+				// heroSocialLinks={heroSocialLinks}
 				scrollDownId="#service"
 				// bgImageUrl="./images/banner.jpg"
 				bgImageUrl={

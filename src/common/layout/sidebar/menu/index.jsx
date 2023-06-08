@@ -199,7 +199,7 @@ const MenuSidebar = () => {
 					<FolderOutlined />
 					// menuDocumentSales
 				),
-				getItem("Người dùng", "/admin/users", <UserOutlined />, [
+				getItem("CTV / Sale", "/admin/users", <UserOutlined />, [
 					getItem("Khu vực miền Bắc", "/admin/users/northside"),
 					getItem("Khu vực miền Trung", "/admin/users/midside"),
 					getItem("Khu vực miền Nam", "/admin/users/southside"),

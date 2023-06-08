@@ -6,7 +6,8 @@
 	position: fixed;
 	top: 50%;
 	writing-mode: vertical-lr;
-	transform: rotate(180deg) translateY(50%);
+	// transform: rotate(180deg) translateY(50%);
+	transform: translateY(-50%);
 	right: 45px;
 	z-index: 10;
 	&.cs-left_side {

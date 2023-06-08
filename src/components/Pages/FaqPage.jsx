@@ -51,9 +51,9 @@ export default function FaqPage() {
 	return (
 		<>
 			<PageHeading
-				title="Q&A"
+				title="Q&A: Câu hỏi thường gặp"
 				bgSrc="/images/about_hero_bg.jpeg"
-				pageLinkText="Q&A"
+				pageLinkText="Q&A: Câu hỏi thường gặp"
 			/>
 			<Spacing lg="150" md="80" />
 			<Div className="container">
