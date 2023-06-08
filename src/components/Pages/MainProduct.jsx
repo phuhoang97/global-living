@@ -16,6 +16,13 @@ export default function MainProduct() {
 			name: "Youtube",
 			links: "https://www.youtube.com/@GlobalLivingGroup",
 		},
+		{
+			name: "Zalo",
+			links: "https://zalo.me/2666483498675431364",
+		},
+		{
+			name: "Hotline: 093 162 69 09",
+		},
 	];
 
 	const showcaseData = [

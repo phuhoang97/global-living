@@ -7,11 +7,13 @@ import {
 } from "../../../../../apis/home/api";
 import { getLink } from "../../../../../helper/getLink";
 import { UploadOutlined } from "@ant-design/icons";
+import ReactQuill from "react-quill";
 
 const AdminCMSInvestServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
 	const [selected, setSelected] = useState({});
 	const [loading, setLoading] = useState(false);
+	const [heading, setHeading] = useState("");
 
 	const props = {
 		beforeUpload: (file) => {
@@ -54,6 +56,7 @@ const AdminCMSInvestServices = ({ id, closeDrawer, setReloadData }) => {
 			comment: "",
 			userComment: "",
 			detail: "",
+			heading: heading,
 		};
 
 		setLoading(true);
@@ -107,7 +110,11 @@ const AdminCMSInvestServices = ({ id, closeDrawer, setReloadData }) => {
 						},
 					]}
 				>
-					<Input placeholder="Nhập tiêu đề" />
+					<ReactQuill
+						theme="snow"
+						value={heading}
+						onChange={setHeading}
+					/>
 				</Form.Item>
 
 				{/* <Form.Item

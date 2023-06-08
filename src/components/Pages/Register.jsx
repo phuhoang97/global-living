@@ -44,20 +44,28 @@ export default function Register() {
 			e.target.value === "EURO HOLDINGS" ||
 			e.target.value === "NHÀ ĐẤT THỦ ĐÔ"
 		) {
-			setArea("Hà Nội");
+			setArea("Miền Bắc");
 		} else if (e.target.value === "FOUR HOMES") {
-			setArea("Quảng Ninh, Hải Phòng");
+			setArea("Miền Bắc");
 		} else if (
 			e.target.value === "ĐẤT GỐC" ||
 			e.target.value === "NEW CITY"
 		) {
-			setArea("Nha Trang");
+			setArea("Miền Nam");
 		} else if (e.target.value === "SAIGON CENTER REAL") {
-			setArea("Thành Phố Hồ Chí Minh");
+			setArea("Miền Nam");
 		} else {
-			axios.get(`https://provinces.open-api.vn/api/`).then((response) => {
-				setDataArea(response?.data);
-			});
+			// axios.get(`https://provinces.open-api.vn/api/`).then((response) => {
+			// 	setDataArea(response?.data);
+			// });
+			setDataArea([
+				{
+					codename: "northside",
+					name: "Miền Bắc",
+				},
+				{ codename: "midside", name: "Miền Trung" },
+				{ codename: "southside", name: "Miền Nam" },
+			]);
 		}
 	};
 
@@ -67,6 +75,17 @@ export default function Register() {
 
 	const handleChangePassword = (e) => {
 		setPassword(e.target.value);
+	};
+
+	const checkArea = () => {
+		switch (area) {
+			case "Miền Bắc":
+				return "northside";
+			case "Miền Nam":
+				return "southside";
+			default:
+				return area;
+		}
 	};
 
 	const handleSubmit = (e) => {
@@ -87,7 +106,7 @@ export default function Register() {
 				full_name: name,
 				email: email,
 				phone: phone,
-				area: area,
+				area: checkArea(),
 				password: password,
 				agent_name: selected,
 			};

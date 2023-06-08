@@ -43,6 +43,13 @@ export default function Home() {
 			name: "Youtube",
 			links: "https://www.youtube.com/@GlobalLivingGroup",
 		},
+		{
+			name: "Zalo",
+			links: "https://zalo.me/2666483498675431364",
+		},
+		{
+			name: "Hotline: 093 162 69 09",
+		},
 	];
 
 	// FunFact Data
@@ -540,7 +547,7 @@ export default function Home() {
 						title="Tài liệu dự án mới nhất"
 						subtitle="Sale kits"
 						variant="cs-style1 text-center"
-						btnLink={"/blog"}
+						btnLink={"/portfolio"}
 						btnText="Xem thêm"
 					/>
 					<Spacing lg="90" md="45" />
