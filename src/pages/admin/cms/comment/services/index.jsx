@@ -10,7 +10,7 @@ import { getLink } from "../../../../../helper/getLink";
 
 const AdminCMSCommentServices = ({ id, closeDrawer, setReloadData }) => {
 	const [form] = Form.useForm();
-	const [selected, setSelected] = useState({});
+	const [selected, setSelected] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	const props = {
