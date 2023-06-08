@@ -31,7 +31,7 @@ export default function Hero({
 						dangerouslySetInnerHTML={{
 							__html:
 								title ||
-								"Đầu tư Bất động sản Nhận thẻ cư trú Hungary",
+								"Đầu tư Bất động sản<br/>Nhận thẻ cư trú Hungary",
 						}}
 					></h1>
 					<Div className="cs-hero_info">
