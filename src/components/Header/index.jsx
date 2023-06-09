@@ -166,7 +166,7 @@ export default function Header({ variant }) {
                         to='portfolio'
                         onClick={() => setMobileToggle(false)}
                       >
-                        Sales Kits
+                        Sales Kit
                       </NavLink>
                       <DropDown>
                         <ul>

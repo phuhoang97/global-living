@@ -526,7 +526,7 @@ export default function Home() {
         <Div className='container'>
           <SectionHeading
             title='Tài liệu dự án mới nhất'
-            subtitle='Sales kits'
+            subtitle='Sales Kit'
             variant='cs-style1 text-center'
             btnLink={"/portfolio"}
             btnText='Xem thêm'
