@@ -9,15 +9,18 @@ import Div from "../Div";
 import SectionHeading from "../SectionHeading";
 import Spacing from "../Spacing";
 import { getAllDocumentSales } from "../../apis/document-sales/api";
-import { Radio, Spin, Tabs, theme } from "antd";
+import { Input, Radio, Spin, Tabs, theme } from "antd";
 import { getAllCategories } from "../../apis/category/api";
 import { getAllCategoriesDetailByCategoryId } from "../../apis/category/detail";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { SearchOutlined } from "@ant-design/icons";
 
 export default function PortfolioPage() {
 	pageTitle("Portfolio");
 
 	const { useToken } = theme;
 	const { token } = useToken();
+	const navigate = useNavigate();
 	const [loading, setLoading] = useState(false);
 	const [active, setActive] = useState("all");
 	const [itemShow, setItemShow] = useState(7);
@@ -25,6 +28,21 @@ export default function PortfolioPage() {
 	const [categories, setCategories] = useState([]);
 	const [detailCategories, setDetailCategories] = useState([]);
 	const [activeDetail, setActiveDetail] = useState("all");
+	const [searchParams] = useSearchParams();
+	const [value, setValue] = useState(searchParams.get("search") || "");
+	const search = searchParams.get("search") || " ";
+
+	useEffect(() => {
+		const delayDebounceFn = setTimeout(() => {
+			if (value === "") {
+				searchParams.delete("search");
+			} else {
+				searchParams.set("search", value);
+			}
+			navigate(`?${searchParams.toString()}`);
+		}, 500);
+		return () => clearTimeout(delayDebounceFn);
+	}, [value, searchParams.get("search")]);
 
 	const categoryMenu = [
 		{
@@ -156,7 +174,13 @@ export default function PortfolioPage() {
 
 	const getDataDocument = () => {
 		getAllDocumentSales().then((response) => {
-			setDataSource(mapData(response?.data));
+			setDataSource(
+				mapData(
+					response?.data?.filter((item) =>
+						item?.title?.toLowerCase()?.includes(search)
+					)
+				)
+			);
 			setLoading(false);
 		});
 
@@ -175,7 +199,7 @@ export default function PortfolioPage() {
 		setLoading(true);
 
 		getDataDocument();
-	}, []);
+	}, [search]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -267,7 +291,8 @@ export default function PortfolioPage() {
 				bgSrc="images/portfolio_hero_bg_2.jpg"
 				pageLinkText="Tài liệu bán hàng"
 			/>
-			<Spacing lg="145" md="80" />
+			{/* <Spacing lg="145" md="80" /> */}
+			<Spacing lg="30" md="30" />
 			<Div className="container">
 				<Div className="cs-portfolio_1_heading">
 					{/* <SectionHeading
@@ -296,6 +321,17 @@ export default function PortfolioPage() {
 						</ul>
 					</Div> */}
 				</Div>
+				<div className="text-center">
+					<Input
+						value={value}
+						placeholder="Tìm kiếm"
+						allowClear={true}
+						prefix={<SearchOutlined className={"text-[17px]"} />}
+						onChange={({ target }) => setValue(target.value)}
+						className="px-2 py-2.5 w-[50%]"
+					/>
+				</div>
+				<Spacing lg="30" md="30" />
 				<Div className="cs-filter_menu cs-style1">
 					<ul className="cs-mp0 cs-center">
 						<li className={active === "all" ? "active" : ""}>
