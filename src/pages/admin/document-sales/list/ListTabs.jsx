@@ -16,6 +16,7 @@ import {
 } from "../../../../apis/category/detail";
 import AdminDocumentSalesTable from "./Table";
 import jwtDecode from "jwt-decode";
+import { useSearchParams } from "react-router-dom";
 
 const ListTabs = () => {
 	const token = localStorage.getItem("token");
@@ -31,6 +32,8 @@ const ListTabs = () => {
 	const [idCategory, setIdCategory] = useState(0);
 	const [idDetailCategory, setIdDetailCategory] = useState(0);
 	const [modal, contextHolder] = Modal.useModal();
+	const [searchParams] = useSearchParams();
+	const search = searchParams.get("search") || " ";
 
 	const confirm = (targetKey) => {
 		modal.confirm({
@@ -148,11 +151,15 @@ const ListTabs = () => {
 		setLoading(true);
 		getAllCategories()
 			.then((response) => {
-				const data = response?.categories;
+				const data = response?.categories?.filter((item) =>
+					item?.category?.includes(search)
+				);
 				const allChildren = [];
 				const allDocsChild = [];
 
-				data?.map((item) => allChildren.push(...item?.children));
+				data?.filter((item) => item?.category?.includes(search))?.map(
+					(item) => allChildren.push(...item?.children)
+				);
 
 				allChildren?.map((child) =>
 					allDocsChild.push(...child?.documents)
@@ -162,6 +169,7 @@ const ListTabs = () => {
 					{
 						label: "Tất cả",
 						key: "all",
+						labelSearch: "Tất cả",
 						closable: false,
 						children: (
 							<Tabs
@@ -169,6 +177,7 @@ const ListTabs = () => {
 									{
 										label: "Tất cả",
 										key: "all",
+										labelSearch: "Tất cả",
 										closable: false,
 										children: (
 											<AdminDocumentSalesTable
@@ -197,6 +206,7 @@ const ListTabs = () => {
 												</>
 											),
 											key: child?.id,
+											labelSearch: child?.detail,
 											children: (
 												<AdminDocumentSalesTable
 													data={child?.documents}
@@ -235,6 +245,7 @@ const ListTabs = () => {
 								</>
 							),
 							key: item?.id,
+							labelSearch: item?.category,
 							children: (
 								<Tabs
 									items={[
@@ -242,6 +253,7 @@ const ListTabs = () => {
 											label: "Tất cả",
 											key: "all",
 											closable: false,
+											labelSearch: "Tất cả",
 											children: (
 												<AdminDocumentSalesTable
 													data={allDocs}
@@ -270,6 +282,7 @@ const ListTabs = () => {
 												</>
 											),
 											key: child?.id,
+											labelSearch: child?.detail,
 											children: (
 												<AdminDocumentSalesTable
 													data={child?.documents}
@@ -307,7 +320,7 @@ const ListTabs = () => {
 
 	useEffect(() => {
 		getDataMenu();
-	}, []);
+	}, [search]);
 
 	useEffect(() => {
 		if (reloadData) {
