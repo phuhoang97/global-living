@@ -8,57 +8,48 @@ import Div from "../Div";
 import DropDown from "./DropDown";
 
 export default function Header({ variant }) {
-	const navigate = useNavigate();
-	const [isSticky, setIsSticky] = useState(false);
-	const [sideHeaderToggle, setSideHeaderToggle] = useState(false);
-	const [mobileToggle, setMobileToggle] = useState(false);
-	useEffect(() => {
-		window.addEventListener("scroll", () => {
-			if (window.scrollY > 0) {
-				setIsSticky(true);
-			} else {
-				setIsSticky(false);
-			}
-		});
-	}, []);
+  const navigate = useNavigate();
+  const [isSticky, setIsSticky] = useState(false);
+  const [sideHeaderToggle, setSideHeaderToggle] = useState(false);
+  const [mobileToggle, setMobileToggle] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 0) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    });
+  }, []);
 
-	return (
-		<>
-			<header
-				className={`cs-site_header cs-style1 text-uppercase ${
-					variant ? variant : ""
-				} cs-sticky_header ${
-					isSticky ? "cs-sticky_header_active" : ""
-				}`}
-			>
-				<Div className="cs-main_header">
-					<Div className="container">
-						<Div className="cs-main_header_in">
-							<Div className="cs-main_header_left">
-								<Link className="cs-site_branding" to="/">
-									<img src="/images/logo.png" alt="Logo" />
-								</Link>
-							</Div>
-							<Div className="cs-main_header_center">
-								<Div className="cs-nav cs-primary_font cs-medium">
-									<ul
-										className="cs-nav_list"
-										style={{
-											display: `${
-												mobileToggle ? "block" : "none"
-											}`,
-										}}
-									>
-										<li className="menu-item">
-											<NavLink
-												to="/"
-												onClick={() =>
-													setMobileToggle(false)
-												}
-											>
-												Trang chủ
-											</NavLink>
-											{/* <DropDown>
+  return (
+    <>
+      <header
+        className={`cs-site_header cs-style1 text-uppercase ${
+          variant ? variant : ""
+        } cs-sticky_header ${isSticky ? "cs-sticky_header_active" : ""}`}
+      >
+        <Div className='cs-main_header'>
+          <Div className='container'>
+            <Div className='cs-main_header_in'>
+              <Div className='cs-main_header_left'>
+                <Link className='cs-site_branding' to='/'>
+                  <img src='/images/logo.png' alt='Logo' />
+                </Link>
+              </Div>
+              <Div className='cs-main_header_center'>
+                <Div className='cs-nav cs-primary_font cs-medium'>
+                  <ul
+                    className='cs-nav_list'
+                    style={{
+                      display: `${mobileToggle ? "block" : "none"}`,
+                    }}
+                  >
+                    <li className='menu-item'>
+                      <NavLink to='/' onClick={() => setMobileToggle(false)}>
+                        Trang chủ
+                      </NavLink>
+                      {/* <DropDown>
                         <ul>
                           <li>
                             <Link to="/" onClick={() => setMobileToggle(false)}>
@@ -115,17 +106,17 @@ export default function Header({ variant }) {
                           </li>
                         </ul>
                       </DropDown> */}
-										</li>
-										<li className="menu-item-has-children">
-											<NavLink
-												to="main-product"
-												onClick={() =>
-													setMobileToggle(false)
-												}
-											>
-												Sản phẩm đầu tư
-											</NavLink>
-											<DropDown>
+                    </li>
+                    <li className='menu-item'>
+                      {/* <li className='menu-item-has-children'> */}
+                      <NavLink
+                        // to="main-product"
+                        to='https://info.globalliving-group.com/hungary'
+                        onClick={() => setMobileToggle(false)}
+                      >
+                        Sản phẩm đầu tư
+                      </NavLink>
+                      {/* <DropDown>
 												<ul>
 													<li>
 														<Link
@@ -140,9 +131,9 @@ export default function Header({ variant }) {
 														</Link>
 													</li>
 												</ul>
-											</DropDown>
-										</li>
-										{/* <li className="menu-item-has-children">
+											</DropDown> */}
+                    </li>
+                    {/* <li className="menu-item-has-children">
                       <NavLink
                         to="service"
                         onClick={() => setMobileToggle(false)}
@@ -170,55 +161,39 @@ export default function Header({ variant }) {
                         </ul>
                       </DropDown>
                     </li> */}
-										<li className="menu-item-has-children">
-											<NavLink
-												to="portfolio"
-												onClick={() =>
-													setMobileToggle(false)
-												}
-											>
-												Sales Kits
-											</NavLink>
-											<DropDown>
-												<ul>
-													<li>
-														<Link
-															to="portfolio"
-															onClick={() =>
-																setMobileToggle(
-																	false
-																)
-															}
-														>
-															Tài liệu
-														</Link>
-													</li>
-													<li>
-														<Link
-															to="faq"
-															onClick={() =>
-																setMobileToggle(
-																	false
-																)
-															}
-														>
-															Q&A - Câu hỏi thường
-															gặp
-														</Link>
-													</li>
-												</ul>
-											</DropDown>
-										</li>
-										<li className="menu-item">
-											<NavLink
-												to="blog"
-												onClick={() =>
-													setMobileToggle(false)
-												}
-											>
-												Tin tức
-											</NavLink>
-											{/* <DropDown>
+                    <li className='menu-item-has-children'>
+                      <NavLink
+                        to='portfolio'
+                        onClick={() => setMobileToggle(false)}
+                      >
+                        Sales Kit
+                      </NavLink>
+                      <DropDown>
+                        <ul>
+                          <li>
+                            <Link
+                              to='portfolio'
+                              onClick={() => setMobileToggle(false)}
+                            >
+                              Tài liệu
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to='faq'
+                              onClick={() => setMobileToggle(false)}
+                            >
+                              Q&A - Câu hỏi thường gặp
+                            </Link>
+                          </li>
+                        </ul>
+                      </DropDown>
+                    </li>
+                    <li className='menu-item'>
+                      <NavLink to='blog' onClick={() => setMobileToggle(false)}>
+                        Tin tức
+                      </NavLink>
+                      {/* <DropDown>
                         <ul>
                           <li>
                             <Link
@@ -238,17 +213,15 @@ export default function Header({ variant }) {
                           </li>
                         </ul>
                       </DropDown> */}
-										</li>
-										<li className="menu-item">
-											<Link
-												to="/contact"
-												onClick={() =>
-													setMobileToggle(false)
-												}
-											>
-												Liên hệ
-											</Link>
-											{/* <DropDown>
+                    </li>
+                    <li className='menu-item'>
+                      <Link
+                        to='/contact'
+                        onClick={() => setMobileToggle(false)}
+                      >
+                        Liên hệ
+                      </Link>
+                      {/* <DropDown>
                         <ul>
                           <li>
                             <Link
@@ -292,107 +265,99 @@ export default function Header({ variant }) {
                           </li>
                         </ul>
                       </DropDown> */}
-										</li>
-									</ul>
-									<span
-										className={
-											mobileToggle
-												? "cs-munu_toggle cs-toggle_active"
-												: "cs-munu_toggle"
-										}
-										onClick={() =>
-											setMobileToggle(!mobileToggle)
-										}
-									>
-										<span></span>
-									</span>
-								</Div>
-							</Div>
-							<Div className="cs-main_header_right">
-								<Div className="cs-toolbox">
-									<span
-										className="cs-icon_btn"
-										onClick={() =>
-											setSideHeaderToggle(
-												!sideHeaderToggle
-											)
-										}
-									>
-										<span className="cs-icon_btn_in">
-											<span />
-											<span />
-											<span />
-											<span />
-										</span>
-									</span>
-								</Div>
-							</Div>
-						</Div>
-					</Div>
-				</Div>
-			</header>
+                    </li>
+                  </ul>
+                  <span
+                    className={
+                      mobileToggle
+                        ? "cs-munu_toggle cs-toggle_active"
+                        : "cs-munu_toggle"
+                    }
+                    onClick={() => setMobileToggle(!mobileToggle)}
+                  >
+                    <span></span>
+                  </span>
+                </Div>
+              </Div>
+              <Div className='cs-main_header_right'>
+                <Div className='cs-toolbox'>
+                  <span
+                    className='cs-icon_btn'
+                    onClick={() => setSideHeaderToggle(!sideHeaderToggle)}
+                  >
+                    <span className='cs-icon_btn_in'>
+                      <span />
+                      <span />
+                      <span />
+                      <span />
+                    </span>
+                  </span>
+                </Div>
+              </Div>
+            </Div>
+          </Div>
+        </Div>
+      </header>
 
-			<Div
-				className={
-					sideHeaderToggle
-						? "cs-side_header active"
-						: "cs-side_header"
-				}
-			>
-				<button
-					className="cs-close"
-					onClick={() => setSideHeaderToggle(!sideHeaderToggle)}
-				/>
-				<Div
-					className="cs-side_header_overlay"
-					onClick={() => setSideHeaderToggle(!sideHeaderToggle)}
-				/>
-				<Div className="cs-side_header_in">
-					<Div className="cs-side_header_shape" />
-					<Link className="cs-site_branding" to="/">
-						<img src="/images/footer_logo.svg" alt="Logo" />
-					</Link>
-					<Div className="cs-side_header_box">
-						<h2 className="cs-side_header_heading">
-							Bạn muốn nhận thông tin HOT <br /> nhất? Liên hệ
-							ngay với chúng tôi !
-						</h2>
-					</Div>
-					<Div className="cs-side_header_box">
-						<ContactInfoWidget title="Liên hệ" withIcon />
-					</Div>
-					<Div className="cs-side_header_box">
-						{/* <Newsletter
+      <Div
+        className={
+          sideHeaderToggle ? "cs-side_header active" : "cs-side_header"
+        }
+      >
+        <button
+          className='cs-close'
+          onClick={() => setSideHeaderToggle(!sideHeaderToggle)}
+        />
+        <Div
+          className='cs-side_header_overlay'
+          onClick={() => setSideHeaderToggle(!sideHeaderToggle)}
+        />
+        <Div className='cs-side_header_in'>
+          <Div className='cs-side_header_shape' />
+          <Link className='cs-site_branding' to='/'>
+            <img src='/images/footer_logo.svg' alt='Logo' />
+          </Link>
+          <Div className='cs-side_header_box'>
+            <h2 className='cs-side_header_heading'>
+              Bạn muốn nhận thông tin HOT <br /> nhất? Liên hệ ngay với chúng
+              tôi !
+            </h2>
+          </Div>
+          <Div className='cs-side_header_box'>
+            <ContactInfoWidget title='Liên hệ' withIcon />
+          </Div>
+          <Div className='cs-side_header_box'>
+            {/* <Newsletter
 							title="Đăng ký ngay"
 							subtitle="Nhận thông tin đầu tư mới nhất từ Global Living Group"
 							placeholder="Email hoặc Số điện thoại"
                         /> */}
-						<Div className="cs-newsletter cs-style1">
-							<form
-								className="cs-newsletter_form"
-								onSubmit={(e) => e.preventDefault()}
-							>
-								<button
-									className="cs-newsletter_btn !relative"
-									onClick={() => {
-										navigate("/contact");
-										setSideHeaderToggle(false);
-									}}
-								>
-									<span>Đăng ký</span>
-								</button>
-							</form>
-						</Div>
-						{/* <Div className="mt-3">
+            <Div className='cs-newsletter cs-style1'>
+              <form
+                className='cs-newsletter_form'
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <button
+                  className='cs-newsletter_btn !relative'
+                  onClick={() => {
+                    navigate("/contact");
+                    setSideHeaderToggle(false);
+                  }}
+                >
+                  <span>Đăng ký</span>
+                </button>
+              </form>
+            </Div>
+            {/* <Div className="mt-3">
 							Nếu đã có tài khoản?{" "}
 							<Link to="/login">Đăng nhập ngay</Link>
 						</Div> */}
-					</Div>
-					<Div className="cs-side_header_box">
-						<SocialWidget />
-					</Div>
-				</Div>
-			</Div>
-		</>
-	);
+          </Div>
+          <Div className='cs-side_header_box'>
+            <SocialWidget />
+          </Div>
+        </Div>
+      </Div>
+    </>
+  );
 }
