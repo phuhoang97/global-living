@@ -149,9 +149,7 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 						ref={quillRef}
 						theme="snow"
 						value={content}
-						onChange={(content, delta, source, editor) =>
-							setContent(editor.getHTML())
-						}
+						onChange={setContent}
 						modules={modules}
 						formats={formats}
 					/>
