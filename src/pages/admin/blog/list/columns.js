@@ -4,16 +4,20 @@ export const columns = [
 		title: "Tiêu đề",
 	},
 	{
-		dataIndex: "content",
-		title: "Nội dung",
-		render: (text) => (
-			<p
-				dangerouslySetInnerHTML={{
-					__html: text,
-				}}
-			></p>
-		),
+		dataIndex: "img",
+		title: "Ảnh",
 	},
+	// {
+	// 	dataIndex: "content",
+	// 	title: "Nội dung",
+	// render: (text) => (
+	// 	<p
+	// dangerouslySetInnerHTML={{
+	// 	__html: text,
+	// }}
+	// 	></p>
+	// ),
+	// },
 	// {
 	// 	dataIndex: "img",
 	// 	title: "Ảnh",

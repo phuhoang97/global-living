@@ -136,39 +136,39 @@ export default function PostSlider({ noArrow }) {
 	};
 
 	useEffect(() => {
-		// getAllBlogs().then((response) => {
-		// 	setDataSource(mapData(response?.data));
-		// });
-		setDataSource([
-			{
-				url: "/blog/1",
-				src: "/images/blog1.jpg",
-				alt: "Post",
-				date: "08 June 2023",
-				title: "Tốc độ tăng giá BĐS",
-			},
-			{
-				url: "/blog/2",
-				src: "/images/blog2.jpg",
-				alt: "Post",
-				date: "08 June 2023",
-				title: "Những điều cần biết về du học Hungary",
-			},
-			{
-				url: "/blog/3",
-				src: "/images/blog3.jpg",
-				alt: "Post",
-				date: "08 June 2023",
-				title: "Quyền lợi visa Hungary",
-			},
-			{
-				url: "/blog/4",
-				src: "/images/blog4.jpg",
-				alt: "Post",
-				date: "08 June 2023",
-				title: "Khám phá 10 điểm du lịch đẹp",
-			},
-		]);
+		getAllBlogs().then((response) => {
+			setDataSource([
+				{
+					url: "/blog/1",
+					src: "/images/blog1.jpg",
+					alt: "Post",
+					date: "08 June 2023",
+					title: "Tốc độ tăng giá BĐS",
+				},
+				{
+					url: "/blog/2",
+					src: "/images/blog2.jpg",
+					alt: "Post",
+					date: "08 June 2023",
+					title: "Những điều cần biết về du học Hungary",
+				},
+				{
+					url: "/blog/3",
+					src: "/images/blog3.jpg",
+					alt: "Post",
+					date: "08 June 2023",
+					title: "Quyền lợi visa Hungary",
+				},
+				{
+					url: "/blog/4",
+					src: "/images/blog4.jpg",
+					alt: "Post",
+					date: "08 June 2023",
+					title: "Khám phá 10 điểm du lịch đẹp",
+				},
+				...mapData(response?.data),
+			]);
+		});
 	}, []);
 
 	return (

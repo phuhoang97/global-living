@@ -36,6 +36,7 @@ import BlogDetailPage3 from "./components/Pages/BlogDetailPage3";
 import BLogDetailPage4 from "./components/Pages/BLogDetailPage4";
 import BlogDetailPage5 from "./components/Pages/BlogDetailPage5";
 import AdminFAQRouter from "./pages/admin/faq/router";
+import BlogDetailPage from "./components/Pages/BlogDetailPage";
 
 function App() {
 	const navigate = useNavigate();
@@ -75,9 +76,13 @@ function App() {
 					<Route path="blog/2" element={<BlogDetailPage2 />} />
 					<Route path="blog/3" element={<BLogDetailPage4 />} />
 					<Route path="blog/4" element={<BlogDetailPage5 />} />
-					<Route
+					{/* <Route
 						path="blog/:blogDetailsId"
 						element={<BlogDetailsPage />}
+                    /> */}
+					<Route
+						path="blog/:blogDetailsId"
+						element={<BlogDetailPage />}
 					/>
 					<Route path="contact" element={<ContactPage />} />
 					<Route path="team" element={<TeamPage />} />

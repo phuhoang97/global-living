@@ -24,6 +24,15 @@ const AdminBlogList = () => {
 			return {
 				...item,
 				key: item?.id,
+				img: (
+					<div className="flex items-center gap-[20px]">
+						<img
+							src={item?.img}
+							alt="image"
+							className="w-[200px]"
+						/>
+					</div>
+				),
 				action: hasPermission ? (
 					<div className="w-full flex items-center justify-center">
 						<Popconfirm

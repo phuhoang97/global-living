@@ -2,13 +2,17 @@ import React from "react";
 import { useState } from "react";
 import Div from "../Div";
 
-export default function VideoModal({ videoSrc, bgUrl, variant }) {
+export default function VideoModal({ videoSrc, videoFromApi, bgUrl, variant }) {
 	const [iframeSrc, setIframeSrc] = useState("about:blank");
 	const [toggle, setToggle] = useState(false);
 	const handelClick = () => {
-		// const video = videoSrc.split("?v=")[1].trim();
-		// setIframeSrc(`https://www.youtube.com/embed/${video}`);
-		setIframeSrc(videoSrc);
+		if (videoFromApi) {
+			setIframeSrc(videoSrc);
+		} else {
+			const video = videoSrc.split("?v=")[1].trim();
+			setIframeSrc(`https://www.youtube.com/embed/${video}`);
+		}
+
 		setToggle(!toggle);
 	};
 	const handelClose = () => {
