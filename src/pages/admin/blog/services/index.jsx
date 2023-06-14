@@ -1,14 +1,31 @@
-import { Button, Form, Input, message, Spin } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import { Button, Form, Input, message, Spin, Upload } from "antd";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getDetailBlog, postBlog, updateBlog } from "../../../../apis/blog/api";
 import { getLink } from "../../../../helper/getLink";
 import ReactQuill from "react-quill";
+import { UploadOutlined } from "@ant-design/icons";
 
 const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	const quillRef = useRef(null);
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
 	const [content, setContent] = useState("");
+	const [selected, setSelected] = useState("");
+
+	const props = {
+		beforeUpload: (file) => {
+			setLoading(true);
+			getLink(file)
+				.then((response) => {
+					setLoading(false);
+					setSelected(response);
+				})
+				.catch(() => {
+					setLoading(false);
+				});
+		},
+		maxCount: 1,
+	};
 
 	const imageHandler = (e) => {
 		const input = document.createElement("input");
@@ -23,25 +40,26 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 				})
 				.catch(() => {});
 			const range = quillRef.current.getEditor().getSelection(true);
-			quillRef.current
-				.getEditor()
-				.insertEmbed(range.index, "image", link);
+			quillRef.current.getEditor().insertEmbed(range, "image", link);
 		};
 	};
 
-	const modules = {
-		toolbar: {
-			container: [
-				[{ header: [1, 2, 3, 4, false] }],
-				["bold", "italic", "underline", "strike", "blockquote"],
-				[{ list: "ordered" }, { list: "bullet" }],
-				["link", "image"],
-			],
-			handlers: {
-				image: imageHandler,
+	const modules = useMemo(
+		() => ({
+			toolbar: {
+				container: [
+					[{ header: [1, 2, 3, 4, false] }],
+					["bold", "italic", "underline", "strike", "blockquote"],
+					[{ list: "ordered" }, { list: "bullet" }],
+					["link", "image"],
+				],
+				handlers: {
+					image: imageHandler,
+				},
 			},
-		},
-	};
+		}),
+		[]
+	);
 
 	const formats = [
 		"header",
@@ -68,6 +86,8 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 				.then((response) => {
 					form.setFieldsValue(response?.data[0]);
 					setLoading(false);
+					setSelected(response?.data[0]?.img);
+					setContent(response?.data[0]?.content);
 				})
 				.catch(() => {
 					setLoading(false);
@@ -78,7 +98,7 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 	const onFinish = (values) => {
 		values = {
 			...values,
-			img: "",
+			img: selected,
 			content: content,
 		};
 
@@ -152,7 +172,21 @@ const AdminBlogUpdate = ({ id, closeDrawer, setReloadData }) => {
 						onChange={setContent}
 						modules={modules}
 						formats={formats}
+						onBlur={() => {}}
+						onFocus={() => {}}
 					/>
+				</Form.Item>
+
+				<Form.Item
+					name={"img"}
+					label={"Ảnh"}
+					rules={[{ required: true, message: "Chưa chọn ảnh" }]}
+				>
+					<Upload {...props}>
+						<Button icon={<UploadOutlined />}>
+							Click để tải lên
+						</Button>
+					</Upload>
 				</Form.Item>
 
 				<Button htmlType="submit">
