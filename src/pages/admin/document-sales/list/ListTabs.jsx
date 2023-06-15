@@ -17,6 +17,13 @@ import {
 import AdminDocumentSalesTable from "./Table";
 import jwtDecode from "jwt-decode";
 import { useSearchParams } from "react-router-dom";
+import { DndContext, PointerSensor, useSensor } from "@dnd-kit/core";
+import {
+	SortableContext,
+	arrayMove,
+	horizontalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import DraggableTabNode from "../../../../common/tabs/DraggableTabNode";
 
 const ListTabs = () => {
 	const token = localStorage.getItem("token");
@@ -34,6 +41,24 @@ const ListTabs = () => {
 	const [modal, contextHolder] = Modal.useModal();
 	const [searchParams] = useSearchParams();
 	const search = searchParams.get("search") || " ";
+	const [className, setClassName] = useState("");
+
+	const sensor = useSensor(PointerSensor, {
+		activationConstraint: {
+			distance: 10,
+		},
+	});
+	const onDragEnd = ({ active, over }) => {
+		if (active.id !== over?.id) {
+			setMenuDocumentSales((prev) => {
+				const activeIndex = prev?.findIndex(
+					(i) => i?.key === active?.id
+				);
+				const overIndex = prev?.findIndex((i) => i?.key === over?.id);
+				return arrayMove(prev, activeIndex, overIndex);
+			});
+		}
+	};
 
 	const confirm = (targetKey) => {
 		modal.confirm({
@@ -403,7 +428,28 @@ const ListTabs = () => {
 				items={menuDocumentSales}
 				type={hasPermission ? "editable-card" : "card"}
 				onEdit={onEdit}
+				className={className}
 				defaultActiveKey="all"
+				renderTabBar={(tabBarProps, DefaultTabBar) => (
+					<DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
+						<SortableContext
+							items={menuDocumentSales?.map((i) => i.key)}
+							strategy={horizontalListSortingStrategy}
+						>
+							<DefaultTabBar {...tabBarProps}>
+								{(node) => (
+									<DraggableTabNode
+										{...node.props}
+										key={node.key}
+										onActiveBarTransform={setClassName}
+									>
+										{node}
+									</DraggableTabNode>
+								)}
+							</DefaultTabBar>
+						</SortableContext>
+					</DndContext>
+				)}
 			/>
 
 			<Modal
