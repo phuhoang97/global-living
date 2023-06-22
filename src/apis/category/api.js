@@ -27,6 +27,12 @@ export async function updateCategory(id, category) {
 	return response?.data || {};
 }
 
+export async function sortCategory(id, category) {
+	const response = await axios.put(`${BASE_URL}/${id}`, category);
+
+	return response?.data || {};
+}
+
 export async function deleteCategory(categoryId) {
 	const response = await axios.delete(`${BASE_URL}/${categoryId}`);
 
