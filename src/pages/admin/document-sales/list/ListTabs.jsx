@@ -1,5 +1,5 @@
 import { Form, Input, Modal, Spin, Tabs, message } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
 	deleteCategory,
 	getAllCategories,
@@ -105,46 +105,59 @@ const ListTabs = () => {
 
 	const onDragEndChild = ({ active, over }) => {
 		if (active?.id !== over?.id) {
-			const activeIndex = categoryChildren?.findIndex(
-				(i) => i?.id === active?.id
+			const allChildren = [];
+
+			menuDocumentSales?.map((item) => {
+				allChildren.push(
+					...item?.children?.map((child) => ({
+						...child,
+						key: child?.id,
+					}))
+				);
+			});
+
+			const activeIndexChild = allChildren?.findIndex(
+				(i) => i?.key === active?.id
 			);
-			const overIndex = categoryChildren?.findIndex(
-				(i) => i?.id === over?.id
+			const overIndexChild = allChildren?.findIndex(
+				(i) => i?.key === over?.id
 			);
 
-			const activeTab = categoryChildren?.filter(
+			const activeTabChild = allChildren?.filter(
 				(item) => item?.id === active?.id
 			)[0];
-			const overTab = categoryChildren?.filter(
+			const overTabChild = allChildren?.filter(
 				(item) => item?.id === over?.id
 			)[0];
 
-			setLoading(true);
+			if (activeIndexChild !== -1 && overIndexChild !== -1) {
+				setLoading(true);
 
-			sortCategoryDetail(active?.id, {
-				detail: activeTab?.detail,
-				sortNumber: overIndex,
-			})
-				.then(() => {
-					setReloadData(true);
-					setLoading(false);
+				sortCategoryDetail(active?.id, {
+					detail: activeTabChild?.detail,
+					sortNumber: overIndexChild,
 				})
-				.catch(() => {
-					message.error("Lỗi!");
-					setLoading(false);
-				});
+					.then(() => {
+						setReloadData(true);
+						setLoading(false);
+					})
+					.catch(() => {
+						message.error("Lỗi!");
+						setLoading(false);
+					});
 
-			sortCategoryDetail(over?.id, {
-				detail: overTab?.detail,
-				sortNumber: activeIndex,
-			})
-				.then(() => {
-					setLoading(false);
+				sortCategoryDetail(over?.id, {
+					detail: overTabChild?.detail,
+					sortNumber: activeIndexChild,
 				})
-				.catch(() => {
-					message.error("Lỗi!");
-					setLoading(false);
-				});
+					.then(() => {
+						setLoading(false);
+					})
+					.catch(() => {
+						message.error("Lỗi!");
+						setLoading(false);
+					});
+			}
 		}
 	};
 
@@ -272,20 +285,22 @@ const ListTabs = () => {
 
 				data?.sort((a, b) => a?.sortNumber - b?.sortNumber)
 					?.filter((item) => item?.category?.includes(search))
-					?.map((item) =>
+					?.map((item) => {
 						allChildren.push(
 							...item?.children?.map((child) => ({
 								...child,
 								key: child?.id,
 							}))
-						)
-					);
+						);
+					});
 
 				allChildren
 					?.sort((a, b) => a?.sortNumber - b?.sortNumber)
 					?.map((child) => allDocsChild.push(...child?.documents));
 
-				setCategoryChildren(allChildren);
+				if (allChildren?.length > 0) {
+					setCategoryChildren(allChildren);
+				}
 
 				setMenuDocumentSales([
 					{
@@ -428,7 +443,7 @@ const ListTabs = () => {
 								<Tabs
 									items={[
 										{
-											label: "Tất cả 1",
+											label: "Tất cả",
 											key: "all",
 											closable: false,
 											labelSearch: "Tất cả",
