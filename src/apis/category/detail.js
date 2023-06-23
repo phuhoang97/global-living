@@ -28,6 +28,12 @@ export async function updateCategoryDetail(id, categoryDetail) {
 	return response?.data || {};
 }
 
+export async function sortCategoryDetail(id, categoryDetail) {
+	const response = await axios.put(`${BASE_URL}/${id}`, categoryDetail);
+
+	return response?.data || {};
+}
+
 export async function deleteCategoryDetail(categoryDetailId) {
 	const response = await axios.delete(`${BASE_URL}/${categoryDetailId}`);
 

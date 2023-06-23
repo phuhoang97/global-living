@@ -1,10 +1,11 @@
 import { Form, Input, Modal, Spin, Tabs, message } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	deleteCategory,
 	getAllCategories,
 	getDetailCategory,
 	postCategory,
+	sortCategory,
 	updateCategory,
 } from "../../../../apis/category/api";
 import { EditOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
@@ -12,11 +13,18 @@ import {
 	deleteCategoryDetail,
 	getDetailCategoryDetail,
 	postCategoryDetail,
+	sortCategoryDetail,
 	updateCategoryDetail,
 } from "../../../../apis/category/detail";
 import AdminDocumentSalesTable from "./Table";
 import jwtDecode from "jwt-decode";
 import { useSearchParams } from "react-router-dom";
+import { DndContext, PointerSensor, useSensor } from "@dnd-kit/core";
+import {
+	SortableContext,
+	horizontalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import DraggableTabNode from "../../../../common/tabs/DraggableTabNode";
 
 const ListTabs = () => {
 	const token = localStorage.getItem("token");
@@ -26,6 +34,7 @@ const ListTabs = () => {
 	const [formDetail] = Form.useForm();
 	const [reloadData, setReloadData] = useState(false);
 	const [menuDocumentSales, setMenuDocumentSales] = useState([]);
+	const [categoryChildren, setCategoryChildren] = useState([]);
 	const [open, setOpen] = useState(false);
 	const [openDetail, setOpenDetail] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -34,6 +43,110 @@ const ListTabs = () => {
 	const [modal, contextHolder] = Modal.useModal();
 	const [searchParams] = useSearchParams();
 	const search = searchParams.get("search") || " ";
+	const [className, setClassName] = useState("");
+	const [classNameChild, setClassNameChild] = useState("");
+
+	const sensor = useSensor(PointerSensor, {
+		activationConstraint: {
+			distance: 10,
+		},
+	});
+
+	const sensorChild = useSensor(PointerSensor, {
+		activationConstraint: {
+			distance: 10,
+		},
+	});
+
+	const onDragEnd = ({ active, over }) => {
+		if (active?.id !== over?.id) {
+			const activeIndex = menuDocumentSales?.findIndex(
+				(i) => i?.key === active?.id
+			);
+			const overIndex = menuDocumentSales?.findIndex(
+				(i) => i?.key === over?.id
+			);
+
+			const activeTab = menuDocumentSales?.filter(
+				(item) => item?.id === active?.id
+			)[0];
+			const overTab = menuDocumentSales?.filter(
+				(item) => item?.id === over?.id
+			)[0];
+
+			setLoading(true);
+
+			sortCategory(active?.id, {
+				category: activeTab?.labelSearch,
+				sortNumber: overIndex,
+			})
+				.then(() => {
+					setReloadData(true);
+					setLoading(false);
+				})
+				.catch(() => {
+					message.error("Lỗi!");
+					setLoading(false);
+				});
+
+			sortCategory(over?.id, {
+				category: overTab?.labelSearch,
+				sortNumber: activeIndex,
+			})
+				.then(() => {
+					setLoading(false);
+				})
+				.catch(() => {
+					message.error("Lỗi!");
+					setLoading(false);
+				});
+		}
+	};
+
+	const onDragEndChild = ({ active, over }) => {
+		if (active?.id !== over?.id) {
+			const activeIndex = categoryChildren?.findIndex(
+				(i) => i?.id === active?.id
+			);
+			const overIndex = categoryChildren?.findIndex(
+				(i) => i?.id === over?.id
+			);
+
+			const activeTab = categoryChildren?.filter(
+				(item) => item?.id === active?.id
+			)[0];
+			const overTab = categoryChildren?.filter(
+				(item) => item?.id === over?.id
+			)[0];
+
+			setLoading(true);
+
+			sortCategoryDetail(active?.id, {
+				detail: activeTab?.detail,
+				sortNumber: overIndex,
+			})
+				.then(() => {
+					setReloadData(true);
+					setLoading(false);
+				})
+				.catch(() => {
+					message.error("Lỗi!");
+					setLoading(false);
+				});
+
+			sortCategoryDetail(over?.id, {
+				detail: overTab?.detail,
+				sortNumber: activeIndex,
+			})
+				.then(() => {
+					setLoading(false);
+				})
+				.catch(() => {
+					message.error("Lỗi!");
+					setLoading(false);
+				});
+		}
+	};
 
 	const confirm = (targetKey) => {
 		modal.confirm({
@@ -157,13 +270,22 @@ const ListTabs = () => {
 				const allChildren = [];
 				const allDocsChild = [];
 
-				data?.filter((item) => item?.category?.includes(search))?.map(
-					(item) => allChildren.push(...item?.children)
-				);
+				data?.sort((a, b) => a?.sortNumber - b?.sortNumber)
+					?.filter((item) => item?.category?.includes(search))
+					?.map((item) =>
+						allChildren.push(
+							...item?.children?.map((child) => ({
+								...child,
+								key: child?.id,
+							}))
+						)
+					);
 
-				allChildren?.map((child) =>
-					allDocsChild.push(...child?.documents)
-				);
+				allChildren
+					?.sort((a, b) => a?.sortNumber - b?.sortNumber)
+					?.map((child) => allDocsChild.push(...child?.documents));
+
+				setCategoryChildren(allChildren);
 
 				setMenuDocumentSales([
 					{
@@ -188,49 +310,105 @@ const ListTabs = () => {
 											/>
 										),
 									},
-									...allChildren?.map((child) => {
-										return {
-											label: (
-												<>
-													{child?.detail}
-													{hasPermission ? (
-														<EditOutlined
-															className="ml-3 text-gray-400"
-															onClick={() =>
-																handleEditDetailCategory(
-																	child?.id
-																)
-															}
-														/>
-													) : null}
-												</>
-											),
-											key: child?.id,
-											labelSearch: child?.detail,
-											children: (
-												<AdminDocumentSalesTable
-													data={child?.documents}
-													setReloadData={
-														setReloadData
-													}
-													setLoading={setLoading}
-													loading={loading}
-												/>
-											),
-										};
-									}),
+									...allChildren
+										?.sort(
+											(a, b) =>
+												a?.sortNumber - b?.sortNumber
+										)
+										?.map((child) => {
+											return {
+												id: child?.id,
+												label: (
+													<>
+														{child?.detail}
+														{hasPermission ? (
+															<EditOutlined
+																className="ml-3 text-gray-400"
+																onClick={() =>
+																	handleEditDetailCategory(
+																		child?.id
+																	)
+																}
+															/>
+														) : null}
+													</>
+												),
+												key: child?.id,
+												labelSearch: child?.detail,
+												children: (
+													<AdminDocumentSalesTable
+														data={child?.documents}
+														setReloadData={
+															setReloadData
+														}
+														setLoading={setLoading}
+														loading={loading}
+													/>
+												),
+											};
+										}),
 								]}
 								type={hasPermission ? "editable-card" : "card"}
+								defaultActiveKey="all"
+								renderTabBar={(tabBarProps, DefaultTabBar) => (
+									<DndContext
+										sensors={[sensorChild]}
+										onDragEnd={onDragEndChild}
+									>
+										<SortableContext
+											items={allChildren?.map(
+												(i) => i?.key
+											)}
+											strategy={
+												horizontalListSortingStrategy
+											}
+										>
+											<DefaultTabBar {...tabBarProps}>
+												{(node) => {
+													if (node?.key === "all") {
+														return (
+															<div
+																{...node.props}
+																key={node.key}
+																onActiveBarTransform={
+																	setClassNameChild
+																}
+																style={{
+																	padding: 0,
+																}}
+															>
+																{node}
+															</div>
+														);
+													} else {
+														return (
+															<DraggableTabNode
+																{...node.props}
+																key={node.key}
+																onActiveBarTransform={
+																	setClassNameChild
+																}
+															>
+																{node}
+															</DraggableTabNode>
+														);
+													}
+												}}
+											</DefaultTabBar>
+										</SortableContext>
+									</DndContext>
+								)}
 							/>
 						),
 					},
 					...data?.map((item) => {
 						const allDocs = [];
-						item?.children?.map((child) =>
-							allDocs.push(...child?.documents)
-						);
+						item?.children
+							?.sort((a, b) => a?.sortNumber - b?.sortNumber)
+							?.map((child) => allDocs.push(...child?.documents));
 
 						return {
+							id: item?.id,
 							label: (
 								<>
 									{item?.category}
@@ -250,7 +428,7 @@ const ListTabs = () => {
 								<Tabs
 									items={[
 										{
-											label: "Tất cả",
+											label: "Tất cả 1",
 											key: "all",
 											closable: false,
 											labelSearch: "Tất cả",
@@ -266,6 +444,7 @@ const ListTabs = () => {
 											),
 										},
 										...item?.children?.map((child) => ({
+											id: child?.id,
 											label: (
 												<>
 													{child?.detail}
@@ -305,6 +484,65 @@ const ListTabs = () => {
 											item?.id
 										)
 									}
+									className={classNameChild}
+									defaultActiveKey="all"
+									renderTabBar={(
+										tabBarProps,
+										DefaultTabBar
+									) => (
+										<DndContext
+											sensors={[sensorChild]}
+											onDragEnd={onDragEndChild}
+										>
+											<SortableContext
+												items={allChildren?.map(
+													(i) => i?.key
+												)}
+												strategy={
+													horizontalListSortingStrategy
+												}
+											>
+												<DefaultTabBar {...tabBarProps}>
+													{(node) => {
+														if (
+															node?.key === "all"
+														) {
+															return (
+																<div
+																	{...node.props}
+																	key={
+																		node.key
+																	}
+																	onActiveBarTransform={
+																		setClassNameChild
+																	}
+																	style={{
+																		padding: 0,
+																	}}
+																>
+																	{node}
+																</div>
+															);
+														} else {
+															return (
+																<DraggableTabNode
+																	{...node.props}
+																	key={
+																		node.key
+																	}
+																	onActiveBarTransform={
+																		setClassNameChild
+																	}
+																>
+																	{node}
+																</DraggableTabNode>
+															);
+														}
+													}}
+												</DefaultTabBar>
+											</SortableContext>
+										</DndContext>
+									)}
 								/>
 							),
 						};
@@ -403,7 +641,49 @@ const ListTabs = () => {
 				items={menuDocumentSales}
 				type={hasPermission ? "editable-card" : "card"}
 				onEdit={onEdit}
+				className={className}
 				defaultActiveKey="all"
+				renderTabBar={(tabBarProps, DefaultTabBar) => (
+					<DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
+						<SortableContext
+							items={menuDocumentSales?.map((i) => i?.key)}
+							strategy={horizontalListSortingStrategy}
+						>
+							<DefaultTabBar {...tabBarProps}>
+								{(node) => {
+									if (node?.key === "all") {
+										return (
+											<div
+												{...node.props}
+												key={node.key}
+												onActiveBarTransform={
+													setClassName
+												}
+												style={{
+													padding: 0,
+												}}
+											>
+												{node}
+											</div>
+										);
+									} else {
+										return (
+											<DraggableTabNode
+												{...node.props}
+												key={node.key}
+												onActiveBarTransform={
+													setClassName
+												}
+											>
+												{node}
+											</DraggableTabNode>
+										);
+									}
+								}}
+							</DefaultTabBar>
+						</SortableContext>
+					</DndContext>
+				)}
 			/>
 
 			<Modal

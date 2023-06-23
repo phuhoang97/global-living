@@ -65,87 +65,91 @@ export default function PortfolioPage() {
 
 	const mapDataCategories = (data) => {
 		if (!data || data?.length <= 0) return [];
-		return data?.map((item) => ({
-			label: item?.category,
-			key: item?.id,
-			children:
-				item?.children?.length > 0 ? (
-					<Tabs
-						items={item?.children?.map((child) => ({
-							label: child?.detail,
-							key: child?.id,
-							children: (
-								<>
-									<Div className="row">
-										{child?.documents
-											?.slice(0, itemShow)
-											.map((item, index) => {
-												return (
-													<Div
-														className={`${
-															index === 3 ||
-															index === 6
-																? "col-lg-8"
-																: "col-lg-4"
-														} ${
-															active === "all"
-																? ""
-																: !(
-																		active ===
-																		item.category
-																  )
-																? "d-none"
-																: ""
-														}`}
-														key={index}
-													>
-														<Portfolio
-															title={item.title}
-															subtitle={
-																item.subtitle
-															}
-															href={item.link}
-															src={item.image}
-															variant="cs-style1 cs-type1"
-														/>
-														<Spacing
-															lg="25"
-															md="25"
-														/>
-													</Div>
-												);
-											})}
-									</Div>
+		return data
+			?.sort((a, b) => a?.sortNumber - b?.sortNumber)
+			?.map((item) => ({
+				label: item?.category,
+				key: item?.id,
+				children:
+					item?.children?.length > 0 ? (
+						<Tabs
+							items={item?.children?.map((child) => ({
+								label: child?.detail,
+								key: child?.id,
+								children: (
+									<>
+										<Div className="row">
+											{child?.documents
+												?.slice(0, itemShow)
+												.map((item, index) => {
+													return (
+														<Div
+															className={`${
+																index === 3 ||
+																index === 6
+																	? "col-lg-8"
+																	: "col-lg-4"
+															} ${
+																active === "all"
+																	? ""
+																	: !(
+																			active ===
+																			item.category
+																	  )
+																	? "d-none"
+																	: ""
+															}`}
+															key={index}
+														>
+															<Portfolio
+																title={
+																	item.title
+																}
+																subtitle={
+																	item.subtitle
+																}
+																href={item.link}
+																src={item.image}
+																variant="cs-style1 cs-type1"
+															/>
+															<Spacing
+																lg="25"
+																md="25"
+															/>
+														</Div>
+													);
+												})}
+										</Div>
 
-									<Div className="text-center">
-										{child?.documents?.length <=
-										itemShow ? (
-											""
-										) : (
-											<>
-												<Spacing lg="65" md="40" />
-												<span
-													className="cs-text_btn"
-													onClick={() =>
-														setItemShow(
-															itemShow + 3
-														)
-													}
-												>
-													<span>Load More</span>
-													<Icon icon="bi:arrow-right" />
-												</span>
-											</>
-										)}
-									</Div>
-								</>
-							),
-						}))}
-					/>
-				) : (
-					<></>
-				),
-		}));
+										<Div className="text-center">
+											{child?.documents?.length <=
+											itemShow ? (
+												""
+											) : (
+												<>
+													<Spacing lg="65" md="40" />
+													<span
+														className="cs-text_btn"
+														onClick={() =>
+															setItemShow(
+																itemShow + 3
+															)
+														}
+													>
+														<span>Load More</span>
+														<Icon icon="bi:arrow-right" />
+													</span>
+												</>
+											)}
+										</Div>
+									</>
+								),
+							}))}
+						/>
+					) : (
+						<></>
+					),
+			}));
 	};
 
 	const mapDetailCategories = (data) => {
@@ -206,7 +210,13 @@ export default function PortfolioPage() {
 		if (active !== "all") {
 			getAllCategoriesDetailByCategoryId({ category_id: active })
 				.then((response) => {
-					setDetailCategories(mapDetailCategories(response?.data));
+					setDetailCategories(
+						mapDetailCategories(
+							response?.data?.sort(
+								(a, b) => a?.sortNumber - b?.sortNumber
+							)
+						)
+					);
 					setLoading(false);
 				})
 				.catch(() => {
