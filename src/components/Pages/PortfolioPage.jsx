@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { pageTitle } from "../../helper";
+import { pageTitle, toLowerCaseNonAccentVietnamese } from "../../helper";
 import Cta from "../Cta";
 import PageHeading from "../PageHeading";
 import Portfolio from "../Portfolio";
@@ -31,6 +31,20 @@ export default function PortfolioPage() {
 	const [searchParams] = useSearchParams();
 	const [value, setValue] = useState(searchParams.get("search") || "");
 	const search = searchParams.get("search") || " ";
+
+	useEffect(() => {
+		if (active === "all") {
+			searchParams.set("category", "all");
+		} else {
+			searchParams.set(
+				"category",
+				toLowerCaseNonAccentVietnamese(
+					categories?.filter((item) => item?.key === active)[0]?.label
+				)
+			);
+		}
+		navigate(`?${searchParams.toString()}`);
+	}, [active]);
 
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
@@ -168,7 +182,7 @@ export default function PortfolioPage() {
 		if (!data || data?.length <= 0) return [];
 		return data?.map((item) => ({
 			...item,
-			subtitle: "See Details",
+			subtitle: "Xem chi tiết",
 		}));
 	};
 
@@ -345,18 +359,22 @@ export default function PortfolioPage() {
 				<Div className="cs-filter_menu cs-style1">
 					<ul className="cs-mp0 cs-center">
 						<li className={active === "all" ? "active" : ""}>
-							<span onClick={() => setActive("all")}>All</span>
+							<span onClick={() => setActive("all")}>Tất cả</span>
 						</li>
 						{categories.map((item) => (
 							<li
-								className={active === item?.key ? "active" : ""}
+								className={
+									active === item?.key ||
+									searchParams.get("category") === item?.label
+										? "active"
+										: ""
+								}
 								key={item?.key}
+								onClick={() => {
+									handleGetDetail(item?.key);
+								}}
 							>
-								<span
-									onClick={() => handleGetDetail(item?.key)}
-								>
-									{item.label}
-								</span>
+								<span>{item.label}</span>
 							</li>
 						))}
 					</ul>
@@ -399,7 +417,7 @@ export default function PortfolioPage() {
 						<Radio.Group
 							options={[
 								{
-									label: "All",
+									label: "Tất cả",
 									value: "all",
 									style: {
 										border: `1px solid ${token.colorPrimary}`,

@@ -37,6 +37,7 @@ import BLogDetailPage4 from "./components/Pages/BLogDetailPage4";
 import BlogDetailPage5 from "./components/Pages/BlogDetailPage5";
 import AdminFAQRouter from "./pages/admin/faq/router";
 import BlogDetailPage from "./components/Pages/BlogDetailPage";
+import { toLowerCaseNonAccentVietnamese } from "./helper";
 
 function App() {
 	const navigate = useNavigate();

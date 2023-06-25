@@ -90,7 +90,7 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 											navigate("/contact");
 										}}
 									>
-										<span>Đăng ký</span>
+										<span>Đăng ký nhận tư vấn</span>
 									</button>
 								</form>
 							</Div>
