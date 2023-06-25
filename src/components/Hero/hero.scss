@@ -19,6 +19,7 @@
 	position: relative;
 	padding-bottom: 35px;
 	white-space: nowrap;
+	padding-left: 3px;
 	&::after {
 		content: "";
 		height: 15px;
@@ -30,7 +31,7 @@
 		margin-bottom: 15px;
 		position: absolute;
 		bottom: -5px;
-		left: 11px;
+		left: 15px;
 	}
 }
 .cs-hero_social_links {
@@ -44,6 +45,7 @@
 		white-space: nowrap;
 		&:last-child {
 			padding-bottom: 0;
+			padding-left: 3px;
 		}
 		&:not(:last-child) {
 			&::after {
@@ -55,7 +57,7 @@
 				position: absolute;
 				bottom: 16px;
 				border-radius: 3px;
-				right: 5px;
+				right: 7px;
 			}
 		}
 	}

@@ -19,8 +19,8 @@ import Hero3 from "../Hero/Hero3";
 import MovingLogo from "../MovingLogo";
 import { useState } from "react";
 import { getAllDataHomePage } from "../../apis/home/api";
-import parse from "html-react-parser";
-import { AiFillPhone } from "react-icons/ai";
+import { AiFillPhone, AiFillYoutube, AiFillFacebook } from "react-icons/ai";
+import { SiZalo } from "react-icons/si";
 
 export default function Home() {
 	const [banner, setBanner] = useState({});
@@ -37,15 +37,28 @@ export default function Home() {
 	// Hero Social Links
 	const heroSocialLinks = [
 		{
-			name: "Fanpage",
+			// name: "Fanpage",
+			name: (
+				<AiFillFacebook
+					size={30}
+					style={{ transform: "rotate(90deg)" }}
+				/>
+			),
 			links: "https://www.facebook.com/globalliving.group",
 		},
 		{
-			name: "Youtube",
+			// name: "Youtube",
+			name: (
+				<AiFillYoutube
+					size={30}
+					style={{ transform: "rotate(90deg)" }}
+				/>
+			),
 			links: "https://www.youtube.com/@GlobalLivingGroup",
 		},
 		{
-			name: "Zalo",
+			// name: "Zalo",
+			name: <SiZalo size={30} style={{ transform: "rotate(90deg)" }} />,
 			links: "https://zalo.me/2666483498675431364",
 		},
 		{
@@ -632,7 +645,7 @@ export default function Home() {
 			<Div className="container">
 				<Cta
 					title="Tham gia ngay để trở thành <br /> Đại lý/Cộng tác viên <br /> PHÂN PHỐI ĐỘC QUYỀN "
-					btnText="Đăng ký ngay tham gia làm Cộng tác viên/ Đại lý."
+					btnText="Đăng ký ngay tham gia làm Cộng tác viên/ Đại lý"
 					btnLink="/register"
 					bgSrc="images/portfolio_hero_bg_2.jpg"
 				/>

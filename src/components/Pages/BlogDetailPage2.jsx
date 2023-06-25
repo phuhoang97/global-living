@@ -50,7 +50,7 @@ const BlogDetailPage2 = () => {
 							<Div className="cs-post_info">
 								<Div className="cs-post_meta cs-style1 cs-ternary_color cs-semi_bold cs-primary_font">
 									<span className="cs-posted_by">
-										08 June 2023
+										08/06/2023
 									</span>
 									{/* <Link to="/blog" className="cs-post_avatar">
 										Tech
