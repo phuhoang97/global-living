@@ -67,7 +67,7 @@ export default function Home() {
 					<AiFillPhone
 						style={{ transform: "rotate(-150deg)", marginRight: 6 }}
 					/>
-					093 162 69 09
+					{/* 093 162 69 09 */}
 				</a>
 			),
 		},
@@ -318,7 +318,7 @@ export default function Home() {
 				btnText="Xem chi tiết chương trình"
 				btnLink="/main-product"
 				scrollDownId="#service"
-				socialLinksHeading="Follow Us"
+				// socialLinksHeading="Follow Us"
 				heroSocialLinks={heroSocialLinks}
 				bgImageUrl="/images/hero_bg_5.jpeg"
 				// bgImageUrl={

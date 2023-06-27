@@ -192,6 +192,7 @@ export default function PortfolioPage() {
 
 	const getDataDocument = () => {
 		getAllDocumentSales().then((response) => {
+			console.log("jtadd", response?.data);
 			setDataSource(
 				mapData(
 					response?.data?.filter((item) =>

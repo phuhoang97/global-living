@@ -111,19 +111,19 @@ export default function PostSlider({ noArrow }) {
 			{
 				breakpoint: 1600,
 				settings: {
-					slidesToShow: 3,
+					slidesToShow: 1,
 				},
 			},
 			{
 				breakpoint: 1200,
 				settings: {
-					slidesToShow: 2,
+					slidesToShow: 1,
 				},
 			},
 			{
 				breakpoint: 992,
 				settings: {
-					slidesToShow: 2,
+					slidesToShow: 1,
 				},
 			},
 			{
