@@ -76,7 +76,7 @@ export default function BlogPage() {
 				bgSrc="/images/blog_hero_bg.jpeg"
 				pageLinkText="Blog"
 			/>
-			<Spacing lg="150" md="80" />
+			{/* <Spacing lg="150" md="80" /> */}
 			{/* <Div className="container">
 				<Div className="row items-center justify-center">
 					<Div className="col-lg-8">
@@ -103,12 +103,12 @@ export default function BlogPage() {
 			<Div className="container">
 				<Div className="row">
 					<Div className="col-xl-12 text-center">
-						<SectionHeading
+						{/* <SectionHeading
 							title="Tin tức"
 							subtitle="Our Blog"
 							// btnText="Xem thêm"
 							// btnLink="/blog"
-						/>
+						/> */}
 						<Spacing lg="90" md="45" />
 					</Div>
 					<Div

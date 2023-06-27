@@ -38,14 +38,6 @@ export default function Portfolio({ href, src, title, subtitle, variant }) {
 					className="flex items-center justify-center absolute top-2 right-2 cs-portfolio_icon transition-all"
 					style={{ zIndex: 3 }}
 				>
-					<Tooltip title="Chia sẻ qua Zalo">
-						<ShareAltOutlined
-							className="text-[25px]"
-							onClick={handleShareZalo}
-							title={"Chia sẻ qua Zalo"}
-						/>
-					</Tooltip>
-					<span className="mx-3 text-[25px]">/</span>
 					<Tooltip title={"Copy"}>
 						<CopyOutlined
 							className="text-[25px]"
@@ -54,6 +46,14 @@ export default function Portfolio({ href, src, title, subtitle, variant }) {
 								handleCopy();
 							}}
 							title={"Copy"}
+						/>
+					</Tooltip>
+					<span className="mx-3 text-[25px]">/</span>
+					<Tooltip title="Chia sẻ qua Zalo">
+						<ShareAltOutlined
+							className="text-[25px]"
+							onClick={handleShareZalo}
+							title={"Chia sẻ qua Zalo"}
 						/>
 					</Tooltip>
 				</div>
