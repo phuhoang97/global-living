@@ -125,6 +125,12 @@ export default function PortfolioPage() {
 																href={item.link}
 																src={item.image}
 																variant="cs-style1 cs-type1"
+																category={
+																	item?.category
+																}
+																detailCategory={
+																	child?.detail
+																}
 															/>
 															<Spacing
 																lg="25"
@@ -178,10 +184,14 @@ export default function PortfolioPage() {
 		}));
 	};
 
-	const mapData = (data) => {
+	const mapData = (data, categoriesData) => {
 		if (!data || data?.length <= 0) return [];
 		return data?.map((item) => ({
 			...item,
+			category: categoriesData?.filter(
+				(cat) => cat?.id === item?.category_id
+			)[0]?.category,
+			detailCategory: "Detail category",
 			subtitle: "Xem chi tiết",
 		}));
 	};
@@ -191,26 +201,21 @@ export default function PortfolioPage() {
 	}, []);
 
 	const getDataDocument = () => {
-		getAllDocumentSales().then((response) => {
-			console.log("jtadd", response?.data);
-			setDataSource(
-				mapData(
-					response?.data?.filter((item) =>
-						item?.title?.toLowerCase()?.includes(search)
-					)
-				)
-			);
-			setLoading(false);
-		});
-
 		getAllCategories().then((response) => {
 			setCategories(mapDataCategories(response?.categories));
 
-			// const data = response?.categories;
-			// const childData = [];
-			// data?.map((item) => childData.push(...item?.children));
-
-			// setDetailCategories(mapDetailCategories(childData));
+			getAllDocumentSales().then((res) => {
+				setDataSource(
+					mapData(
+						res?.data?.filter(
+							(item) =>
+								item?.title?.toLowerCase()?.includes(search),
+							response?.categories
+						)
+					)
+				);
+				setLoading(false);
+			});
 		});
 	};
 
@@ -218,6 +223,8 @@ export default function PortfolioPage() {
 		setLoading(true);
 
 		getDataDocument();
+
+		return () => setLoading(false);
 	}, [search]);
 
 	useEffect(() => {
@@ -271,21 +278,21 @@ export default function PortfolioPage() {
 						filterCat[0]?.children?.map((child) =>
 							docsData?.push(...child?.documents)
 						);
-						setDataSource(mapData(docsData));
+						setDataSource(mapData(docsData, filterCat));
 					} else {
 						childData?.filter((child) => {
 							if (child?.id === activeDetail) {
 								docsData?.push(...child?.documents);
 							}
 						});
-						setDataSource(mapData(docsData));
+						setDataSource(mapData(docsData, data));
 					}
 				} else {
 					childData?.map((child) =>
 						docsData?.push(...child?.documents)
 					);
 
-					setDataSource(mapData(docsData));
+					setDataSource(mapData(docsData, data));
 				}
 
 				setLoading(false);
@@ -464,6 +471,8 @@ export default function PortfolioPage() {
 										href={item.link}
 										src={item.image}
 										variant="cs-style1 cs-type1"
+										category={item?.category}
+										detailCategory={item?.detail}
 									/>
 									<Spacing lg="25" md="25" />
 								</Div>
