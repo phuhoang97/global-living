@@ -1,12 +1,20 @@
 import { CopyOutlined, ShareAltOutlined } from "@ant-design/icons";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Div from "../Div";
 import "./portfolio.scss";
 import { message, Tooltip } from "antd";
 import copy from "clipboard-copy";
 
-export default function Portfolio({ href, src, title, subtitle, variant }) {
+export default function Portfolio({
+	href,
+	src,
+	title,
+	subtitle,
+	variant,
+	category,
+	detailCategory,
+}) {
 	const handleCopy = () => {
 		copy(href);
 		message.success("Đã sao chép!");
@@ -19,6 +27,10 @@ export default function Portfolio({ href, src, title, subtitle, variant }) {
 
 		window.open(zaloURL);
 	};
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	return (
 		<Link
@@ -61,6 +73,7 @@ export default function Portfolio({ href, src, title, subtitle, variant }) {
 					<Div className="cs-portfolio_info_bg cs-accent_bg" />
 					<div className="flex flex-col justify-between h-[100%]">
 						<h2 className="cs-portfolio_title">{title}</h2>
+						<Div className="cs-portfolio_name">{category}</Div>
 						<Div className="cs-portfolio_subtitle">{subtitle}</Div>
 					</div>
 				</Div>

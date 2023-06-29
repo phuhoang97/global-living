@@ -23,7 +23,6 @@ export default function PortfolioDetailsPage() {
 	// useEffect(() => {
 	// 	if (id) {
 	// 		getDetailDocumentSales(id).then((response) => {
-	// 			console.log("jtadd", response);
 	// 		});
 	// 	}
 	// }, [id]);

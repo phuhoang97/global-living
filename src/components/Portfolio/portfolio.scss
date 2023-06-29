@@ -71,7 +71,7 @@
 		height: 300px;
 		width: 300px;
 		border-radius: 50%;
-		padding: 105px 20px 80px 65px;
+		padding: 70px 20px 80px 65px;
 		bottom: -60px;
 		left: -40px;
 		position: absolute;
@@ -110,6 +110,17 @@
 			margin-left: 10px;
 		}
 	}
+	.cs-portfolio_name {
+		display: inline-block;
+		position: relative;
+		z-index: 2;
+		padding-right: 30px;
+		color: $secondary;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
 	&.cs-type1 {
 		height: 465px;
 		.cs-portfolio_info_bg {
@@ -146,7 +157,8 @@
 		}
 
 		.cs-portfolio_title,
-		.cs-portfolio_subtitle {
+		.cs-portfolio_subtitle,
+		.cs-portfolio_name {
 			top: 15px;
 			opacity: 0;
 			transition: all 0.4s ease;
@@ -158,6 +170,11 @@
 				transition-delay: 0.2s;
 			}
 			.cs-portfolio_subtitle {
+				top: 0px;
+				opacity: 1;
+				transition-delay: 0.3s;
+			}
+			.cs-portfolio_name {
 				top: 0px;
 				opacity: 1;
 				transition-delay: 0.3s;

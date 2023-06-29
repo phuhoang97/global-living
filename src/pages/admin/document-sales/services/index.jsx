@@ -86,7 +86,6 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 
 	const handleSelectImg = (e) => {
 		// setSelected(e.target.files[0]);
-		// console.log("jtadd", e.target.files[0]);
 		setSelected(e.fileList[0]);
 	};
 
