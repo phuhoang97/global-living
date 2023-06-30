@@ -115,7 +115,8 @@ export default function BlogPage() {
 						// className="col-xl-12 offset-xl-1"
 						className="col-xl-12"
 					>
-						<Div className="cs-half_of_full_width">
+						{/* <Div className="cs-half_of_full_width"> */}
+						<Div>
 							<PostSlider />
 						</Div>
 					</Div>

@@ -109,21 +109,27 @@ export default function PostSlider({ noArrow }) {
 		slidesToScroll: 1,
 		responsive: [
 			{
+				breakpoint: 1920,
+				settings: {
+					slidesToShow: 3,
+				},
+			},
+			{
 				breakpoint: 1600,
 				settings: {
-					slidesToShow: 1,
+					slidesToShow: 2,
 				},
 			},
 			{
 				breakpoint: 1200,
 				settings: {
-					slidesToShow: 1,
+					slidesToShow: 2,
 				},
 			},
 			{
 				breakpoint: 992,
 				settings: {
-					slidesToShow: 1,
+					slidesToShow: 2,
 				},
 			},
 			{
