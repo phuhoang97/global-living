@@ -21,6 +21,7 @@ import { useState } from "react";
 import { getAllDataHomePage } from "../../apis/home/api";
 import { AiFillPhone, AiFillYoutube, AiFillFacebook } from "react-icons/ai";
 import { SiZalo } from "react-icons/si";
+import { Icon } from "@iconify/react";
 
 export default function Home() {
 	const [banner, setBanner] = useState({});
@@ -38,36 +39,39 @@ export default function Home() {
 	const heroSocialLinks = [
 		{
 			// name: "Fanpage",
+			// name: <AiFillFacebook size={30} />,
 			name: (
-				<AiFillFacebook
-					size={30}
-					style={{ transform: "rotate(90deg)" }}
-				/>
+				<div className="p-1 border border-white rounded-full w-[30px] h-[30px] flex items-center justify-center">
+					<Icon icon="fa6-brands:facebook" />
+				</div>
 			),
 			links: "https://www.facebook.com/globalliving.group",
 		},
 		{
 			// name: "Youtube",
+			// name: <AiFillYoutube size={30} />,
 			name: (
-				<AiFillYoutube
-					size={30}
-					style={{ transform: "rotate(90deg)" }}
-				/>
+				<div className="p-1 border border-white rounded-full w-[30px] h-[30px] flex items-center justify-center">
+					<Icon icon="fa6-brands:youtube" />
+				</div>
 			),
 			links: "https://www.youtube.com/@GlobalLivingGroup",
 		},
 		{
 			// name: "Zalo",
-			name: <SiZalo size={30} style={{ transform: "rotate(90deg)" }} />,
+			name: (
+				<div className="p-1 border border-white rounded-full w-[30px] h-[30px] flex items-center justify-center">
+					<SiZalo />
+				</div>
+			),
 			links: "https://zalo.me/2666483498675431364",
 		},
 		{
 			name: (
 				<a href="tel:0931626909">
-					<AiFillPhone
-						style={{ transform: "rotate(-150deg)", marginRight: 6 }}
-					/>
-					{/* 093 162 69 09 */}
+					<div className="p-1 -ml-[3px] border border-white rounded-full w-[30px] h-[30px] flex items-center justify-center">
+						<AiFillPhone />
+					</div>
 				</a>
 			),
 		},

@@ -60,7 +60,7 @@ export default function PortfolioSlider() {
 		return data?.map((item) => {
 			return {
 				...item,
-				subtitle: "See Details",
+				subtitle: "Xem chi tiết",
 			};
 		});
 	};

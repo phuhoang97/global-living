@@ -44,7 +44,10 @@ export default function Portfolio({
 				<Div className="cs-portfolio_hover" />
 				<Div
 					className="cs-portfolio_bg cs-bg"
-					style={{ backgroundImage: `url("${src}")` }}
+					style={{
+						backgroundImage: `url("${src}")`,
+						backgroundSize: "cover",
+					}}
 				/>
 				<div
 					className="flex items-center justify-center absolute top-2 right-2 cs-portfolio_icon transition-all"
