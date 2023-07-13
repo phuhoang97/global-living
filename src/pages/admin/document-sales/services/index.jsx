@@ -1,6 +1,7 @@
 import { Button, Form, Input, Select, Spin, Upload, message } from "antd";
 import React, { useEffect, useState } from "react";
 import {
+	getAllDocumentSales,
 	getDetailDocumentSales,
 	postDocumentSale,
 	updateDocumentSale,
@@ -13,9 +14,19 @@ import { getAllCategoriesDetailByCategoryId } from "../../../../apis/category/de
 const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
-	const [selected, setSelected] = useState([]);
+	const [selected, setSelected] = useState("");
 	const [categories, setCategories] = useState([]);
 	const [detailCategories, setDetailCategories] = useState([]);
+	const [documents, setDocuments] = useState([]);
+	const overObject = Form.useWatch("overObject", form);
+
+	const mapDocuments = (documents) => {
+		return documents?.map((document) => ({
+			...document,
+			label: document?.title,
+			value: document?.id,
+		}));
+	};
 
 	const mapDetailCategories = (categories) => {
 		return categories?.map((category) => ({
@@ -43,6 +54,12 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 			.catch(() => {
 				setLoading(false);
 			});
+
+		getAllDocumentSales()
+			.then((response) => {
+				setDocuments(mapDocuments(response?.data));
+			})
+			.catch(() => {});
 	}, []);
 
 	useEffect(() => {
@@ -84,17 +101,29 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 		maxCount: 1,
 	};
 
-	const handleSelectImg = (e) => {
-		// setSelected(e.target.files[0]);
-		setSelected(e.fileList[0]);
-	};
+	const onFinish = (values) => {
+		delete values?.overObject;
 
-	const onFinish = async (values) => {
+		const overIndex = documents?.filter(
+			(item) => item?.value === overObject
+		)[0];
+		const activeIndex = documents?.filter((item) => item?.value === id)[0];
+
 		values = {
 			...values,
 			image: selected,
+			sortNumber: !id ? null : overIndex?.sortNumber,
 		};
-		// const url = await getLink(selected);
+
+		const valuesOverIndex = {
+			title: overIndex?.title,
+			category_id: overIndex?.category_id,
+			detailcategory_id: overIndex?.detailcategory_id,
+			image: overIndex?.image,
+			link: overIndex?.link,
+			sortNumber: activeIndex?.sortNumber,
+		};
+
 		if (!id) {
 			postDocumentSale(values)
 				.then(() => {
@@ -129,6 +158,15 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 				.catch(() => {
 					message.error("Cập nhật tài liệu thất bại!");
 				});
+
+			if (overObject) {
+				updateDocumentSale(
+					overIndex?.id || overIndex?.value,
+					valuesOverIndex
+				)
+					.then(() => {})
+					.catch(() => {});
+			}
 		}
 	};
 
@@ -170,6 +208,25 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 						placeholder="Chọn detail category"
 					/>
 				</Form.Item>
+
+				{id ? (
+					<Form.Item
+						name={"overObject"}
+						label={"Vị trí tài liệu cần sắp xếp"}
+					>
+						<Select
+							showSearch
+							options={documents}
+							optionFilterProp="children"
+							placeholder="Chọn vị trí tài liệu cần sắp xếp"
+							filterOption={(input, option) =>
+								(option?.label ?? "")
+									?.toLowerCase()
+									?.includes(input?.toLowerCase())
+							}
+						/>
+					</Form.Item>
+				) : null}
 
 				<Form.Item
 					name={"image"}

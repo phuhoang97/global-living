@@ -189,7 +189,13 @@ const ListTabs = () => {
 
 				allChildren
 					?.sort((a, b) => a?.sortNumber - b?.sortNumber)
-					?.map((child) => allDocsChild.push(...child?.documents));
+					?.map((child) =>
+						allDocsChild.push(
+							...child?.documents?.sort(
+								(a, b) => a?.sortNumber - b?.sortNumber
+							)
+						)
+					);
 
 				setCategoryChildren(allChildren);
 
@@ -243,7 +249,11 @@ const ListTabs = () => {
 												labelSearch: child?.detail,
 												children: (
 													<AdminDocumentSalesTable
-														data={child?.documents}
+														data={child?.documents?.sort(
+															(a, b) =>
+																a?.sortNumber -
+																b?.sortNumber
+														)}
 														setReloadData={
 															setReloadData
 														}
@@ -262,7 +272,13 @@ const ListTabs = () => {
 						const allDocs = [];
 						item?.children
 							?.sort((a, b) => a?.sortNumber - b?.sortNumber)
-							?.map((child) => allDocs.push(...child?.documents));
+							?.map((child) =>
+								allDocs.push(
+									...child?.documents?.sort(
+										(a, b) => a?.sortNumber - b?.sortNumber
+									)
+								)
+							);
 
 						return {
 							id: item?.id,
@@ -376,10 +392,21 @@ const ListTabs = () => {
 			(item) => item?.id === sortObjectValue
 		)[0];
 
-		values = {
-			...values,
-			sortNumber: idCategory ? overTab?.sortNumber : values?.sortNumber,
-		};
+		if (!sortObjectValue) {
+			delete values?.sortObject;
+
+			values = {
+				...values,
+				sortNumber: !idCategory ? values?.sortNumber : activeTabIndex,
+			};
+		} else {
+			values = {
+				...values,
+				sortNumber: !idCategory
+					? values?.sortNumber
+					: overTab?.sortNumber,
+			};
+		}
 
 		const valuesOverTab = {
 			category: overTab?.category,
@@ -391,11 +418,12 @@ const ListTabs = () => {
 		if (!idCategory) {
 			postCategory(values)
 				.then(() => {
-					message.success("Thêm mới category thành công!");
 					setReloadData(true);
 					setOpen(false);
 					setLoading(false);
+					setIdCategory(0);
 					form.resetFields();
+					message.success("Thêm mới category thành công!");
 				})
 				.catch(() => {
 					setLoading(false);
@@ -408,6 +436,7 @@ const ListTabs = () => {
 					setReloadData(true);
 					setOpen(false);
 					form.resetFields();
+					setIdCategory(0);
 					setLoading(false);
 				})
 				.catch(() => {
@@ -415,9 +444,11 @@ const ListTabs = () => {
 					message.error("Cập nhật category thất bại!");
 				});
 
-			updateCategory(sortObjectValue, valuesOverTab)
-				.then(() => {})
-				.catch(() => {});
+			if (sortObjectValue) {
+				updateCategory(sortObjectValue, valuesOverTab)
+					.then(() => {})
+					.catch(() => {});
+			}
 		}
 	};
 
@@ -431,18 +462,31 @@ const ListTabs = () => {
 			(item) => item?.id === sortObjectValueChildren
 		)[0];
 
-		const valuesOverTab = {
+		let valuesOverTab = null;
+		let valuesPost = null;
+
+		if (!sortObjectValueChildren) {
+			valuesPost = {
+				detail: values?.detail,
+				category_id: idCategory,
+				sortNumber: idDetailCategory
+					? activeTabIndex
+					: values?.sortNumber,
+			};
+		} else {
+			valuesPost = {
+				detail: values?.detail,
+				category_id: idCategory,
+				sortNumber: idDetailCategory
+					? overTab?.sortNumber
+					: values?.sortNumber,
+			};
+		}
+
+		valuesOverTab = {
 			detail: overTab?.detail,
 			category_id: idCategory,
 			sortNumber: activeTabIndex,
-		};
-
-		const valuesPost = {
-			detail: values?.detail,
-			category_id: idCategory,
-			sortNumber: idDetailCategory
-				? overTab?.sortNumber
-				: values?.sortNumber,
 		};
 
 		setLoading(true);
@@ -453,6 +497,7 @@ const ListTabs = () => {
 					setReloadData(true);
 					setOpenDetail(false);
 					setLoading(false);
+					setIdDetailCategory(0);
 					formDetail.resetFields();
 				})
 				.catch(() => {
@@ -466,6 +511,7 @@ const ListTabs = () => {
 					setReloadData(true);
 					setOpenDetail(false);
 					formDetail.resetFields();
+					setIdDetailCategory(0);
 					setLoading(false);
 				})
 				.catch(() => {
@@ -473,13 +519,15 @@ const ListTabs = () => {
 					message.error("Cập nhật detail category thất bại!");
 				});
 
-			updateCategoryDetail(sortObjectValueChildren, valuesOverTab)
-				.then(() => {
-					setLoading(false);
-				})
-				.catch(() => {
-					setLoading(false);
-				});
+			if (sortObjectValueChildren) {
+				updateCategoryDetail(sortObjectValueChildren, valuesOverTab)
+					.then(() => {
+						setLoading(false);
+					})
+					.catch(() => {
+						setLoading(false);
+					});
+			}
 		}
 	};
 
@@ -537,13 +585,6 @@ const ListTabs = () => {
 							<Form.Item
 								name="sortObject"
 								label="Danh mục cần đổi thứ tự"
-								rules={[
-									{
-										required: true,
-										message:
-											"Chưa chọn danh mục cần đổi thứ tự",
-									},
-								]}
 							>
 								<Select
 									options={menuDocumentSales
@@ -622,13 +663,6 @@ const ListTabs = () => {
 							<Form.Item
 								name="sortObjectChildren"
 								label="Danh mục cần đổi thứ tự"
-								rules={[
-									{
-										required: true,
-										message:
-											"Chưa chọn danh mục cần đổi thứ tự",
-									},
-								]}
 							>
 								<Select
 									options={categoryChildren
