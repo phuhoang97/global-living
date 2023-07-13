@@ -112,7 +112,7 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 		values = {
 			...values,
 			image: selected,
-			sortNumber: !id ? null : overIndex?.sortNumber,
+			// sortNumber: !id ? null : overIndex?.sortNumber,
 		};
 
 		const valuesOverIndex = {
@@ -159,14 +159,14 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 					message.error("Cập nhật tài liệu thất bại!");
 				});
 
-			if (overObject) {
-				updateDocumentSale(
-					overIndex?.id || overIndex?.value,
-					valuesOverIndex
-				)
-					.then(() => {})
-					.catch(() => {});
-			}
+			// if (overObject) {
+			// 	updateDocumentSale(
+			// 		overIndex?.id || overIndex?.value,
+			// 		valuesOverIndex
+			// 	)
+			// 		.then(() => {})
+			// 		.catch(() => {});
+			// }
 		}
 	};
 
@@ -209,7 +209,7 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 					/>
 				</Form.Item>
 
-				{id ? (
+				{/* {id ? (
 					<Form.Item
 						name={"overObject"}
 						label={"Vị trí tài liệu cần sắp xếp"}
@@ -226,7 +226,11 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 							}
 						/>
 					</Form.Item>
-				) : null}
+				) : null} */}
+
+				<Form.Item name={"sortNumber"} label={"Thứ tự"}>
+					<Input placeholder="Nhập thứ tự" />
+				</Form.Item>
 
 				<Form.Item
 					name={"image"}
