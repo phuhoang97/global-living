@@ -189,7 +189,13 @@ const ListTabs = () => {
 
 				allChildren
 					?.sort((a, b) => a?.sortNumber - b?.sortNumber)
-					?.map((child) => allDocsChild.push(...child?.documents));
+					?.map((child) =>
+						allDocsChild.push(
+							...child?.documents?.sort(
+								(a, b) => a?.sortNumber - b?.sortNumber
+							)
+						)
+					);
 
 				setCategoryChildren(allChildren);
 
@@ -243,7 +249,11 @@ const ListTabs = () => {
 												labelSearch: child?.detail,
 												children: (
 													<AdminDocumentSalesTable
-														data={child?.documents}
+														data={child?.documents?.sort(
+															(a, b) =>
+																a?.sortNumber -
+																b?.sortNumber
+														)}
 														setReloadData={
 															setReloadData
 														}
@@ -262,7 +272,13 @@ const ListTabs = () => {
 						const allDocs = [];
 						item?.children
 							?.sort((a, b) => a?.sortNumber - b?.sortNumber)
-							?.map((child) => allDocs.push(...child?.documents));
+							?.map((child) =>
+								allDocs.push(
+									...child?.documents?.sort(
+										(a, b) => a?.sortNumber - b?.sortNumber
+									)
+								)
+							);
 
 						return {
 							id: item?.id,
