@@ -38,6 +38,7 @@ import BlogDetailPage5 from "./components/Pages/BlogDetailPage5";
 import AdminFAQRouter from "./pages/admin/faq/router";
 import BlogDetailPage from "./components/Pages/BlogDetailPage";
 import { toLowerCaseNonAccentVietnamese } from "./helper";
+import SortableTable from "./pages/default/SortableTable";
 
 function App() {
 	const navigate = useNavigate();
@@ -153,6 +154,7 @@ function App() {
 
 				<Route path="login" element={<LoginPage />} />
 				<Route path="register" element={<Register />} />
+				<Route path="sortable" element={<SortableTable />} />
 				<Route path="*" element={<ErrorPage />} />
 			</Routes>
 		</>
