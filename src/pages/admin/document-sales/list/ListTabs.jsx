@@ -568,23 +568,23 @@ const ListTabs = () => {
 						{!idCategory ? (
 							<Form.Item
 								name="sortNumber"
-								label="Thứ tự"
+								label="Số thứ tự"
 								rules={[
 									{
 										required: true,
-										message: "Chưa nhập thứ tự",
+										message: "Chưa nhập số thứ tự",
 									},
 								]}
 							>
 								<InputNumber
-									placeholder="Nhập thứ tự"
+									placeholder="Nhập số thứ tự"
 									className="w-full"
 								/>
 							</Form.Item>
 						) : (
 							<Form.Item
 								name="sortObject"
-								label="Danh mục cần đổi thứ tự"
+								label="Danh mục cần đổi số thứ tự"
 							>
 								<Select
 									options={menuDocumentSales
@@ -646,16 +646,16 @@ const ListTabs = () => {
 						{!idDetailCategory ? (
 							<Form.Item
 								name="sortNumber"
-								label="Thứ tự"
+								label="Số thứ tự"
 								rules={[
 									{
 										required: true,
-										message: "Chưa nhập thứ tự",
+										message: "Chưa nhập số thứ tự",
 									},
 								]}
 							>
 								<InputNumber
-									placeholder="Nhập thứ tự"
+									placeholder="Nhập số thứ tự"
 									className="w-full"
 								/>
 							</Form.Item>
