@@ -2,6 +2,10 @@ import { convertTextToLink } from "../../../../helper";
 
 export const columns = [
 	{
+		dataIndex: "sortNumber",
+		title: "STT",
+	},
+	{
 		dataIndex: "title",
 		title: "Tiêu đề",
 	},
