@@ -533,8 +533,6 @@ const ListTabs = () => {
 		}
 	};
 
-	console.log("jtadd", detailCategory);
-
 	return (
 		<Spin spinning={loading}>
 			<Tabs

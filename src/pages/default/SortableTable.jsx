@@ -46,6 +46,7 @@ const SortableTable = () => {
 		<Tabs
 			className={className}
 			items={items}
+			type={"editable-card"}
 			renderTabBar={(tabBarProps, DefaultTabBar) => (
 				<DndContext sensors={[sensor]} onDragEnd={onDragEnd}>
 					<SortableContext
