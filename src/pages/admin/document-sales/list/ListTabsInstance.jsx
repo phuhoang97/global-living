@@ -104,29 +104,18 @@ const ListTabsInstance = () => {
 	};
 
 	const onDragEndChild = ({ active, over }) => {
-		if (active?.id !== over?.id) {
-			const allChildren = [];
-
-			menuDocumentSales?.map((item) => {
-				allChildren.push(
-					...item?.children?.map((child) => ({
-						...child,
-						key: child?.id,
-					}))
-				);
-			});
-
-			const activeIndexChild = allChildren?.findIndex(
+		if (!active?.id !== over?.id) {
+			const activeIndexChild = categoryChildren?.findIndex(
 				(i) => i?.key === active?.id
 			);
-			const overIndexChild = allChildren?.findIndex(
+			const overIndexChild = categoryChildren?.findIndex(
 				(i) => i?.key === over?.id
 			);
 
-			const activeTabChild = allChildren?.filter(
+			const activeTabChild = categoryChildren?.filter(
 				(item) => item?.id === active?.id
 			)[0];
-			const overTabChild = allChildren?.filter(
+			const overTabChild = categoryChildren?.filter(
 				(item) => item?.id === over?.id
 			)[0];
 

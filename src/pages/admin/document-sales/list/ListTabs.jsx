@@ -40,6 +40,7 @@ const ListTabs = () => {
 	const [open, setOpen] = useState(false);
 	const [openDetail, setOpenDetail] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [detailCategory, setDetailCategory] = useState({});
 	const [idCategory, setIdCategory] = useState(0);
 	const [idDetailCategory, setIdDetailCategory] = useState(0);
 	const [modal, contextHolder] = Modal.useModal();
@@ -154,6 +155,7 @@ const ListTabs = () => {
 		getDetailCategoryDetail(id)
 			.then((response) => {
 				setLoading(false);
+				setDetailCategory(response?.detail[0]);
 				formDetail.setFieldsValue({
 					detail: response?.detail[0]?.detail,
 				});
@@ -568,23 +570,23 @@ const ListTabs = () => {
 						{!idCategory ? (
 							<Form.Item
 								name="sortNumber"
-								label="Thứ tự"
+								label="Số thứ tự"
 								rules={[
 									{
 										required: true,
-										message: "Chưa nhập thứ tự",
+										message: "Chưa nhập số thứ tự",
 									},
 								]}
 							>
 								<InputNumber
-									placeholder="Nhập thứ tự"
+									placeholder="Nhập số thứ tự"
 									className="w-full"
 								/>
 							</Form.Item>
 						) : (
 							<Form.Item
 								name="sortObject"
-								label="Danh mục cần đổi thứ tự"
+								label="Danh mục cần đổi số thứ tự"
 							>
 								<Select
 									options={menuDocumentSales
@@ -621,6 +623,7 @@ const ListTabs = () => {
 					formDetail.resetFields();
 					setIdDetailCategory(0);
 					setIdCategory(0);
+					setDetailCategory({});
 				}}
 				onOk={() => formDetail.submit()}
 			>
@@ -646,16 +649,16 @@ const ListTabs = () => {
 						{!idDetailCategory ? (
 							<Form.Item
 								name="sortNumber"
-								label="Thứ tự"
+								label="Số thứ tự"
 								rules={[
 									{
 										required: true,
-										message: "Chưa nhập thứ tự",
+										message: "Chưa nhập số thứ tự",
 									},
 								]}
 							>
 								<InputNumber
-									placeholder="Nhập thứ tự"
+									placeholder="Nhập số thứ tự"
 									className="w-full"
 								/>
 							</Form.Item>
@@ -669,7 +672,9 @@ const ListTabs = () => {
 										?.filter(
 											(item) =>
 												item?.key !== "all" &&
-												item?.id !== idDetailCategory
+												item?.id !== idDetailCategory &&
+												item?.category_id ===
+													detailCategory?.category_id
 										)
 										?.map((item) => {
 											return {
