@@ -1,4 +1,13 @@
-import { Form, Input, Modal, Spin, Tabs, message } from "antd";
+import {
+	Form,
+	Input,
+	InputNumber,
+	Modal,
+	Select,
+	Spin,
+	Tabs,
+	message,
+} from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import {
 	deleteCategory,
@@ -44,7 +53,13 @@ const ListTabsInstance = () => {
 	const [searchParams] = useSearchParams();
 	const search = searchParams.get("search") || " ";
 	const [className, setClassName] = useState("");
+	const [detailCategory, setDetailCategory] = useState({});
 	const [classNameChild, setClassNameChild] = useState("");
+	const sortObjectValue = Form.useWatch("sortObject", form);
+	const sortObjectValueChildren = Form.useWatch(
+		"sortObjectChildren",
+		formDetail
+	);
 
 	const sensor = useSensor(PointerSensor, {
 		activationConstraint: {
@@ -715,6 +730,46 @@ const ListTabsInstance = () => {
 						>
 							<Input placeholder="Nhập category" />
 						</Form.Item>
+
+						{!idCategory ? (
+							<Form.Item
+								name="sortNumber"
+								label="Số thứ tự"
+								rules={[
+									{
+										required: true,
+										message: "Chưa nhập số thứ tự",
+									},
+								]}
+							>
+								<InputNumber
+									placeholder="Nhập số thứ tự"
+									className="w-full"
+								/>
+							</Form.Item>
+						) : (
+							<Form.Item
+								name="sortObject"
+								label="Danh mục cần đổi số thứ tự"
+							>
+								<Select
+									options={menuDocumentSales
+										?.filter(
+											(item) =>
+												item?.key !== "all" &&
+												item?.id !== idCategory
+										)
+										?.map((item) => {
+											return {
+												label: item?.labelSearch,
+												value: item?.key,
+											};
+										})}
+									placeholder="Chọn danh mục cần đổi thứ tự"
+									className="w-full"
+								/>
+							</Form.Item>
+						)}
 					</Form>
 				</Spin>
 			</Modal>
@@ -732,6 +787,7 @@ const ListTabsInstance = () => {
 					formDetail.resetFields();
 					setIdDetailCategory(0);
 					setIdCategory(0);
+					setDetailCategory({});
 				}}
 				onOk={() => formDetail.submit()}
 			>
@@ -753,6 +809,48 @@ const ListTabsInstance = () => {
 						>
 							<Input placeholder="Nhập detail category" />
 						</Form.Item>
+
+						{!idDetailCategory ? (
+							<Form.Item
+								name="sortNumber"
+								label="Số thứ tự"
+								rules={[
+									{
+										required: true,
+										message: "Chưa nhập số thứ tự",
+									},
+								]}
+							>
+								<InputNumber
+									placeholder="Nhập số thứ tự"
+									className="w-full"
+								/>
+							</Form.Item>
+						) : (
+							<Form.Item
+								name="sortObjectChildren"
+								label="Danh mục cần đổi thứ tự"
+							>
+								<Select
+									options={categoryChildren
+										?.filter(
+											(item) =>
+												item?.key !== "all" &&
+												item?.id !== idDetailCategory &&
+												item?.category_id ===
+													detailCategory?.category_id
+										)
+										?.map((item) => {
+											return {
+												label: item?.detail,
+												value: item?.key || item?.id,
+											};
+										})}
+									placeholder="Chọn danh mục cần đổi thứ tự"
+									className="w-full"
+								/>
+							</Form.Item>
+						)}
 					</Form>
 				</Spin>
 			</Modal>
