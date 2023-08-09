@@ -228,9 +228,11 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 					</Form.Item>
 				) : null} */}
 
-				<Form.Item name={"sortNumber"} label={"Số thứ tự"}>
-					<Input placeholder="Nhập số thứ tự" />
-				</Form.Item>
+				{id ? (
+					<Form.Item name={"sortNumber"} label={"Số thứ tự"}>
+						<Input placeholder="Nhập số thứ tự" />
+					</Form.Item>
+				) : null}
 
 				<Form.Item
 					name={"image"}
