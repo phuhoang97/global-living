@@ -25,19 +25,19 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 		{
 			title: "Trụ sở tại Hà Nội:",
 			address:
-				"TOONG TRÀNG THI - Số 8 Tràng Thi Hàng Trống - Quận Hoàn Kiếm - HÀ NỘI",
+				"CDC BUILDING - 25 Lê Đại Hành, P. Lê Đại Hành, Quận Hai Bà Trưng, Hà Nội",
 			href: "/contact",
 		},
 		{
 			title: "Văn phòng tại TP.HCM:",
 			address:
-				"COWORK GOLD COAST - Tầng 9, Toà nhà Gold Coast - Số 1 Trần Hưng Đạo, P. Lộc Thọ, TP NHA TRANG",
+				"SUNWAH INNOVATIONS - Tầng 6 - Tháp Golden - Toà nhà Sunwah Pearl 90 Nguyễn Hữu Cảnh - Phường 2, Quận Bình Thạnh TP HỒ CHÍ MINH",
 			href: "/contact",
 		},
 		{
 			title: "Văn phòng tại Nha Trang:",
 			address:
-				"SUNWAH INNOVATIONS - Tầng 6 - Tháp Golden - Toà nhà Sunwah Pearl 90 Nguyễn Hữu Cảnh - Phường 2, Quận Bình Thạnh TP HỒ CHÍ MINH",
+				"COWORK GOLD COAST - Tầng 9, Toà nhà Gold Coast - Số 1 Trần Hưng Đạo, P.Lộc Thọ, TP NHA TRANG",
 			href: "/contact",
 		},
 	];
