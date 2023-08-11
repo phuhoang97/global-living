@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Div from "../Div";
 import ContactInfoWidget from "../Widget/ContactInfoWidget";
@@ -7,6 +7,7 @@ import Newsletter from "../Widget/Newsletter";
 import SocialWidget from "../Widget/SocialWidget";
 import TextWidget from "../Widget/TextWidget";
 import "./footer.scss";
+import { getAllDataHomePage } from "../../apis/home/api";
 
 export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 	const navigate = useNavigate();
@@ -20,7 +21,6 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 			href: "/",
 		},
 	];
-
 	const serviceMenu = [
 		{
 			title: "Trụ sở tại Hà Nội:",
@@ -41,6 +41,61 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 			href: "/contact",
 		},
 	];
+	const [dataSource, setDataSource] = useState([]);
+
+	const mapData = (data) => {
+		if (data?.length > 0) {
+			const length = data?.length;
+
+			return [
+				{
+					title: "Trụ sở tại Hà Nội:",
+					address: (
+						<span
+							dangerouslySetInnerHTML={{
+								__html: data[length - 1]?.heading,
+							}}
+						/>
+					),
+					href: "/contact",
+				},
+				{
+					title: "Văn phòng tại TP.HCM:",
+					address: (
+						<span
+							dangerouslySetInnerHTML={{
+								__html: data[length - 1]?.detail,
+							}}
+						/>
+					),
+					href: "/contact",
+				},
+				{
+					title: "Văn phòng tại Nha Trang:",
+					address: (
+						<span
+							dangerouslySetInnerHTML={{
+								__html: data[length - 1]?.invest,
+							}}
+						/>
+					),
+					href: "/contact",
+				},
+			];
+		} else {
+			return serviceMenu;
+		}
+	};
+
+	useEffect(() => {
+		getAllDataHomePage().then((response) => {
+			setDataSource(
+				mapData(
+					response?.data?.filter((item) => item?.title === "location")
+				)
+			);
+		});
+	}, []);
 
 	return (
 		<footer className="cs-fooer">
@@ -61,7 +116,7 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 						<Div className="col-lg-3 col-sm-6">
 							<Div className="cs-footer_item">
 								<MenuWidget
-									menuItems={serviceMenu}
+									menuItems={dataSource}
 									menuHeading="Địa chỉ"
 								/>
 							</Div>

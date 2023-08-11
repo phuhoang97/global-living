@@ -13,6 +13,7 @@ const AdminCMSRouter = () => {
 			<Route path="mission/*" element={<AdminCMSList />} />
 			<Route path="video/*" element={<AdminCMSList />} />
 			<Route path="comment/*" element={<AdminCMSList />} />
+			<Route path="location/*" element={<AdminCMSList />} />
 		</Routes>
 	);
 };

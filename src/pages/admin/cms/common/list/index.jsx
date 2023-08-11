@@ -1,11 +1,16 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Drawer, message, Popconfirm, Table } from "antd";
+import {
+	CheckCircleOutlined,
+	DeleteOutlined,
+	EditOutlined,
+} from "@ant-design/icons";
+import { Drawer, message, Popconfirm, Table, Tooltip } from "antd";
 import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
 	deleteDataHomePage,
 	getAllDataHomePage,
+	updateDataHomePage,
 } from "../../../../../apis/home/api";
 import PermissionButton from "../../../../../common/permissions/button";
 import { columnsComment } from "../../comment/list/columns";
@@ -24,6 +29,8 @@ import AdminCMSBrandPositionServices from "../../brandPosition/services";
 import AdminCMSInvestServices from "../../invest/services";
 import AdminCMSVisionServices from "../../vision/services";
 import AdminCMSMissionServices from "../../mission/services";
+import { columnsLocation } from "../../location/list/columns";
+import AdminCMSLocationServices from "../../location/services";
 
 const AdminCMSList = () => {
 	const token = localStorage.getItem("token");
@@ -37,6 +44,14 @@ const AdminCMSList = () => {
 	const [open, setOpen] = useState(false);
 	const [reloadData, setReloadData] = useState(false);
 	const [id, setId] = useState(0);
+
+	const usingItem = (id, data) => {
+		updateDataHomePage(id, data)
+			.then(() => {
+				message.success("Sử dụng địa chỉ thành công!");
+			})
+			.catch(() => {});
+	};
 
 	const mapData = (data) => {
 		if (!data || data?.length <= 0) return [];
@@ -74,6 +89,18 @@ const AdminCMSList = () => {
 								setOpen(true);
 							}}
 						/>
+						{/* {item?.title === "location" ? (
+							<Tooltip title="Sử dụng">
+								<CheckCircleOutlined
+									onClick={() =>
+										usingItem(item?.id, {
+											...item,
+											video: "used",
+										})
+									}
+								/>
+							</Tooltip>
+						) : null} */}
 					</div>
 				) : (
 					<></>
@@ -152,6 +179,8 @@ const AdminCMSList = () => {
 				return columnsVideo;
 			case "comment":
 				return columnsComment;
+			case "location":
+				return columnsLocation;
 			default:
 				break;
 		}
@@ -218,6 +247,14 @@ const AdminCMSList = () => {
 			case "comment":
 				return (
 					<AdminCMSCommentServices
+						id={id}
+						closeDrawer={handleClose}
+						setReloadData={setReloadData}
+					/>
+				);
+			case "location":
+				return (
+					<AdminCMSLocationServices
 						id={id}
 						closeDrawer={handleClose}
 						setReloadData={setReloadData}

@@ -112,19 +112,6 @@ const MenuSidebar = () => {
 		getAllCategories()
 			.then((response) => {
 				setMenuDocumentSales([
-					// getItem(
-					// 	"Tư liệu truyền thông",
-					// 	"/admin/document-sales/web_design"
-					// ),
-					// getItem(
-					// 	"Tài liệu bán hàng",
-					// 	"/admin/document-sales/ui_ux_design"
-					// ),
-					// getItem(
-					// 	"Thông tin chương trình",
-					// 	"/admin/document-sales/mobile_apps"
-					// ),
-					// getItem("Thiết kế", "/admin/document-sales/logo_design"),
 					...response?.categories?.map((item) => ({
 						label: (
 							<div className="flex items-center justify-between">
@@ -161,26 +148,7 @@ const MenuSidebar = () => {
 			.catch(() => {});
 	};
 
-	// useEffect(() => {
-	// 	getDataMenu();
-	// }, []);
-
-	// useEffect(() => {
-	// 	if (reloadData) {
-	// 		getDataMenu();
-	// 	}
-
-	// 	return () => setReloadData(false);
-	// }, [reloadData]);
-
 	const items = [
-		// getItem(
-		// 	"Dashboard",
-		// 	"dashboard",
-		// 	null,
-		// 	[getItem("Analytics", "/admin/analytics", <StockOutlined />)],
-		// 	"group"
-		// ),
 		getItem(
 			"Dashboard",
 			"dashboard",
@@ -198,7 +166,6 @@ const MenuSidebar = () => {
 					"Document Sales",
 					"/admin/document-sales",
 					<FolderOutlined />
-					// menuDocumentSales
 				),
 				getItem("CTV / Sale", "/admin/users", <UserOutlined />, [
 					getItem("Khu vực miền Bắc", "/admin/users/northside"),
@@ -234,6 +201,7 @@ const MenuSidebar = () => {
 				getItem("Sứ mệnh", "/admin/cms/mission", <FileTextOutlined />),
 				getItem("Video", "/admin/cms/video", <FileTextOutlined />),
 				getItem("Comment", "/admin/cms/comment", <FileTextOutlined />),
+				getItem("Địa chỉ", "/admin/cms/location", <FileTextOutlined />),
 			],
 			"group"
 		),
