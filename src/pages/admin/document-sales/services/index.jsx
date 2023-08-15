@@ -112,7 +112,7 @@ const AminAddDocumentSales = ({ closeDrawer, setReloadData, id }) => {
 		values = {
 			...values,
 			image: selected,
-			// sortNumber: !id ? null : overIndex?.sortNumber,
+			sortNumber: !id ? 1 : values?.sortNumber,
 		};
 
 		const valuesOverIndex = {
