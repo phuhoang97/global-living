@@ -20,8 +20,9 @@ export default function MenuWidget({
 				{menuItems.map((item, index) => (
 					<li key={index}>
 						{item.href ? (
-							<Link to={item.href}>
-								{item.title} <br /> {item.address}
+							<Link to={item.href} className="service_item">
+								{item.title} <br />{" "}
+								<p className="mt-2">{item.address}</p>
 							</Link>
 						) : (
 							item.title
