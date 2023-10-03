@@ -39,126 +39,116 @@ import AdminFAQRouter from "./pages/admin/faq/router";
 import BlogDetailPage from "./components/Pages/BlogDetailPage";
 import { toLowerCaseNonAccentVietnamese } from "./helper";
 import SortableTable from "./pages/default/SortableTable";
+import AdminInformationContact from "./pages/admin/cms/information/router";
 
 function App() {
-	const navigate = useNavigate();
-	const token = localStorage.getItem("token");
-	const hasPermission = token ? true : false;
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const hasPermission = token ? true : false;
 
-	return (
-		<>
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<Home />} />
-					<Route
-						path="photography-agency"
-						element={<PhotographyAgencyHome />}
-					/>
-					<Route
-						path="digital-agency"
-						element={<DigitalAgencyHome />}
-					/>
-					<Route
-						path="marketing-agency"
-						element={<MarketingAgencyHome />}
-					/>
-					<Route path="about" element={<AboutPage />} />
-					<Route path="service" element={<ServicesPage />} />
-					<Route
-						path="service/:serviceDetailsId"
-						element={<ServiceDetailsPage />}
-					/>
-					<Route path="portfolio" element={<PortfolioPage />} />
-					<Route
-						path="portfolio/:portfolioDetailsId"
-						element={<PortfolioDetailsPage />}
-					/>
-					<Route path="blog" element={<BlogPage />} />
-					<Route path="blog/1" element={<BlogDetailPage1 />} />
-					<Route path="blog/2" element={<BlogDetailPage2 />} />
-					<Route path="blog/3" element={<BLogDetailPage4 />} />
-					<Route path="blog/4" element={<BlogDetailPage5 />} />
-					{/* <Route
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path="photography-agency"
+            element={<PhotographyAgencyHome />}
+          />
+          <Route path="digital-agency" element={<DigitalAgencyHome />} />
+          <Route path="marketing-agency" element={<MarketingAgencyHome />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="service" element={<ServicesPage />} />
+          <Route
+            path="service/:serviceDetailsId"
+            element={<ServiceDetailsPage />}
+          />
+          <Route path="portfolio" element={<PortfolioPage />} />
+          <Route
+            path="portfolio/:portfolioDetailsId"
+            element={<PortfolioDetailsPage />}
+          />
+          <Route path="blog" element={<BlogPage />} />
+          <Route path="blog/1" element={<BlogDetailPage1 />} />
+          <Route path="blog/2" element={<BlogDetailPage2 />} />
+          <Route path="blog/3" element={<BLogDetailPage4 />} />
+          <Route path="blog/4" element={<BlogDetailPage5 />} />
+          {/* <Route
 						path="blog/:blogDetailsId"
 						element={<BlogDetailsPage />}
                     /> */}
-					<Route
-						path="blog/:blogDetailsId"
-						element={<BlogDetailPage />}
-					/>
-					<Route path="contact" element={<ContactPage />} />
-					<Route path="team" element={<TeamPage />} />
-					<Route path="team/:teamDetails" element={<TeamDetails />} />
-					{/* <Route
+          <Route path="blog/:blogDetailsId" element={<BlogDetailPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="team" element={<TeamPage />} />
+          <Route path="team/:teamDetails" element={<TeamDetails />} />
+          {/* <Route
             path="/case-study/:caseStudyDetailsId"
             element={<Product />}
           /> */}
-					<Route path="faq" element={<FaqPage />} />
-				</Route>
-				<Route
-					path="/"
-					element={
-						<Layout headerVariant="cs-site_header_full_width" />
-					}
-				>
-					<Route
-						path="creative-portfolio"
-						element={<CreativePortfolioHome />}
-					/>
-					<Route
-						path="showcase-portfolio"
-						element={<ShowcasePortfolioHome />}
-					/>
-					<Route path="main-product" element={<MainProduct />} />
-				</Route>
+          <Route path="faq" element={<FaqPage />} />
+        </Route>
+        <Route
+          path="/"
+          element={<Layout headerVariant="cs-site_header_full_width" />}
+        >
+          <Route
+            path="creative-portfolio"
+            element={<CreativePortfolioHome />}
+          />
+          <Route
+            path="showcase-portfolio"
+            element={<ShowcasePortfolioHome />}
+          />
+          <Route path="main-product" element={<MainProduct />} />
+        </Route>
 
-				<Route
-					path="/admin/*"
-					element={
-						hasPermission ? (
-							<MainLayout />
-						) : (
-							<Result
-								status="403"
-								title={<div className="text-white">403</div>}
-								subTitle={
-									<div className="text-white">
-										Sorry, you are not authorized to access
-										this page.
-									</div>
-								}
-								extra={
-									<Button
-										type="primary"
-										onClick={() => navigate("/login")}
-										className="text-white"
-									>
-										Login now
-									</Button>
-								}
-							/>
-						)
-					}
-				>
-					{/* <Route path="analytics" element={<DefaultPage />} /> */}
-					<Route path="contact/*" element={<AdminContactRouter />} />
-					<Route
-						path="document-sales/*"
-						element={<AdminDocumentSalesRouter />}
-					/>
-					<Route path="users/*" element={<AdminUsersRouter />} />
-					<Route path="blog/*" element={<AdminBlogRouter />} />
-					<Route path="cms/*" element={<AdminCMSRouter />} />
-					<Route path="faq/*" element={<AdminFAQRouter />} />
-				</Route>
+        <Route
+          path="/admin/*"
+          element={
+            hasPermission ? (
+              <MainLayout />
+            ) : (
+              <Result
+                status="403"
+                title={<div className="text-white">403</div>}
+                subTitle={
+                  <div className="text-white">
+                    Sorry, you are not authorized to access this page.
+                  </div>
+                }
+                extra={
+                  <Button
+                    type="primary"
+                    onClick={() => navigate("/login")}
+                    className="text-white"
+                  >
+                    Login now
+                  </Button>
+                }
+              />
+            )
+          }
+        >
+          {/* <Route path="analytics" element={<DefaultPage />} /> */}
+          <Route path="contact/*" element={<AdminContactRouter />} />
+          <Route
+            path="document-sales/*"
+            element={<AdminDocumentSalesRouter />}
+          />
+          <Route path="users/*" element={<AdminUsersRouter />} />
+          <Route path="blog/*" element={<AdminBlogRouter />} />
+          <Route path="cms/*" element={<AdminCMSRouter />} />
+          <Route path="information/*" element={<AdminInformationContact />} />
+          <Route path="faq/*" element={<AdminFAQRouter />} />
+        </Route>
 
-				<Route path="login" element={<LoginPage />} />
-				<Route path="register" element={<Register />} />
-				<Route path="sortable" element={<SortableTable />} />
-				<Route path="*" element={<ErrorPage />} />
-			</Routes>
-		</>
-	);
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<Register />} />
+        <Route path="sortable" element={<SortableTable />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </>
+  );
 }
 
 export default App;

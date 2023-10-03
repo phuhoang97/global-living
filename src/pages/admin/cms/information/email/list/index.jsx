@@ -3,12 +3,15 @@ import { Drawer, message, Popconfirm, Table } from "antd";
 import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { deleteBlog, getAllBlogs } from "../../../../apis/blog/api";
-import PermissionButton from "../../../../common/permissions/button";
-import AdminBlogUpdate from "../services";
-import { columns } from "./columns";
+import {
+  deleteDataInfo,
+  getAllDataInfo,
+} from "../../../../../../apis/information/api";
+import PermissionButton from "../../../../../../common/permissions/button";
+import { AdminEmailServices } from "../service/index";
+import { columnsEmail } from "./columns";
 
-const AdminBlogList = () => {
+const AdminEmailContact = () => {
   const token = localStorage.getItem("token");
   const decode = jwtDecode(token);
   const hasPermission = decode?.role === 1 || decode?.role === 2;
@@ -24,11 +27,7 @@ const AdminBlogList = () => {
       return {
         ...item,
         key: item?.id,
-        img: (
-          <div className="flex items-center gap-[20px]">
-            <img src={item?.img} alt="image" className="w-[200px]" />
-          </div>
-        ),
+        heading: item?.link,
         action: hasPermission ? (
           <div className="w-full flex items-center justify-center">
             <Popconfirm
@@ -55,7 +54,7 @@ const AdminBlogList = () => {
   };
 
   const onDelete = (id) => {
-    deleteBlog(id)
+    deleteDataInfo(id)
       .then(() => {
         message.success("Xóa thành công!");
         setReloadData(true);
@@ -67,9 +66,15 @@ const AdminBlogList = () => {
 
   const getData = () => {
     setLoading(true);
-    getAllBlogs()
+    getAllDataInfo()
       .then((response) => {
-        setDataSource(mapData(response?.data));
+        setDataSource(
+          mapData(
+            response.common_data.filter(
+              (item) => item.type === 3 && item.type_detail === 4
+            )
+          )
+        );
         setLoading(false);
       })
       .catch(() => {
@@ -103,7 +108,7 @@ const AdminBlogList = () => {
   return (
     <>
       <PermissionButton onClick={handleOpen} isShow={hasPermission} />
-      <Table columns={columns} dataSource={dataSource} loading={loading} />
+      <Table columns={columnsEmail} dataSource={dataSource} loading={loading} />
       <Drawer
         open={open}
         title={id ? "Cập nhật" : "Thêm mới"}
@@ -111,7 +116,7 @@ const AdminBlogList = () => {
         destroyOnClose
         width={600}
       >
-        <AdminBlogUpdate
+        <AdminEmailServices
           id={id}
           closeDrawer={handleClose}
           setReloadData={setReloadData}
@@ -121,4 +126,4 @@ const AdminBlogList = () => {
   );
 };
 
-export default AdminBlogList;
+export default AdminEmailContact;

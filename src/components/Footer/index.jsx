@@ -8,6 +8,7 @@ import SocialWidget from "../Widget/SocialWidget";
 import TextWidget from "../Widget/TextWidget";
 import "./footer.scss";
 import { getAllDataHomePage } from "../../apis/home/api";
+import { getAllDataInfo } from "../../apis/information/api";
 
 export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
   const navigate = useNavigate();
@@ -41,7 +42,19 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
       href: "/contact",
     },
   ];
+  const information = [
+    {
+      content: "093 162 69 09",
+    },
+    {
+      content: "info@globalliving-group.com",
+    },
+    {
+      content: "www.globalliving-group.com",
+    },
+  ];
   const [dataSource, setDataSource] = useState([]);
+  const [informationSource, setInformationSource] = useState([]);
 
   const mapData = (data) => {
     if (data?.length > 0) {
@@ -87,41 +100,69 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
     }
   };
 
+  const mapInformation = (data) => {
+    if (data?.length > 0) {
+      const renderData = data?.map((e) => ({
+        content: e.link,
+        type_detail: e.type_detail,
+      }));
+
+      const hotline = renderData?.filter((e) => e.type_detail === 3);
+      const email = renderData?.filter((e) => e.type_detail === 4);
+      const web = renderData?.filter((e) => e.type_detail === 5);
+
+      return [hotline, email, web];
+    } else {
+      return information;
+    }
+  };
+
   useEffect(() => {
     getAllDataHomePage().then((response) => {
       setDataSource(
         mapData(response?.data?.filter((item) => item?.title === "location"))
       );
     });
+
+    getAllDataInfo().then((response) => {
+      setInformationSource(
+        mapInformation(
+          response?.common_data?.filter((item) => item?.type === 3)
+        )
+      );
+    });
   }, []);
 
   return (
-    <footer className='cs-fooer'>
-      <Div className='cs-fooer_main'>
-        <Div className='container'>
-          <Div className='row'>
-            <Div className='col-lg-3 col-sm-6'>
-              <Div className='cs-footer_item'>
+    <footer className="cs-fooer">
+      <Div className="cs-fooer_main">
+        <Div className="container">
+          <Div className="row">
+            <Div className="col-lg-3 col-sm-6">
+              <Div className="cs-footer_item">
                 <TextWidget
-                  logoSrc='/images/footer_logo.svg'
-                  logoAlt='Logo'
-                  text='CÔNG TY CỔ PHẦN GLOBAL LIVING'
+                  logoSrc="/images/footer_logo.svg"
+                  logoAlt="Logo"
+                  text="CÔNG TY CỔ PHẦN GLOBAL LIVING"
                 />
                 <SocialWidget />
                 {/* <p className="mt-4">Hotline: 093 162 69 09</p> */}
               </Div>
             </Div>
-            <Div className='col-lg-3 col-sm-6'>
-              <Div className='cs-footer_item'>
-                <MenuWidget menuItems={dataSource} menuHeading='Địa chỉ' />
+            <Div className="col-lg-3 col-sm-6">
+              <Div className="cs-footer_item">
+                <MenuWidget menuItems={dataSource} menuHeading="Địa chỉ" />
               </Div>
             </Div>
-            <Div className='col-lg-3 col-sm-6'>
-              <Div className='cs-footer_item'>
-                <ContactInfoWidget title='Liên hệ' />
+            <Div className="col-lg-3 col-sm-6">
+              <Div className="cs-footer_item">
+                <ContactInfoWidget
+                  infoItems={informationSource}
+                  title="Liên hệ"
+                />
               </Div>
             </Div>
-            <Div className='col-lg-3 col-sm-6'>
+            <Div className="col-lg-3 col-sm-6">
               {/* <Div className="cs-footer_item">
 								<Newsletter
 									title="Đăng ký nhận thông tin"
@@ -129,13 +170,13 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
 									placeholder="Email hoặc Số điện thoại"
 								/>
 							</Div> */}
-              <Div className='cs-newsletter cs-style1'>
+              <Div className="cs-newsletter cs-style1">
                 <form
-                  className='cs-newsletter_form'
+                  className="cs-newsletter_form"
                   onSubmit={(e) => e.preventDefault()}
                 >
                   <button
-                    className='cs-newsletter_btn !relative'
+                    className="cs-newsletter_btn !relative"
                     onClick={() => {
                       navigate("/contact");
                     }}
@@ -148,10 +189,10 @@ export default function Footer({ copyrightText, logoSrc, logoAlt, text }) {
           </Div>
         </Div>
       </Div>
-      <Div className='container'>
-        <Div className='cs-bottom_footer'>
-          <Div className='cs-bottom_footer_left'>
-            <Div className='cs-copyright'>Copyright © 2023 Global Living.</Div>
+      <Div className="container">
+        <Div className="cs-bottom_footer">
+          <Div className="cs-bottom_footer_left">
+            <Div className="cs-copyright">Copyright © 2023 Global Living.</Div>
           </Div>
           {/* <Div className="cs-bottom_footer_right">
 						<MenuWidget

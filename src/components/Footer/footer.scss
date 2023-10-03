@@ -147,6 +147,28 @@
   margin-top: 25px;
 }
 
+.transparent-color {
+  margin-bottom: 0;
+  p {
+    span {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.hotline {
+  margin-left: 0.5rem;
+
+  p {
+    margin-bottom: 0;
+    display: inline-block;
+  }
+}
+
+.hotline-box_content {
+  margin-bottom: 0;
+}
+
 @media screen and (max-width: 1199px) {
   .cs-newsletter.cs-style1 {
     .cs-newsletter_btn {
