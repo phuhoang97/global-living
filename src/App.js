@@ -41,13 +41,13 @@ import { toLowerCaseNonAccentVietnamese } from "./helper";
 import SortableTable from "./pages/default/SortableTable";
 
 function App() {
-	const navigate = useNavigate();
-	const token = localStorage.getItem("token");
-	const hasPermission = token ? true : false;
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const hasPermission = token ? true : false;
 
-	return (
-		<>
-			<Routes>
+  return (
+    <>
+      {/* <Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Home />} />
 					<Route
@@ -77,23 +77,23 @@ function App() {
 					<Route path="blog/1" element={<BlogDetailPage1 />} />
 					<Route path="blog/2" element={<BlogDetailPage2 />} />
 					<Route path="blog/3" element={<BLogDetailPage4 />} />
-					<Route path="blog/4" element={<BlogDetailPage5 />} />
-					{/* <Route
+					<Route path="blog/4" element={<BlogDetailPage5 />} /> */}
+      {/* <Route
 						path="blog/:blogDetailsId"
 						element={<BlogDetailsPage />}
                     /> */}
-					<Route
+      {/* <Route
 						path="blog/:blogDetailsId"
 						element={<BlogDetailPage />}
 					/>
 					<Route path="contact" element={<ContactPage />} />
 					<Route path="team" element={<TeamPage />} />
-					<Route path="team/:teamDetails" element={<TeamDetails />} />
-					{/* <Route
+					<Route path="team/:teamDetails" element={<TeamDetails />} /> */}
+      {/* <Route
             path="/case-study/:caseStudyDetailsId"
             element={<Product />}
           /> */}
-					<Route path="faq" element={<FaqPage />} />
+      {/* <Route path="faq" element={<FaqPage />} />
 				</Route>
 				<Route
 					path="/"
@@ -139,9 +139,9 @@ function App() {
 							/>
 						)
 					}
-				>
-					{/* <Route path="analytics" element={<DefaultPage />} /> */}
-					<Route path="contact/*" element={<AdminContactRouter />} />
+				> */}
+      {/* <Route path="analytics" element={<DefaultPage />} /> */}
+      {/* <Route path="contact/*" element={<AdminContactRouter />} />
 					<Route
 						path="document-sales/*"
 						element={<AdminDocumentSalesRouter />}
@@ -156,9 +156,10 @@ function App() {
 				<Route path="register" element={<Register />} />
 				<Route path="sortable" element={<SortableTable />} />
 				<Route path="*" element={<ErrorPage />} />
-			</Routes>
-		</>
-	);
+			</Routes> */}
+      <Route path='*' element={<ErrorPage />} />
+    </>
+  );
 }
 
 export default App;
